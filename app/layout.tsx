@@ -6,6 +6,7 @@ import { getLocale } from "next-intl/server";
 import { StudyProvider } from "@/components/StudyProvider";
 import Sidebar from "@/components/Sidebar";
 import Sprite from "@/components/Sprite";
+import NotesPanel from "@/components/NotesPanel";
 import { getSubjects } from "@/lib/subjects";
 import type { Locale } from "@/i18n/config";
 
@@ -57,6 +58,7 @@ export default async function RootLayout({
           <StudyProvider>
             <Sidebar subjects={subjects} />
             {children}
+            <NotesPanel />
           </StudyProvider>
         </NextIntlClientProvider>
       </body>

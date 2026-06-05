@@ -35,5 +35,16 @@
   },
   "page": {
     "reviewSuffix": "Review"
+  },
+  "notes": {
+    "title": "Notes",
+    "open": "Open notes",
+    "close": "Close notes",
+    "pen": "Pen",
+    "eraser": "Eraser",
+    "text": "Text",
+    "clear": "Clear all",
+    "clearConfirm": "Clear all notes on this page?",
+    "hint": "Private to this device · saved automatically"
   }
 }

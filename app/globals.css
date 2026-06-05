@@ -115,13 +115,9 @@ html[lang="km"] .wrap, html[lang="km"] .main { font-size: 1.03em; line-height: 1
   border-radius: var(--radius-sm);
 }
 
-/* ---------- layout containers ----------
-   Sidebar is fixed (248px). Content is centered in the viewport but never runs
-   under the sidebar: on wide screens margins balance left/right; on laptops it
-   clamps past the sidebar and fills the width. Prose stays capped per-element
-   (below) for readability; tables/code/drills/index use the full container. */
-.wrap { max-width: 1040px; margin-left: max(var(--sidebar-w), (100% - 1040px) / 2); margin-right: auto; padding: var(--space-10) var(--space-10) var(--space-20); }
-.main { max-width: 1120px; margin-left: max(var(--sidebar-w), (100% - 1120px) / 2); margin-right: auto; padding: var(--space-12) var(--space-10) var(--space-20); }
+/* ---------- layout containers ---------- */
+.wrap { margin-left: var(--sidebar-w); max-width: 900px; padding: var(--space-10) var(--space-10) var(--space-20); }
+.main { margin-left: var(--sidebar-w); max-width: 940px; padding: var(--space-12) var(--space-10) var(--space-20); }
 
 /* ---------- sidebar ---------- */
 .sidebar {
@@ -294,8 +290,7 @@ pre .ty { color: oklch(0.74 0.13 240); }   /* type */
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-6) 0; }
 .panel h3 { margin: 0 0 var(--space-3); font-size: var(--text-lg); color: var(--ink); }
 .panel ol { margin: 0; padding-left: var(--space-5); }
-.panel li { margin: var(--space-2) 0; max-width: 80ch; }
-.panel > p { max-width: 80ch; }
+.panel li { margin: var(--space-2) 0; }
 .panel b { color: var(--accent-ink); }
 .tip { background: var(--accent-soft); border: 1px solid color-mix(in oklab, var(--accent) 24%, var(--panel)); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin: var(--space-4) 0; font-size: var(--text-sm); max-width: 72ch; }
 .tip b { color: var(--accent-ink); }

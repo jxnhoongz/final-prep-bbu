@@ -1,0 +1,212 @@
+/* ===========================================================================
+   Final Exam Prep — design system (impeccable-aligned)
+   Single global stylesheet shared by the home dashboard + all review sheets.
+   Per-subject accent is themed via body[data-subject="..."].
+   =========================================================================== */
+
+:root {
+  --ink: #1a1d23;
+  --muted: #5b6472;
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --line: #e3e7ec;
+  --code: #0f1320;
+  --code-ink: #e7ecf5;
+  --good: #137a4b;
+  --warn: #b4540a;
+  --warn-soft: #fff3e6;
+  --danger: #c62828;
+  --danger-soft: #fdeaea;
+  /* fixed subject hues (home cards) */
+  --net: #1d6fe0;
+  --cyber: #0f9d58;
+  --mobile: #7b3fe4;
+  /* active accent (default = net/blue) */
+  --accent: #1d6fe0;
+  --accent-soft: #e8f1fd;
+}
+body[data-subject="net"] { --accent: #1d6fe0; --accent-soft: #e8f1fd; }
+body[data-subject="cyber"] { --accent: #0f9d58; --accent-soft: #e6f5ec; }
+body[data-subject="mobile"] { --accent: #7b3fe4; --accent-soft: #f0e9fc; }
+body[data-subject="home"] { --accent: #1d6fe0; --accent-soft: #e8f1fd; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+  font-size: 16px;
+}
+
+/* ---------- layout containers ---------- */
+.wrap { margin-left: 240px; max-width: 900px; padding: 36px 40px 80px; }
+.main { margin-left: 240px; max-width: 940px; padding: 48px 40px 80px; }
+
+/* ---------- sidebar ---------- */
+.sidebar {
+  position: fixed; top: 0; left: 0; width: 240px; height: 100vh; overflow-y: auto;
+  background: #12151c; color: #cdd3dd; padding: 18px 14px; z-index: 30;
+}
+.sidebar .sb-brand { font-weight: 800; font-size: 15px; color: #fff; margin-bottom: 2px; }
+.sidebar .sb-brand span { display: block; font-weight: 400; font-size: 11px; color: #7e8796; margin-top: 2px; }
+.sidebar .sb-sec { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #6b7382; margin: 18px 0 6px; }
+.sidebar a { display: block; color: #cdd3dd; text-decoration: none; padding: 7px 10px; border-radius: 7px; font-size: 13.5px; font-weight: 600; }
+.sidebar a:hover { background: #1c2230; color: #fff; }
+.sidebar a.active { background: var(--accent); color: #fff; }
+.sidebar a.sb-topic { font-weight: 500; font-size: 12.5px; color: #9aa2b1; padding: 5px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar a.sb-topic:hover { color: #fff; background: #1c2230; }
+.sidebar a .ic { width: 16px; height: 16px; vertical-align: -3px; margin-right: 9px; }
+.sidebar .sb-brand .ic { width: 18px; height: 18px; vertical-align: -4px; margin-right: 8px; }
+.sb-note { font-size: 12px; color: #7e8796; line-height: 1.5; margin-top: 6px; padding: 0 4px; }
+.sb-ctl { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.btn {
+  border: 1px solid #2a3243; background: #1c2230; color: #cdd3dd; border-radius: 8px;
+  padding: 8px 12px; font-size: 13px; cursor: pointer; font-weight: 600; width: 100%;
+}
+.btn:hover { border-color: var(--accent); color: #fff; }
+.btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+#kmBtn { font-family: "Noto Sans Khmer", "Khmer OS System", "Khmer OS", "Khmer Sangam MN", sans-serif; }
+
+/* ---------- typography ---------- */
+h1 { font-size: 30px; margin: 0 0 4px; }
+h2 { font-size: 24px; margin: 42px 0 6px; padding-top: 8px; border-top: 3px solid var(--accent); color: var(--ink); }
+h2 .kh { font-weight: 400; color: var(--muted); font-size: 16px; }
+h3 { font-size: 18px; margin: 26px 0 8px; color: var(--accent); }
+h2.zero { border-top-color: #b4540a; color: #8a3f08; }
+p { margin: 8px 0; }
+.lead { color: var(--muted); margin-top: 2px; max-width: 74ch; }
+.wrap p { max-width: 74ch; }
+.sub { color: var(--muted); font-size: 16px; margin: 0 0 8px; }
+.mnemonic { font-style: italic; color: var(--good); font-weight: 600; }
+
+/* ---------- teaching boxes (hairline + tint, no edge stripes) ---------- */
+.concept {
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, #fff);
+  border-radius: 10px; padding: 14px 16px; margin: 16px 0; max-width: 74ch;
+}
+.concept b { color: var(--accent); }
+.concept .label { font-size: 12px; font-weight: 700; color: var(--accent); display: block; margin-bottom: 4px; }
+.why {
+  background: var(--warn-soft);
+  border: 1px solid color-mix(in srgb, var(--warn) 32%, #fff);
+  border-radius: 10px; padding: 12px 15px; margin: 14px 0; max-width: 74ch;
+}
+.why .label { font-size: 12px; font-weight: 700; color: var(--warn); display: block; margin-bottom: 2px; }
+.danger {
+  background: var(--danger-soft);
+  border: 1px solid color-mix(in srgb, var(--danger) 32%, #fff);
+  border-radius: 10px; padding: 12px 15px; margin: 14px 0; max-width: 74ch;
+}
+.danger .label { font-size: 12px; font-weight: 700; color: var(--danger); display: block; margin-bottom: 2px; }
+.plain {
+  background: #f4f6f8; border: 1px solid var(--line); border-radius: 10px;
+  padding: 11px 14px; margin: 12px 0; font-size: 15px; max-width: 74ch;
+}
+.plain b { color: #b4540a; }
+.plain .label { font-size: 12px; font-weight: 700; color: #b4540a; display: block; margin-bottom: 2px; }
+
+/* ---------- Khmer locale blocks (toggled via body.km-on) ---------- */
+.km {
+  display: none; margin: 8px 0; padding: 9px 13px; border-radius: 8px;
+  background: #f3f6fb; border: 1px solid #d8e2f0;
+  font-family: "Noto Sans Khmer", "Khmer OS System", "Khmer OS", "Khmer Sangam MN", sans-serif;
+  font-size: 14.5px; line-height: 1.85; color: #243044; max-width: 74ch;
+}
+body.km-on .km { display: block; }
+.km .lbl { font-size: 12px; font-weight: 700; color: #1d6fe0; display: block; margin-bottom: 3px; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+
+/* ---------- tables ---------- */
+table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; background: var(--panel); }
+th, td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+th { background: #f0f3f7; font-weight: 700; }
+tbody tr:nth-child(even) { background: #fafbfc; }
+
+/* ---------- code ---------- */
+code { background: #eef1f5; padding: 1px 5px; border-radius: 4px; font-size: .92em; font-family: "SF Mono", Menlo, Consolas, monospace; }
+.codewrap { margin: 12px 0; }
+.codewrap .cap { font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+pre {
+  background: var(--code); color: var(--code-ink); padding: 14px 16px; border-radius: 10px;
+  overflow-x: auto; font-size: 13px; line-height: 1.5; margin: 0;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+}
+pre .cm { color: #7f8aa3; }   /* comment */
+pre .pr { color: #7fd0ff; }   /* command / protocol keyword */
+pre .kw { color: #c98bff; }   /* language keyword */
+pre .st { color: #7fd6a0; }   /* string */
+pre .ty { color: #5fb3ff; }   /* type */
+
+/* ---------- recall drills ---------- */
+.drill { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; overflow: hidden; }
+.drill .q { padding: 12px 44px 12px 16px; font-weight: 600; cursor: pointer; position: relative; user-select: none; }
+.drill .q:hover { background: #f7f9fc; }
+.drill .q::after { content: "▸ reveal"; position: absolute; right: 14px; top: 12px; font-size: 11px; color: var(--accent); font-weight: 700; letter-spacing: .04em; }
+.drill.show .q::after { content: "▾ hide"; }
+.drill .a { display: none; padding: 12px 16px 14px; border-top: 1px dashed var(--line); color: var(--ink); }
+.drill.show .a { display: block; }
+.drill .a ul, .drill .a ol { margin: 6px 0 0; padding-left: 20px; }
+.drill .a li { margin: 3px 0; }
+.blank { color: var(--accent); font-weight: 700; }
+
+/* ---------- misc content chrome ---------- */
+.pill { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-left: 6px; vertical-align: middle; }
+.tagrow { display: flex; gap: 8px; margin: 6px 0 0; }
+.tag-a, .tag-f { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 20px; color: #fff; }
+.tag-a { background: #16a34a; }  /* Android */
+.tag-f { background: #1d6fe0; }  /* Flutter */
+.exam { background: #fff; border: 2px solid var(--accent); border-radius: 10px; padding: 4px 0 0; }
+.footnote { color: var(--muted); font-size: 13px; margin-top: 40px; border-top: 1px solid var(--line); padding-top: 14px; }
+
+/* ---------- home dashboard ---------- */
+.count { display: inline-block; background: #fff3e6; color: #b4540a; font-weight: 700; font-size: 13px; padding: 5px 12px; border-radius: 20px; border: 1px solid #f3d9bd; }
+.cards { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 28px 0; }
+@media (min-width: 760px) { .cards { grid-template-columns: 1fr 1fr 1fr; } }
+.card {
+  display: block; text-decoration: none; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 14px; padding: 20px;
+  transition: transform .12s, box-shadow .12s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 4px 14px rgba(0, 0, 0, .07); }
+.card.net { border-top-color: var(--net); }
+.card.cyber { border-top-color: var(--cyber); }
+.card.mobile { border-top-color: var(--mobile); }
+.card .ic svg { width: 32px; height: 32px; }
+.card.net .ic { color: var(--net); }
+.card.cyber .ic { color: var(--cyber); }
+.card.mobile .ic { color: var(--mobile); }
+.card h2 { font-size: 18px; margin: 10px 0 4px; border-top: none; padding-top: 0; }
+.card p { font-size: 13.5px; color: var(--muted); margin: 0 0 10px; max-width: none; }
+.card .meta { font-size: 12px; font-weight: 700; }
+.card.net .meta { color: var(--net); }
+.card.cyber .meta { color: var(--cyber); }
+.card.mobile .meta { color: var(--mobile); }
+.card ul { margin: 8px 0 0; padding-left: 18px; font-size: 12px; color: var(--muted); }
+.card li { margin: 2px 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin: 24px 0; }
+.panel h3 { margin: 0 0 10px; font-size: 17px; }
+.panel ol { margin: 0; padding-left: 20px; }
+.panel li { margin: 7px 0; }
+.panel b { color: var(--accent); }
+.tip { background: #e6f5ec; border: 1px solid color-mix(in srgb, var(--cyber) 32%, #fff); border-radius: 10px; padding: 12px 16px; margin: 14px 0; font-size: 14px; max-width: 74ch; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px) {
+  .sidebar { position: static; width: auto; height: auto; }
+  .wrap, .main { margin-left: 0; padding: 24px; }
+}
+
+/* ---------- print / PDF ---------- */
+@media print {
+  .sidebar { display: none !important; }
+  .wrap, .main { margin-left: 0; max-width: none; padding: 0; }
+  .btn, .no-print { display: none !important; }
+  .drill .a { display: block !important; }
+  .drill, .codewrap, table, .concept, .why, .danger, .plain { page-break-inside: avoid; }
+  h2, h3 { page-break-after: avoid; }
+  body { font-size: 12px; background: #fff; }
+  pre { font-size: 11px; }
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Exam Prep — Home</title>
+<style>
+  :root{--ink:#1a1d23;--muted:#5b6472;--bg:#f6f7f9;--panel:#fff;--line:#e3e7ec;
+    --net:#1d6fe0;--cyber:#0f9d58;--mobile:#7b3fe4;--accent:#1d6fe0;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  /* sidebar */
+  .sidebar{position:fixed;top:0;left:0;width:240px;height:100vh;overflow-y:auto;
+    background:#12151c;color:#cdd3dd;padding:18px 14px;z-index:30}
+  .sidebar .sb-brand{font-weight:800;font-size:15px;color:#fff;margin-bottom:2px}
+  .sidebar .sb-brand span{display:block;font-weight:400;font-size:11px;color:#7e8796;margin-top:2px}
+  .sidebar .sb-sec{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6b7382;margin:20px 0 6px}
+  .sidebar a{display:block;color:#cdd3dd;text-decoration:none;padding:8px 10px;border-radius:7px;font-size:13.5px;font-weight:600}
+  .sidebar a:hover{background:#1c2230;color:#fff}
+  .sidebar a.active{background:var(--accent);color:#fff}
+  .sidebar a .ic{width:16px;height:16px;vertical-align:-3px;margin-right:9px}
+  .sidebar .sb-brand .ic{width:18px;height:18px;vertical-align:-4px;margin-right:8px}
+  .sb-note{font-size:12px;color:#7e8796;line-height:1.5;margin-top:6px;padding:0 4px}
+  .main{margin-left:240px;padding:48px 40px 80px;max-width:940px}
+  h1{font-size:30px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:16px;margin:0 0 8px}
+  .count{display:inline-block;background:#fff3e6;color:#b4540a;font-weight:700;font-size:13px;
+    padding:5px 12px;border-radius:20px;border:1px solid #f3d9bd}
+  .cards{display:grid;grid-template-columns:1fr;gap:16px;margin:28px 0}
+  @media(min-width:760px){.cards{grid-template-columns:1fr 1fr 1fr}}
+  .card{display:block;text-decoration:none;color:var(--ink);background:var(--panel);
+    border:1px solid var(--line);border-radius:14px;padding:20px;transition:transform .12s,box-shadow .12s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 4px 14px rgba(0,0,0,.07)}
+  .card.net{border-top-color:var(--net)}.card.cyber{border-top-color:var(--cyber)}.card.mobile{border-top-color:var(--mobile)}
+  .card .ic svg{width:32px;height:32px}
+  .card.net .ic{color:var(--net)}.card.cyber .ic{color:var(--cyber)}.card.mobile .ic{color:var(--mobile)}
+  .card h2{font-size:18px;margin:10px 0 4px}
+  .card p{font-size:13.5px;color:var(--muted);margin:0 0 10px}
+  .card .meta{font-size:12px;font-weight:700}
+  .card.net .meta{color:var(--net)}.card.cyber .meta{color:var(--cyber)}.card.mobile .meta{color:var(--mobile)}
+  .card ul{margin:8px 0 0;padding-left:18px;font-size:12px;color:var(--muted)}
+  .card li{margin:2px 0}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin:24px 0}
+  .panel h3{margin:0 0 10px;font-size:17px}
+  .panel ol{margin:0;padding-left:20px}.panel li{margin:7px 0}
+  .panel b{color:var(--accent)}
+  .tip{background:#e6f5ec;border:1px solid color-mix(in srgb,var(--cyber) 32%,#fff);border-radius:10px;padding:12px 16px;margin:14px 0;font-size:14px;max-width:74ch}
+  code{background:#eef1f5;padding:1px 5px;border-radius:4px;font-size:.92em;font-family:"SF Mono",Menlo,Consolas,monospace}
+  @media(max-width:759px){.sidebar{position:static;width:auto;height:auto}.main{margin-left:0;padding:24px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+  <symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+  <symbol id="ic-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+</svg>
+<nav class="sidebar">
+  <div class="sb-brand"><svg class="ic"><use href="#ic-book"/></svg>Final Exam Prep<span>End-of-Year 4 · 17 June 2026</span></div>
+  <div class="sb-sec">Navigate</div>
+  <a href="index.html" class="active"><svg class="ic"><use href="#ic-home"/></svg>Home</a>
+  <a href="internetworking_review.html"><svg class="ic"><use href="#ic-globe"/></svg>Internetworking II</a>
+  <a href="cybersecurity_review.html"><svg class="ic"><use href="#ic-shield"/></svg>Cyber Security</a>
+  <a href="mobile_review.html"><svg class="ic"><use href="#ic-phone"/></svg>Mobile Programming II</a>
+  <div class="sb-sec">Remember</div>
+  <div class="sb-note">Cover the screen. Answer out loud or on paper <i>before</i> you click reveal. Recognition lies; retrieval is the real test.</div>
+</nav>
+
+<div class="main">
+  <h1>Final Exam Prep</h1>
+  <p class="sub">Three subjects · handwritten exam · active-recall study sheets</p>
+  <span class="count" id="count">Exam: 17 June 2026</span>
+
+  <div class="cards">
+    <a class="card net" href="internetworking_review.html">
+      <div class="ic"><svg><use href="#ic-globe"/></svg></div>
+      <h2>Internetworking II</h2>
+      <p>Routing protocols, configs &amp; VPNs</p>
+      <div class="meta">15 topics →</div>
+      <ul><li>OSPF · RIP · EIGRP · BGP</li><li>Static/default routes · ACLs · NAT</li><li>IPsec VPN · GRE · wildcard masks</li></ul>
+    </a>
+    <a class="card cyber" href="cybersecurity_review.html">
+      <div class="ic"><svg><use href="#ic-shield"/></svg></div>
+      <h2>Cyber Security</h2>
+      <p>Principles, controls &amp; Kali toolkit</p>
+      <div class="meta">15 topics →</div>
+      <ul><li>CIA · AAA · controls (4+6)</li><li>Crypto · risk · social engineering</li><li>Hardening · hacking · Kali commands</li></ul>
+    </a>
+    <a class="card mobile" href="mobile_review.html">
+      <div class="ic"><svg><use href="#ic-phone"/></svg></div>
+      <h2>Mobile Programming II</h2>
+      <p>Android (Java) + Flutter (Dart)</p>
+      <div class="meta">15 topics →</div>
+      <ul><li>Lifecycle · Intents · SharedPreferences</li><li>RecyclerView · Fragments · widgets</li><li>Navigator · setState · Dart + async</li></ul>
+    </a>
+  </div>
+
+  <div class="panel">
+    <h3>How to use these sheets (the method that fixes recall)</h3>
+    <ol>
+      <li><b>Read the concept box first.</b> Each topic opens with the mental model — the <i>why</i> so facts stick.</li>
+      <li><b>Then close it and retrieve.</b> Each drill shows a question; the answer is hidden. Say or write your answer <i>before</i> clicking reveal. The struggle to recall is what builds memory — reading the answer does almost nothing.</li>
+      <li><b>Mark misses, repeat tomorrow.</b> The ones you fail are your real study list. Re-test them, don’t re-read them.</li>
+      <li><b>Write the configs/code by hand.</b> Your exam is handwritten — practice writing OSPF/Intent/Dart from a blank page, not just recognizing them.</li>
+    </ol>
+    <div class="tip"><b>Spacing beats cramming:</b> three 40-minute retrieval sessions across three days beats one long read the night before. With ~12 days left, do one subject per day on rotation, then full mixed review in the last 3 days.</div>
+  </div>
+
+  <div class="panel">
+    <h3>Export to PDF (handwriting practice / offline)</h3>
+    <p style="margin:0 0 8px;color:var(--muted);font-size:14px">Each sheet’s <b>Print / PDF</b> button (in its sidebar) auto-reveals every answer and hides the controls. Or from Terminal:</p>
+    <p style="margin:0"><code>"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --print-to-pdf="internetworking.pdf" internetworking_review.html</code></p>
+  </div>
+</div>
+
+<script>
+  // gentle countdown to the exam
+  (function(){
+    var exam=new Date(2026,5,17);            // 17 June 2026 (month is 0-indexed)
+    var now=new Date(); now.setHours(0,0,0,0);
+    var days=Math.round((exam-now)/86400000);
+    var el=document.getElementById('count');
+    if(days>0) el.textContent='Exam: 17 June 2026 — '+days+' day'+(days===1?'':'s')+' to go';
+    else if(days===0) el.textContent='Exam is today — you’ve got this.';
+  })();
+</script>
+</body>
+</html>

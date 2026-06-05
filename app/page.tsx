@@ -1,73 +1,83 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import Countdown from "@/components/Countdown";
-import { subjects } from "@/lib/subjects";
+import { getSubjects } from "@/lib/subjects";
+import type { Locale } from "@/i18n/config";
 
-export default function Home() {
+export default async function Home() {
+  const locale = (await getLocale()) as Locale;
+  const subjects = getSubjects(locale);
+  const t = await getTranslations("home");
+
+  const rich = {
+    b: (chunks: React.ReactNode) => <b>{chunks}</b>,
+    i: (chunks: React.ReactNode) => <i>{chunks}</i>,
+  };
+
   return (
     <div className="main">
-      <h1>Final Exam Prep</h1>
-      <p className="sub">
-        Three subjects · handwritten exam · active-recall study sheets
-      </p>
-      <Countdown />
+      <header className="masthead">
+        <h1 className="masthead-title">{t("title")}</h1>
+        <p className="masthead-sub">{t("subtitle")}</p>
+        <Countdown />
+      </header>
 
-      <div className="cards">
+      <nav className="subject-index" aria-label={t("title")}>
         {subjects.map((s) => (
-          <a key={s.slug} className={`card ${s.theme}`} href={s.route}>
-            <div className="ic">
-              <svg>
+          <a key={s.slug} className={`subject-row ${s.theme}`} href={s.route}>
+            <span className="sr-icon">
+              <svg aria-hidden="true">
                 <use href={`#${s.icon}`} />
               </svg>
-            </div>
-            <h2>{s.title}</h2>
-            <p>{s.short}</p>
-            <div className="meta">{s.topics.length} topics →</div>
-            <ul>
-              {s.bullets.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
+            </span>
+            <span className="sr-body">
+              <span className="name">{s.title}</span>
+              <span className="desc">{s.short}</span>
+            </span>
+            <span className="sr-meta">
+              {t("topicsMeta", { count: s.topics.length })}
+            </span>
           </a>
         ))}
-      </div>
+      </nav>
 
-      <div className="panel">
-        <h3>How to use these sheets (the method that fixes recall)</h3>
+      <section className="panel">
+        <h3>{t("methodTitle")}</h3>
         <ol>
-          <li>
-            <b>Read the concept box first.</b> Each topic opens with the mental
-            model — the <i>why</i> so facts stick.
-          </li>
-          <li>
-            <b>Then close it and retrieve.</b> Each drill shows a question; the
-            answer is hidden. Say or write your answer <i>before</i> clicking
-            reveal. The struggle to recall is what builds memory — reading the
-            answer does almost nothing.
-          </li>
-          <li>
-            <b>Mark misses, repeat tomorrow.</b> The ones you fail are your real
-            study list. Re-test them, don’t re-read them.
-          </li>
-          <li>
-            <b>Write the configs/code by hand.</b> Your exam is handwritten —
-            practice writing OSPF/Intent/Dart from a blank page, not just
-            recognising them.
-          </li>
+          <li>{t.rich("step1", rich)}</li>
+          <li>{t.rich("step2", rich)}</li>
+          <li>{t.rich("step3", rich)}</li>
+          <li>{t.rich("step4", rich)}</li>
         </ol>
-        <div className="tip">
-          <b>Spacing beats cramming:</b> three 40-minute retrieval sessions
-          across three days beats one long read the night before. Do one subject
-          per day on rotation, then full mixed review in the last 3 days.
-        </div>
-      </div>
+        <div className="tip">{t.rich("tip", rich)}</div>
+      </section>
 
-      <div className="panel">
-        <h3>Khmer + handwriting practice</h3>
-        <p style={{ margin: 0, color: "var(--muted)", fontSize: 14 }}>
-          On any subject page, hit <b>ភាសាខ្មែរ</b> in the sidebar to reveal
-          Khmer explanations. Hit <b>Print / PDF</b> to export a print-ready copy
-          (answers auto-revealed) for offline / handwriting practice.
+      <section className="panel">
+        <h3>{t("langTitle")}</h3>
+        <p style={{ margin: 0, color: "var(--muted)", fontSize: "var(--text-sm)" }}>
+          {t.rich("langBody", rich)}
         </p>
-      </div>
+      </section>
+
+      <section className="panel sources">
+        <h3>{t("sourcesTitle")}</h3>
+        <p>{t("sourcesIntro")}</p>
+        <ul className="sources-list">
+          {subjects.map((s) => (
+            <li key={s.slug} className={`source-item ${s.theme}`}>
+              <span className="subj">{s.title}</span>
+              <span className="file">{s.source}</span>
+              <a
+                className="source-view"
+                href={`/sources/${s.slug}.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t("viewPdf")}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

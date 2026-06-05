@@ -2,26 +2,20 @@ const html = `
 
 
 <p class="lead">How to use this: <b>read the concept box</b> (the mental model), then <b>cover the screen and answer each drill out loud or on paper before clicking reveal</b>. Recognition feels like knowing; only retrieval proves it. Configs come with “explain this line” drills because the exam mixes <i>write-the-config</i> with <i>explain-the-concept</i>.</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>របៀបប្រើ៖ អានប្រអប់ concept ជាមុនសិន (គំនិតសំខាន់) រួចបិទអេក្រង់ ហើយព្យាយាមឆ្លើយសំណួរនីមួយៗដោយខ្លួនឯង (និយាយ ឬសរសេរ) មុននឹងចុចបង្ហាញចម្លើយ។ ការស្គាល់មុខមិនមែនមានន័យថាចេះទេ — មានតែការនឹកឃើញដោយខ្លួនឯងទើបបញ្ជាក់ថាចេះ។</div>
 <p class="lead" style="color:#8a3f08"><b>Never studied this / forgot everything?</b> Don’t panic — start with <a href="#foundations" style="color:#b4540a;font-weight:700">Section 0</a>. It builds the whole subject from zero with one simple analogy. The other sections will make sense afterwards.</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>មិនធ្លាប់រៀន ឬភ្លេចអស់ហើយ? កុំបារម្ភ — ចាប់ផ្ដើមពី Section 0។ វាពន្យល់មុខវិជ្ជាទាំងមូលចាប់ពីសូន្យ ដោយប្រើការប្រៀបធៀបងាយៗ។ Section ឯទៀតនឹងកាន់តែងាយយល់នៅពេលក្រោយ។</div>
 
 <!-- ============ FOUNDATIONS ============ -->
 <h2 id="foundations" class="zero">0 · Start here — the whole subject in plain words</h2>
 <p>If the sections below look like alphabet soup (OSPF, AD, LSDB, wildcard…), <b>read this first</b>. It assumes you know <b>nothing</b>. Once these few ideas click, the rest of the sheet stops being random words and becomes “oh — that’s just the same idea again.”</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>បើ Section ខាងក្រោមមើលទៅដូចជាពាក្យច្របូកច្របល់ (OSPF, AD, LSDB, wildcard…) សូមអានផ្នែកនេះជាមុនសិន។ វាសន្មតថាអ្នកមិនទាន់ដឹងអ្វីសោះ។ ពេលគំនិតមូលដ្ឋានទាំងនេះច្បាស់ហើយ ផ្នែកដែលនៅសល់នឹងលែងជាពាក្យចៃដន្យ ហើយក្លាយជា «អូ! នេះគ្រាន់តែជាគំនិតដដែលទៀតហើយ»។</div>
 
 <div class="concept"><span class="label">The one analogy for the entire course</span>
 Networking is just <b>a postal system for data</b>. Computers send little packages of data called <b>packets</b>. To get a packet from one place to another, it hops through <b>sorting offices</b>. Those sorting offices are <b>routers</b>. <b>Almost everything in this course is about how routers decide where to send each packet.</b> Keep this picture in your head and the jargon below is just labels on parts of it.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>ការប្រៀបធៀបតែមួយសម្រាប់មុខវិជ្ជាទាំងមូល៖ networking គឺគ្រាន់តែជា «ប្រព័ន្ធប្រៃសណីយ៍សម្រាប់ទិន្នន័យ»។ កុំព្យូទ័របញ្ជូនកញ្ចប់ទិន្នន័យតូចៗហៅថា packet។ ដើម្បីឱ្យ packet ទៅដល់គោលដៅ វាត្រូវឆ្លងកាត់ «ការិយាល័យចែកសំបុត្រ» ជាច្រើន។ ការិយាល័យទាំងនោះគឺ router។ ស្ទើរតែគ្រប់មេរៀនក្នុងមុខវិជ្ជានេះ និយាយអំពី «របៀបដែល router សម្រេចចិត្តបញ្ជូន packet ទៅណា»។</div>
 
 <h3>1. What is a network, and an IP address?</h3>
 <p>A <b>network</b> is a group of devices that can talk to each other directly — like one office building, or your home Wi-Fi. Every device has an <b>IP address</b> = its mailing address, written as four numbers, e.g. <code>192.168.1.10</code>. A whole network also has an address + a size, written like <code>192.168.1.0/24</code> — read that as “the street <code>192.168.1.___</code>, houses .0 through .255.”</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>network គឺជាក្រុមឧបករណ៍ដែលអាចនិយាយគ្នាដោយផ្ទាល់ (ដូចជាអគារការិយាល័យមួយ ឬ Wi-Fi នៅផ្ទះ)។ ឧបករណ៍នីមួយៗមាន IP address ជា «អាសយដ្ឋាន» របស់វា សរសេរជាលេខ ៤ ផ្នែក ឧ. 192.168.1.10។ network មួយក៏មានអាសយដ្ឋាន និងទំហំ សរសេរបែប 192.168.1.0/24 — អានថា «ផ្លូវ 192.168.1.___ ផ្ទះលេខ .0 ដល់ .255»។</div>
 
 <h3>2. What is that “/24”? (subnet mask)</h3>
 <p>The <code>/24</code> (or the longer form <code>255.255.255.0</code>) just tells you <b>how big the street is</b> — how many addresses are in the group. Counter-intuitive part: <b>a bigger slash number means a smaller group.</b></p>
-<div class="km"><span class="lbl">ខ្មែរ</span>លេខ /24 (ឬទម្រង់វែង 255.255.255.0) ប្រាប់ថា «ផ្លូវនេះធំប៉ុណ្ណា» — មាន address ប៉ុន្មាន។ ចំណុចគួរចាំ៖ លេខក្រោយ slash កាន់តែធំ ក្រុម address កាន់តែតូច។ (Section 1 ខាងក្រោមបង្ហាញពីរបៀបគណនា mask និងចំនួន host។)</div>
 <table>
 <thead><tr><th>Written as</th><th>How many addresses</th><th>Used for</th></tr></thead>
 <tbody>
@@ -33,20 +27,16 @@ Networking is just <b>a postal system for data</b>. Computers send little packag
 
 <h3>3. What is a router?</h3>
 <p>A <b>router</b> is the device that connects <b>different</b> networks and passes data between them — the sorting office between streets and cities. Each cable socket on a router is an <b>interface</b> (think: a door), and each door faces a different network.</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>router គឺជាឧបករណ៍ដែលភ្ជាប់ network «ផ្សេងគ្នា» ហើយបញ្ជូនទិន្នន័យឆ្លងកាត់ពីមួយទៅមួយ — ដូចការិយាល័យចែកសំបុត្ររវាងផ្លូវ ឬទីក្រុង។ រន្ធខ្សែនីមួយៗនៅលើ router ហៅថា interface (ដូចទ្វារ) ហើយទ្វារនីមួយៗបែរទៅ network ផ្សេងគ្នា។</div>
 
 <h3>4. The routing table — the router’s GPS</h3>
 <div class="concept"><span class="label">This is the single most important idea</span>
 Every router keeps a <b>routing table</b>: a list that says <b>“to reach network X → send it out this door / hand it to that next router.”</b> When a packet arrives, the router looks up the destination in this table and forwards it. <b>That lookup is the router’s entire job.</b> If the destination isn’t in the table, the packet is dropped. So: <b>the whole point of everything else is just filling in this table correctly.</b></div>
-<div class="km"><span class="lbl">ខ្មែរ</span>នេះជាគំនិតសំខាន់ជាងគេ៖ router នីមួយៗរក្សា routing table — ជាបញ្ជីដែលនិយាយថា «ដើម្បីទៅ network X → បញ្ជូនចេញតាមទ្វារនេះ / ប្រគល់ឱ្យ router បន្ទាប់»។ ពេល packet មកដល់ router រកគោលដៅក្នុងតារាងនេះ រួចបញ្ជូនបន្ត។ ការរកនេះគឺជាការងារទាំងមូលរបស់ router។ បើគោលដៅគ្មានក្នុងតារាង packet ត្រូវបោះចោល។ ដូច្នេះគោលបំណងនៃអ្វីៗផ្សេងទៀត គឺគ្រាន់តែបំពេញតារាងនេះឱ្យបានត្រឹមត្រូវ។</div>
 
 <h3>5. Two ways to fill the table: static vs dynamic</h3>
 <p><b>Static</b> = a human types every route by hand. Fine for 2 routers, impossible for 200. <b>Dynamic</b> = the routers automatically <b>tell each other what they can reach</b> and build the table themselves. The thing that lets them do that gossip is called a <b>routing protocol</b>.</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>Static = មនុស្សវាយបញ្ចូល route នីមួយៗដោយដៃ។ បានសម្រាប់ router ២ ប៉ុន្តែមិនអាចសម្រាប់ ២០០ ទេ។ Dynamic = router ប្រាប់គ្នាដោយស្វ័យប្រវត្តិអំពីអ្វីដែលវាអាចទៅដល់ ហើយបំពេញតារាងដោយខ្លួនឯង។ អ្វីដែលធ្វើឱ្យពួកវាប្រាប់គ្នាបាន ហៅថា routing protocol។</div>
 
 <h3>6. What is a routing protocol — and why are there four?</h3>
 <p>A <b>routing protocol</b> is the <b>language + strategy</b> routers use to tell each other “here’s what I can reach.” There are several because they make different trade-offs (simple vs smart, small office vs whole Internet). <b>They all solve the same problem</b> — fill the table — just in different ways:</p>
-<div class="km"><span class="lbl">ខ្មែរ</span>routing protocol គឺ «ភាសា + យុទ្ធសាស្ត្រ» ដែល router ប្រើដើម្បីប្រាប់គ្នាថា «នេះជាអ្វីដែលខ្ញុំអាចទៅដល់»។ មានច្រើនព្រោះវាមានគុណសម្បត្តិ-គុណវិបត្តិខុសគ្នា (សាមញ្ញ ឬឆ្លាត, network តូច ឬ Internet ទាំងមូល)។ ពួកវាទាំងអស់ដោះស្រាយបញ្ហាដូចគ្នា — បំពេញតារាង — គ្រាន់តែតាមរបៀបខុសគ្នា។</div>
 <table>
 <thead><tr><th>Protocol</th><th>In one phrase</th></tr></thead>
 <tbody>
@@ -62,7 +52,6 @@ Every router keeps a <b>routing table</b>: a list that says <b>“to reach netwo
 <div class="concept"><span class="label">Step 1 then step 2</span>
 <b>Administrative Distance (AD)</b> answers <b>“whose word do I trust more?”</b> Each protocol has a trust number — <b>lower = more trusted</b> — and the router believes the lower one. <i>(That’s all Section 1 is.)</i><br><br>
 <b>Metric</b> kicks in only <b>after</b> it has committed to one protocol: if that protocol offers two paths, the metric is the <b>score it uses to pick the better one</b>. Each protocol measures differently — RIP counts <i>how many routers you pass</i> (hops); OSPF uses <i>link speed</i>.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>ពេលខ្លះ router ឮអំពីគោលដៅដូចគ្នាពី protocol ពីរ ហើយពួកវាមិនយល់ស្របគ្នា។ វាសម្រេចជា ២ ជំហាន៖ ជំហានទី១ — Administrative Distance (AD) សួរថា «គួរជឿឯណាជាង?» protocol នីមួយៗមានលេខទុកចិត្ត — តូចជាង = ទុកចិត្តជាង — ហើយ router ជឿលេខតូចជាង។ (នេះហើយជាអ្វីដែល Section 3 និយាយ។) ជំហានទី២ — Metric ប្រើតែ «ក្រោយ» ពេលជ្រើស protocol រួច៖ បើ protocol នោះមានផ្លូវ ២ Metric ជាពិន្ទុជ្រើសផ្លូវល្អជាង។ RIP រាប់ចំនួន router ឆ្លងកាត់ (hop); OSPF ប្រើល្បឿនបណ្ដាញ (link speed)។</div>
 
 <h3>8. The rest of the toppings (one line each)</h3>
 <table>
@@ -77,7 +66,6 @@ Every router keeps a <b>routing table</b>: a list that says <b>“to reach netwo
 
 <div class="why"><span class="label">How to study the rest of this sheet</span>
 The sections are numbered to match your <b>exam’s question order</b>, not easiest-first. If you’re learning fresh, this order is gentler: <b>0 (this) → 1 subnet masks → 2 IPv6 → 6 OSPF → 7 RIP → 8 EIGRP → 9 BGP</b>, then <b>3 AD → 4 classify → 5 wildcard</b>, then the toppings <b>12–16</b>. For every protocol, ask the same four questions: <b>(1)</b> what problem does it solve? <b>(2)</b> how does it share routes? <b>(3)</b> what’s its metric &amp; AD? <b>(4)</b> what does its config look like?</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>របៀបសិក្សា Section ដែលនៅសល់៖ លេខ Section តម្រៀបតាមលំដាប់សំណួរប្រឡង មិនមែនពីងាយទៅពិបាកទេ។ បើទើបរៀនថ្មី លំដាប់នេះងាយជាង៖ 0 (នេះ) → 1 subnet masks → 2 IPv6 → 6 OSPF → 7 RIP → 8 EIGRP → 9 BGP, បន្ទាប់មក 3 AD → 4 classify → 5 wildcard, រួចផ្នែកបន្ថែម 12–16។ សម្រាប់ protocol នីមួយៗ សួរសំណួរ ៤ ដដែល៖ (1) ដោះស្រាយបញ្ហាអ្វី? (2) ចែករំលែក route យ៉ាងណា? (3) Metric និង AD ប៉ុន្មាន? (4) config មើលទៅយ៉ាងណា?</div>
 
 <h3>Foundation drills (lock these before moving on)</h3>
 <div class="drill"><div class="q">In one sentence: what does a router actually do?</div>
@@ -99,7 +87,6 @@ The sections are numbered to match your <b>exam’s question order</b>, not easi
 <!-- ============ SUBNET MASKS ============ -->
 <h2 id="subnet" class="zero">1 · IP addresses &amp; subnet masks — how to actually calculate</h2>
 <div class="plain"><span class="label">In plain words</span>An IP address has two halves: <b>which network</b> you’re on + <b>which device</b> you are. The <b>subnet mask</b> is just the line that says where one half ends and the other begins. Everything below is how to find that line and count the addresses — with one shortcut (“block size”) that makes it fast.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>IP address មានពីរផ្នែក — «network ណា» + «ឧបករណ៍ណា»។ subnet mask គឺគ្រាន់តែជាបន្ទាត់ប្រាប់ថាផ្នែកមួយចប់ត្រង់ណា ហើយផ្នែកមួយទៀតចាប់ផ្ដើមត្រង់ណា។ ខាងក្រោមជារបៀបរកបន្ទាត់នោះ និងរាប់ចំនួន address ដោយប្រើល្បិច «block size» ឱ្យលឿន។</div>
 
 <h3>The structure: 32 bits, 4 octets</h3>
 <p>An IPv4 address is <b>32 bits</b>, shown as <b>4 octets</b> (8 bits each), e.g. <code>192.168.1.10</code>. Each octet holds 0–255 (because 8 bits = 2⁸ = 256 possible values). The <b>subnet mask</b> is also 4 octets: its <b>1-bits mark the network part, its 0-bits mark the host part</b>. <code>/24</code> (CIDR notation) simply means “the first <b>24 bits are 1s</b>” = <code>255.255.255.0</code>.</p>
@@ -155,7 +142,6 @@ The sections are numbered to match your <b>exam’s question order</b>, not easi
 <!-- ============ IPv6 ============ -->
 <h2 id="ipv6">2 · IPv6 addressing — how it’s written &amp; shortened</h2>
 <div class="plain"><span class="label">In plain words</span>The world ran out of IPv4 addresses (only ~4.3 billion). IPv6 is the replacement with a <b>vastly bigger</b> address space. The catch for the exam: the addresses are long, so there are <b>two rules for shortening them</b> — and you must know exactly which zeros you’re allowed to drop.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>ពិភពលោកអស់ address IPv4 (មានតែ ~៤.៣ ពាន់លាន)។ IPv6 ជាអ្នកជំនួសដែលមាន address ច្រើនលើសលប់។ អ្វីសំខាន់សម្រាប់ប្រឡង៖ address វែង ដូច្នេះមានវិធី «បំព្រួញ» ២ បែប — ហើយត្រូវដឹងច្បាស់ថាលេខសូន្យណាដែលអាចលុបបាន។</div>
 
 <h3>The format</h3>
 <p>An IPv6 address is <b>128 bits</b> (vs 32 for IPv4), written as <b>8 groups of 4 hexadecimal digits</b>, separated by colons. Hex digits are 0–9 and a–f. Each group = 16 bits.</p>
@@ -207,7 +193,6 @@ Rule 2 (zero-run → ::): &nbsp;<b><code>2001:db8::ff00:42:8329</code></b></div>
 <!-- ============ AD ============ -->
 <h2 id="ad">3 · Administrative Distance (AD)</h2>
 <div class="plain"><span class="label">In plain words</span>Your router sometimes hears “I can reach network X” from <b>two different protocols at once</b>, and they disagree. AD is just a <b>trust score</b> that decides which one to believe. <b>Lower number = more trusted.</b> That’s the whole idea — the table below is just the scores.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>ពេលខ្លះ router ឮ «ខ្ញុំអាចទៅ network X» ពី protocol ពីរក្នុងពេលតែមួយ ហើយវាមិនត្រូវគ្នា។ AD គ្រាន់តែជាពិន្ទុទុកចិត្តដែលសម្រេចថាគួរជឿមួយណា។ លេខតូចជាង = ទុកចិត្តជាង។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   AD is a router’s <b>trust ranking for the source of a route</b>, not a measure of distance. When two protocols both offer a path to the same network, the router can’t compare a “hop count” to a “cost” — different units. So it first asks <b>“whose word do I trust more?”</b> = lowest AD wins. Metric is only the tie-breaker <i>within</i> one protocol. <span class="mnemonic">Lower AD = more believable.</span>
@@ -274,7 +259,6 @@ Rule 2 (zero-run → ::): &nbsp;<b><code>2001:db8::ff00:42:8329</code></b></div>
 <!-- ============ wildcard ============ -->
 <h2 id="wildcard">5 · Wildcard masks</h2>
 <div class="plain"><span class="label">In plain words</span>A few commands make you write a subnet <b>backwards</b>. A wildcard mask is just that backwards version of a normal subnet mask. There’s a one-step formula (255 − each number), so don’t memorise — calculate.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>command ខ្លះតម្រូវឱ្យសរសេរ subnet «បញ្ច្រាស»។ wildcard mask គឺគ្រាន់តែជា subnet mask ធម្មតាដែលត្រឡប់បញ្ច្រាស។ មានរូបមន្តងាយ (255 ដក លេខនីមួយៗ) ដូច្នេះកុំទន្ទេញ — គណនាយក។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   A wildcard mask is the <b>photo-negative of a subnet mask</b>. <code>0</code> = “this bit must match exactly,” <code>255</code> (all ones) = “don’t care.” Fast formula per octet: <b>255 − subnet-mask octet</b>. Used in OSPF/EIGRP <code>network</code> statements and in ACLs.
@@ -294,7 +278,6 @@ Rule 2 (zero-run → ::): &nbsp;<b><code>2001:db8::ff00:42:8329</code></b></div>
 <!-- ============ OSPF ============ -->
 <h2 id="ospf">6 · OSPF <span class="kh">— Open Shortest Path First</span></h2>
 <div class="plain"><span class="label">In plain words</span>OSPF is one method routers use to learn routes. Every router <b>shares a “map” of its own connections</b> with all the others, so each router ends up holding a <b>complete map of the network</b> and calculates the best path itself. It’s the smart, fast one used <b>inside a single company</b> — and most of your exam is about it.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>OSPF ជាវិធីមួយដែល router ប្រើរៀន route។ router នីមួយៗ «ចែករំលែកផែនទី» នៃការតភ្ជាប់របស់ខ្លួនទៅ router ឯទៀត ដូច្នេះ router នីមួយៗមានផែនទីពេញលេញនៃ network ហើយគណនាផ្លូវល្អបំផុតដោយខ្លួនឯង។ វាជាវិធីឆ្លាត លឿន ប្រើ «ក្នុងក្រុមហ៊ុនមួយ» — ហើយប្រឡងភាគច្រើនសួរអំពីវា។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   Every router floods <b>LSAs</b> describing its links. All routers in an area assemble these into one identical <b>LSDB (link-state database)</b> — a shared map. Each then runs <b>SPF (Dijkstra)</b> on that map to compute its own shortest-path tree. Because everyone shares the same map, OSPF converges fast and is loop-free by design. Areas keep the map small; <b>Area 0 is the backbone</b> every other area must touch.
@@ -368,7 +351,6 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 <!-- ============ RIP ============ -->
 <h2 id="rip">7 · RIP / RIPv2 / RIPng</h2>
 <div class="plain"><span class="label">In plain words</span>RIP is the oldest, simplest method. Each router just tells its neighbours <b>“here’s everything I can reach and how many routers away it is”</b> (a “hop”), and they pass the news along. Easy to set up but slow and not very smart — only fit for <b>tiny networks</b>. It caps at 15 hops on purpose.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>RIP ជាវិធីចាស់ និងសាមញ្ញបំផុត។ router នីមួយៗគ្រាន់តែប្រាប់អ្នកជិតខាងថា «នេះជាអ្វីៗដែលខ្ញុំទៅដល់ និងឆ្ងាយប៉ុន្មាន router» (ហៅថា hop) រួចបញ្ជូនបន្ត។ ងាយរៀបចំ ប៉ុន្តែយឺត និងមិនឆ្លាត — សម្រាប់តែ network តូចៗ។ កំណត់អតិបរមា ១៥ hop។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   Pure distance-vector: a router doesn’t know the map, it just believes neighbours’ summaries (“routing by rumour”) and adds 1 hop. Simple but slow to converge and loop-prone, so RIP wraps itself in loop-prevention rules. The hop ceiling of 15 is a deliberate “small-network only” guard — <b>16 = infinity = unreachable</b>.
@@ -415,7 +397,6 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 <!-- ============ EIGRP ============ -->
 <h2 id="eigrp">8 · EIGRP</h2>
 <div class="plain"><span class="label">In plain words</span>EIGRP is Cisco’s method that mixes RIP’s simplicity with OSPF’s speed. Its trick: it keeps a <b>ready-made backup path</b> so if a link dies, it switches over instantly instead of recalculating.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>EIGRP ជាវិធីរបស់ Cisco ដែលលាយភាពសាមញ្ញរបស់ RIP ជាមួយល្បឿនរបស់ OSPF។ ល្បិចរបស់វា៖ វារក្សា «ផ្លូវ backup ត្រៀមរួចជាស្រេច» ដូច្នេះបើ link ដាច់ វាប្ដូរភ្លាមៗ ដោយមិនបាច់គណនាឡើងវិញ។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   Cisco’s “best of both”: distance-vector simplicity + link-state speed. The <b>DUAL</b> algorithm precomputes a backup path (the <b>feasible successor</b>) so when the primary (<b>successor</b>) fails it switches instantly — no recalculation storm. Neighbours must share the same <b>AS number</b> to talk.
@@ -440,7 +421,6 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 <!-- ============ BGP ============ -->
 <h2 id="bgp">9 · BGP <span class="kh">— Border Gateway Protocol</span></h2>
 <div class="plain"><span class="label">In plain words</span>BGP is the method that runs the <b>actual Internet</b>. The other three work <b>inside</b> one company; BGP connects whole companies and ISPs <b>to each other</b>. Each company is an “AS” (autonomous system) with a number, and BGP tracks which AS numbers a route passes through.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>BGP ជាវិធីដែលដំណើរការ «Internet ពិតប្រាកដ»។ ៣ មុនទៀតធ្វើការ «ខាងក្នុង» ក្រុមហ៊ុនមួយ; ឯ BGP ភ្ជាប់ក្រុមហ៊ុន និង ISP «ចូលគ្នាទៅវិញទៅមក»។ ក្រុមហ៊ុននីមួយៗជា AS (autonomous system) មានលេខ ហើយ BGP តាមដានថា route ឆ្លងកាត់លេខ AS ណាខ្លះ។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   BGP is the routing protocol <b>between</b> organisations — “the routing protocol of the Internet.” It’s a <b>path-vector</b>: it advertises the full list of <b>AS numbers</b> a route crosses, which is how it detects loops (see your own AS → drop) and applies business policy. It runs over <b>TCP 179</b> (reliable, no flooding). eBGP = between different AS (AD 20); iBGP = inside one AS (AD 200).
@@ -461,7 +441,6 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 <!-- ============ IPsec ============ -->
 <h2 id="ipsec">10 · IPsec site-to-site VPN</h2>
 <div class="plain"><span class="label">In plain words</span>A <b>VPN</b> builds a private, <b>encrypted tunnel</b> across the public Internet so two offices can talk securely as if they were on the same private network — nobody in between can read it. <b>IPsec</b> is the set of rules for building that tunnel. The two routers first agree on the rules (Phase 1), then start encrypting the real data (Phase 2).</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>VPN បង្កើត «ផ្លូវរូងដែលអ៊ីនគ្រីប» ឆ្លងកាត់ Internet សាធារណៈ ដើម្បីឱ្យការិយាល័យពីរនិយាយគ្នាដោយសុវត្ថិភាព ដូចនៅលើ network ឯកជនតែមួយ — គ្មាននរណានៅកណ្ដាលអាចអានបានទេ។ IPsec ជាសំណុំច្បាប់សម្រាប់សាងផ្លូវរូងនោះ។ router ពីរព្រមព្រៀងច្បាប់ជាមុន (Phase 1) រួចចាប់ផ្ដើមអ៊ីនគ្រីបទិន្នន័យពិត (Phase 2)។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   Two routers build an encrypted tunnel across the public Internet in <b>two negotiations</b>. <b>Phase 1 (IKE / ISAKMP)</b> builds a secure <i>management</i> channel and authenticates the peers (think: shake hands privately). <b>Phase 2 (IPsec SA)</b> negotiates how the <i>real user data</i> is encrypted. Both ends must agree on every parameter or Phase 1 never comes up.
@@ -506,7 +485,6 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 <!-- ============ GRE ============ -->
 <h2 id="gre">11 · GRE tunnels <span class="pill">from labs</span></h2>
 <div class="plain"><span class="label">In plain words</span>GRE is a <b>plain tunnel</b> that makes two far-apart routers behave as if a single cable connected them directly. By itself it has <b>no lock</b> (no encryption), so it’s often wrapped inside IPsec to get both: GRE’s flexibility + IPsec’s security.</div>
-<div class="km"><span class="lbl">ខ្មែរ</span>GRE ជា «ផ្លូវរូងធម្មតា» ដែលធ្វើឱ្យ router ពីរនៅឆ្ងាយ ដំណើរការដូចមានខ្សែភ្ជាប់ផ្ទាល់។ ប៉ុន្តែវាគ្មានសោ (គ្មានការអ៊ីនគ្រីប) ដូច្នេះគេតែងដាក់វាក្នុង IPsec ដើម្បីបានទាំងពីរ៖ ភាពបត់បែនរបស់ GRE + សុវត្ថិភាពរបស់ IPsec។</div>
 <div class="concept">
   <span class="label">The mental model</span>
   GRE wraps (encapsulates) one packet inside another so two distant routers act as if directly connected by a virtual point-to-point link. It can carry <b>multicast/routing protocols and non-IP traffic</b> — which plain IPsec can’t — but <b>GRE has no encryption</b>. The common pattern is “GRE over IPsec”: GRE for flexibility, IPsec for security. Protocol number <b>47</b>.

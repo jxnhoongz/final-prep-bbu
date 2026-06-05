@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
 import Sheet from "@/components/Sheet";
-import { bySlug } from "@/lib/subjects";
+import { getSubjectContent } from "@/lib/subjects";
+import type { Locale } from "@/i18n/config";
 
-export const metadata: Metadata = { title: "Cyber Security — Review" };
+const SLUG = "cybersecurity";
 
-export default function Page() {
-  const s = bySlug("cybersecurity")!;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await getLocale()) as Locale;
+  const s = getSubjectContent(SLUG, locale)!;
+  const t = await getTranslations("page");
+  return { title: `${s.title} — ${t("reviewSuffix")}` };
+}
+
+export default async function Page() {
+  const locale = (await getLocale()) as Locale;
+  const s = getSubjectContent(SLUG, locale)!;
   return <Sheet html={s.html} />;
 }

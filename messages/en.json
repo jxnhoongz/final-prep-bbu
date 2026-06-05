@@ -1,0 +1,39 @@
+{
+  "sidebar": {
+    "brand": "Final Exam Prep",
+    "examDate": "17 June 2026",
+    "navigate": "Navigate",
+    "home": "Home",
+    "onThisPage": "On this page",
+    "revealAll": "Reveal all",
+    "hideAll": "Hide all",
+    "print": "Print / PDF",
+    "rememberTitle": "Remember",
+    "rememberNote": "Cover the screen. Answer out loud or on paper before you click reveal. Recognition lies; retrieval is the real test."
+  },
+  "home": {
+    "title": "Final Exam Prep",
+    "subtitle": "Three subjects · handwritten exam · active-recall study sheets",
+    "topicsMeta": "{count} topics →",
+    "methodTitle": "How to use these sheets (the method that fixes recall)",
+    "step1": "<b>Read the concept box first.</b> Each topic opens with the mental model: the <i>why</i>, so facts stick.",
+    "step2": "<b>Then close it and retrieve.</b> Each drill shows a question; the answer is hidden. Say or write your answer <i>before</i> clicking reveal. The struggle to recall is what builds memory; reading the answer does almost nothing.",
+    "step3": "<b>Mark misses, repeat tomorrow.</b> The ones you fail are your real study list. Re-test them, don't re-read them.",
+    "step4": "<b>Write the configs/code by hand.</b> Your exam is handwritten, so practice writing OSPF/Intent/Dart from a blank page, not just recognising them.",
+    "tip": "<b>Spacing beats cramming:</b> three 40-minute retrieval sessions across three days beats one long read the night before. Do one subject per day on rotation, then full mixed review in the last 3 days.",
+    "langTitle": "Language + handwriting practice",
+    "langBody": "Use the <b>language switcher</b> in the sidebar to read every sheet in English or Khmer. Hit <b>Print / PDF</b> to export a print-ready copy (answers auto-revealed) for offline / handwriting practice.",
+    "sourcesTitle": "Sources",
+    "sourcesIntro": "These review sheets were written from our three course documents. Each subject is a condensed, beginner-friendly retelling of its source:",
+    "viewPdf": "View PDF"
+  },
+  "countdown": {
+    "heroUnit": "{days, plural, one {day} other {days}}",
+    "heroUntil": "until your final · 17 June 2026",
+    "today": "Exam is today. You've got this.",
+    "passed": "Exam: 17 June 2026"
+  },
+  "page": {
+    "reviewSuffix": "Review"
+  }
+}

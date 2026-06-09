@@ -10,6 +10,9 @@ import km_mobile from "@/content/km/mobile";
 export type Topic = { id: string; title: string };
 export type Theme = "net" | "cyber" | "mobile";
 
+/** A source document this sheet was built from. `file` is its name under public/sources/. */
+export type SourceDoc = { file: string; label: string };
+
 /** A subject as needed by nav/home: localized labels + derived topics, no body HTML. */
 export type Subject = {
   slug: string;
@@ -20,8 +23,8 @@ export type Subject = {
   short: string;
   bullets: string[];
   topics: Topic[];
-  /** Original course document this review sheet was built from. */
-  source: string;
+  /** Original course documents this review sheet was built from. */
+  sources: SourceDoc[];
 };
 
 /** A subject plus its full localized review document. */
@@ -38,7 +41,7 @@ type SubjectMeta = {
   short: Localized<string>;
   bullets: Localized<string[]>;
   html: Localized<string>;
-  source: string;
+  sources: SourceDoc[];
 };
 
 /** Course names + acronym bullet lists are technical, so they read the same in both locales. */
@@ -66,7 +69,7 @@ const META: SubjectMeta[] = [
       ],
     },
     html: { en: en_internetworking, km: km_internetworking },
-    source: "answer_internetworking.pdf",
+    sources: [{ file: "internetworking.pdf", label: "answer_internetworking.pdf" }],
   },
   {
     slug: "cybersecurity",
@@ -91,7 +94,7 @@ const META: SubjectMeta[] = [
       ],
     },
     html: { en: en_cybersecurity, km: km_cybersecurity },
-    source: "Cybersecurity_Principles_V3.pdf",
+    sources: [{ file: "cybersecurity.pdf", label: "Cybersecurity_Principles_V3.pdf" }],
   },
   {
     slug: "mobile",
@@ -116,7 +119,10 @@ const META: SubjectMeta[] = [
       ],
     },
     html: { en: en_mobile, km: km_mobile },
-    source: "exam_answers_han_vatana_mobile.pdf",
+    sources: [
+      { file: "mobile.pdf", label: "exam_answers_han_vatana_mobile.pdf" },
+      { file: "mobile_preview.pdf", label: "Preview_Final_State_Mobile_Programming_2025_1.pdf" },
+    ],
   },
 ];
 
@@ -147,7 +153,7 @@ function toSubject(m: SubjectMeta, locale: Locale): Subject {
     short: m.short[locale],
     bullets: m.bullets[locale],
     topics: topicsFrom(m.html[locale]),
-    source: m.source,
+    sources: m.sources,
   };
 }
 

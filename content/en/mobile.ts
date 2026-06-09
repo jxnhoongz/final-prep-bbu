@@ -384,6 +384,173 @@ Navigator.pop(context);</pre></div></div>
 <div class="a"><b>Android:</b> move screen with <code>startActivity(new Intent(...))</code>; update by changing views in code. <b>Flutter:</b> move with <code>Navigator.push(...)</code>; update by calling <code>setState()</code> in a StatefulWidget to trigger <code>build()</code>.</div></div>
 </div>
 
-<p class="footnote">Built from the graded Mobile Programming II exam (Build Bright University) — Android intents/lifecycle/manifest + Java class, and Flutter Navigator/StatefulWidget/pubspec + Dart named constructor. Print or “Save as PDF” reveals every answer.</p>
+<!-- ===================================================================== -->
+<!-- PROFESSOR'S FINAL PREVIEW — extra concepts added on top              -->
+<!-- ===================================================================== -->
+<h2 id="preview">16 · From the professor’s final preview — extra concepts</h2>
+<p class="lead">These cover the rest of your professor’s preview: the “What is…?” list, state management, networking, storage, scaffold, and the two practice tasks. Same rule as the whole sheet — <b>understand the idea, don’t memorise the wording</b>. Where the exam’s expected answer is loosely worded, there’s a small <span style="color:var(--warn)">exam watch-out</span>.</p>
+
+<div class="concept">
+  <span class="label">The mental model for every “What is X?”</span>
+  Each term is really asking “what job does this do?” Keep this map: a <b>platform</b> is where your app runs (Android), an <b>SDK</b> is a box of tools to build for a platform, a <b>language</b> is what you write in (Java, Dart), and a <b>backend service</b> is someone else’s server you rent instead of building your own.
+</div>
+<table>
+<thead><tr><th>Term</th><th>What it actually is</th></tr></thead>
+<tbody>
+<tr><td><b>Android</b></td><td>Google’s mobile <b>operating system</b> + platform — what runs your app on phones/tablets.</td></tr>
+<tr><td><b>JDK</b></td><td><b>Java Development Kit</b>: the toolbox to compile + run Java (compiler, libraries, JVM). Android-in-Java needs it.</td></tr>
+<tr><td><b>SDK</b></td><td><b>Software Development Kit</b>: a kit of tools + libraries + docs for building on a platform (“Android SDK”, “Flutter SDK”).</td></tr>
+<tr><td><b>Flutter SDK</b></td><td>Google’s toolkit to build <b>one app for Android, iOS, web &amp; desktop</b> from a single <b>Dart</b> codebase (widgets, engine, CLI, hot reload).</td></tr>
+<tr><td><b>Firebase</b></td><td>Google’s <b>backend-as-a-service</b>: ready-made auth, database (Firestore), storage, hosting, push — so you don’t build/run a server.</td></tr>
+</tbody>
+</table>
+<div class="why"><span class="label">Exam watch-out</span> The multiple-choice asks “JDK stands for…?” and wants <b>“Software Development Kit.”</b> Pick that option, but know it’s precisely the <b>Java</b> Development Kit — the Java toolchain.</div>
+<div class="drill"><div class="q">One line each: what is Android, JDK, an SDK, and Firebase?</div>
+<div class="a"><b>Android</b> = Google’s mobile OS your app runs on. <b>JDK</b> = the kit to compile/run Java. <b>SDK</b> = a toolbox of libraries/tools to build for a platform. <b>Firebase</b> = Google’s ready-made backend (auth, database, storage) used instead of building a server.</div></div>
+<div class="drill"><div class="q">What is the Flutter SDK, and what language does it use?</div>
+<div class="a">The toolkit to build <b>one app for many platforms</b> (Android/iOS/web/desktop) from a single codebase. Language: <b>Dart</b>.</div></div>
+
+<h2 id="why-flutter">17 · Why Flutter? (and who made it) <span class="tag-f" style="vertical-align:middle">Flutter</span></h2>
+<div class="concept">
+  <span class="label">The mental model</span>
+  Normally you’d build an Android app and a <b>separate</b> iOS app — two codebases. Flutter’s pitch: <b>write once, run on Android + iOS + web + desktop</b>. It draws its own widgets so the UI looks consistent everywhere, and <b>hot reload</b> shows changes in under a second. Made by <b>Google</b>, written in <b>Dart</b>.
+</div>
+<div class="drill"><div class="q">Why do teams pick Flutter? Core reason + two perks.</div>
+<div class="a">Core: <b>one codebase → many platforms</b>, no double work. Perks: <b>hot reload</b> (instant changes), a rich consistent <b>widget</b> set, near-native performance.</div></div>
+<div class="drill"><div class="q">Who developed Flutter, and in what language do you write it?</div>
+<div class="a"><b>Google</b> · language is <b>Dart</b>.</div></div>
+
+<h2 id="state-mgmt">18 · State management: setState → Provider → GetX, &amp; MVVM <span class="tag-f" style="vertical-align:middle">Flutter</span></h2>
+<div class="concept">
+  <span class="label">The mental model</span>
+  “State” = the data your UI shows. In a tiny app <code>setState()</code> redraws <b>one</b> widget. But when many screens need the same data (logged-in user, cart, theme), passing it by hand and calling setState everywhere gets tangled. <b>State management solves one problem: hold the data in one place and let any widget read/update it without manual wiring.</b>
+</div>
+<table>
+<thead><tr><th>Approach</th><th>What it does / when</th></tr></thead>
+<tbody>
+<tr><td><code>setState()</code></td><td>Built-in. Local state inside <b>one</b> StatefulWidget. Simple; doesn’t share across screens.</td></tr>
+<tr><td><b>Provider</b></td><td>The Flutter-team-recommended way to <b>share state down the widget tree</b>. You “provide” a model at the top; widgets “watch” it and rebuild when it changes. Explicit, a bit more boilerplate.</td></tr>
+<tr><td><b>GetX</b></td><td>All-in-one package: <b>state + navigation + dependency injection</b>. Reactive (<code>.obs</code> + <code>Obx</code>), very little boilerplate, no <code>context</code> needed for routing. More “magic”, less explicit.</td></tr>
+</tbody>
+</table>
+<div class="concept">
+  <span class="label">MVVM — the pattern behind it</span>
+  <b>MVVM = Model–View–ViewModel</b>: a way to <b>separate UI from logic</b>. <b>Model</b> = the data, <b>View</b> = the widgets the user sees, <b>ViewModel</b> = the logic/state the View binds to (no UI code). The View just displays the ViewModel and sends it events. Provider/GetX are the tools you use to wire MVVM together.
+</div>
+<div class="drill"><div class="q">What problem do Provider/GetX solve that <code>setState</code> doesn’t?</div>
+<div class="a"><code>setState</code> only updates <b>one widget’s local state</b>. Provider/GetX keep shared data in <b>one place</b> so <b>any widget across the app</b> can read and react to it, without threading it through every constructor.</div></div>
+<div class="drill"><div class="q">Compare Provider and GetX (boilerplate · scope · style).</div>
+<div class="a"><b>Boilerplate:</b> Provider more, GetX terse. <b>Scope:</b> Provider = state only; GetX = state + routing + DI. <b>Style:</b> Provider explicit (you see the wiring); GetX hides more (reactive <code>.obs</code>, no <code>context</code> for nav). Neither is “correct” — Provider favours clarity, GetX favours speed.</div></div>
+<div class="drill"><div class="q">What does MVVM stand for and what lives in each part?</div>
+<div class="a"><b>Model</b> = data · <b>View</b> = the UI/widgets · <b>ViewModel</b> = logic + state the View binds to (no UI). Goal: keep UI and logic separate so each is testable and reusable.</div></div>
+
+<h2 id="networking">19 · Talking to a server: http vs https <span class="tag-a" style="vertical-align:middle">Android</span> <span class="tag-f" style="vertical-align:middle">Flutter</span></h2>
+<div class="concept">
+  <span class="label">The mental model</span>
+  Your app asks a server for data with an <b>HTTP request</b> (<b>GET</b> to read, <b>POST</b> to send) and gets a <b>response</b> back (usually JSON). <b>HTTP</b> sends it as plain text; <b>HTTPS</b> is the same but <b>encrypted with TLS</b> — the “S” is <b>Secure</b> (the padlock). Use HTTPS for real data. On Android you also need the INTERNET permission.
+</div>
+<table>
+<thead><tr><th>Need</th><th>Android (Java)</th><th>Flutter (Dart)</th></tr></thead>
+<tbody>
+<tr><td>Call a REST API</td><td><b>Retrofit</b> (or HttpURLConnection)</td><td>the <b><code>http</code></b> package (or Dio)</td></tr>
+<tr><td>Permission to use the network</td><td>INTERNET in the manifest</td><td>—</td></tr>
+</tbody>
+</table>
+<div class="drill"><div class="q">Difference between http and https?</div>
+<div class="a">Both carry web requests; <b>https = http + TLS encryption</b>. HTTP is plain text (readable if intercepted); HTTPS is <b>encrypted &amp; authenticated</b> (“S” = Secure). Use HTTPS for anything sensitive.</div></div>
+<div class="drill"><div class="q">Your Android app must call a web API — name a request library and the required permission.</div>
+<div class="a">Library: <b>Retrofit</b> (or HttpURLConnection / OkHttp). Permission: <code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;</code>. Flutter equivalent: the <code>http</code> package.</div></div>
+
+<h2 id="storage-l10n">20 · Local storage &amp; changing language <span class="tag-f" style="vertical-align:middle">Flutter</span></h2>
+<div class="concept">
+  <span class="label">The mental model</span>
+  <b>Local storage</b> = saving data <b>on the device</b> so it survives restarts (a token, settings, a small cache) — no server. It’s for <b>small key-value</b> data, not big/relational data (use a database for that). Android: <b>SharedPreferences</b>; Flutter: the <b>shared_preferences</b> / localstorage package. Separately, <b>easy_localization</b> is the package that lets the app <b>switch languages</b>.
+</div>
+<table>
+<thead><tr><th>Job</th><th>Tool</th></tr></thead>
+<tbody>
+<tr><td>Persist small data on the device</td><td>Android: SharedPreferences · Flutter: shared_preferences / localstorage</td></tr>
+<tr><td>Support multiple languages (change language)</td><td>Flutter: <b>easy_localization</b></td></tr>
+</tbody>
+</table>
+<div class="drill"><div class="q">What is local storage for, and what should you NOT use it for?</div>
+<div class="a">For <b>small data that must persist on the device</b> across restarts (login token, settings). <b>Not</b> for large or relational datasets — use a database for those.</div></div>
+<div class="drill"><div class="q">Which Flutter package changes the app’s language, and which stores small data locally?</div>
+<div class="a"><b>easy_localization</b> → change language. <b>shared_preferences</b> (or localstorage) → store small key-value data on the device.</div></div>
+
+<h2 id="scaffold">21 · Scaffold — the Flutter page skeleton <span class="tag-f" style="vertical-align:middle">Flutter</span></h2>
+<div class="concept">
+  <span class="label">The mental model</span>
+  Every Material screen sits inside a <b>Scaffold</b> — the <b>skeleton that gives you the standard page slots</b>: <code>appBar</code> (top bar), <code>body</code> (content), <code>floatingActionButton</code>, <code>drawer</code> (side menu), <code>bottomNavigationBar</code>. You don’t position these by hand; Scaffold lays them out.
+</div>
+<div class="codewrap"><div class="cap">A minimal screen</div>
+<pre><span class="ty">Scaffold</span>(
+  appBar: <span class="ty">AppBar</span>(title: <span class="ty">Text</span>(<span class="st">"Home"</span>)),
+  body: <span class="ty">Center</span>(child: <span class="ty">Text</span>(<span class="st">"Hello"</span>)),
+);</pre></div>
+<div class="drill"><div class="q">What is a Scaffold? Name three slots it provides.</div>
+<div class="a">The <b>basic Material page structure</b> for a screen. Slots (any three): <b>appBar</b>, <b>body</b>, <b>floatingActionButton</b>, <b>drawer</b>, <b>bottomNavigationBar</b>.</div></div>
+
+<h2 id="practice">22 · Practice — write these from a blank page</h2>
+<p class="lead">The preview’s “Practice” section. Build each from memory: understand the shape first, then the code.</p>
+<div class="exam">
+<div class="concept"><span class="label">Task 1 — Java <code>Employee</code> class (fields + constructor + getters &amp; setters)</span>
+A class bundles <b>data (fields)</b> with <b>a way to build it (constructor)</b> and <b>controlled access (getters/setters)</b>. Fields are <code>private</code> so outside code goes through getters/setters — that’s <b>encapsulation</b>, which lets the class validate and change its internals safely.</div>
+<div class="codewrap"><div class="cap">Employee: id, name, phone, gender</div>
+<pre><span class="kw">public class</span> <span class="ty">Employee</span> {
+    <span class="kw">private</span> <span class="ty">int</span> id;
+    <span class="kw">private</span> <span class="ty">String</span> name;
+    <span class="kw">private</span> <span class="ty">String</span> phone;
+    <span class="kw">private</span> <span class="ty">String</span> gender;
+
+    <span class="kw">public</span> <span class="ty">Employee</span>(<span class="ty">int</span> id, <span class="ty">String</span> name, <span class="ty">String</span> phone, <span class="ty">String</span> gender) {
+        <span class="kw">this</span>.id = id;
+        <span class="kw">this</span>.name = name;
+        <span class="kw">this</span>.phone = phone;
+        <span class="kw">this</span>.gender = gender;
+    }
+
+    <span class="kw">public</span> <span class="ty">int</span> getId() { <span class="kw">return</span> id; }
+    <span class="kw">public void</span> setId(<span class="ty">int</span> id) { <span class="kw">this</span>.id = id; }
+
+    <span class="kw">public</span> <span class="ty">String</span> getName() { <span class="kw">return</span> name; }
+    <span class="kw">public void</span> setName(<span class="ty">String</span> name) { <span class="kw">this</span>.name = name; }
+
+    <span class="kw">public</span> <span class="ty">String</span> getPhone() { <span class="kw">return</span> phone; }
+    <span class="kw">public void</span> setPhone(<span class="ty">String</span> phone) { <span class="kw">this</span>.phone = phone; }
+
+    <span class="kw">public</span> <span class="ty">String</span> getGender() { <span class="kw">return</span> gender; }
+    <span class="kw">public void</span> setGender(<span class="ty">String</span> gender) { <span class="kw">this</span>.gender = gender; }
+}</pre></div>
+<div class="drill"><div class="q">Why <code>private</code> fields with public getters/setters instead of public fields?</div>
+<div class="a"><b>Encapsulation</b>: hiding the fields lets the class <b>control and validate</b> access (e.g. reject a bad phone in a setter) and change its internals later without breaking callers.</div></div>
+
+<div class="concept"><span class="label">Task 2 — Flutter exception class for a server-connection error</span>
+A custom exception is just a <b>class that implements <code>Exception</code></b> carrying a message. You <code>throw</code> it when a network call fails, and <code>catch</code> it where you call the API, so the UI shows a friendly error instead of crashing.</div>
+<div class="codewrap"><div class="cap">Define, throw, and catch a connection exception</div>
+<pre><span class="kw">class</span> <span class="ty">ServerConnectionException</span> <span class="kw">implements</span> <span class="ty">Exception</span> {
+  <span class="kw">final</span> <span class="ty">String</span> message;
+  <span class="ty">ServerConnectionException</span>(<span class="kw">this</span>.message);
+
+  <span class="kw">@override</span>
+  <span class="ty">String</span> toString() => <span class="st">"ServerConnectionException: \$message"</span>;
+}
+
+<span class="cm">// use it</span>
+<span class="ty">Future</span>&lt;<span class="kw">void</span>&gt; loadData() <span class="kw">async</span> {
+  <span class="kw">try</span> {
+    <span class="kw">final</span> res = <span class="kw">await</span> http.get(url);
+    <span class="kw">if</span> (res.statusCode != 200) {
+      <span class="kw">throw</span> <span class="ty">ServerConnectionException</span>(<span class="st">"Failed: \${res.statusCode}"</span>);
+    }
+  } <span class="kw">catch</span> (e) {
+    <span class="kw">throw</span> <span class="ty">ServerConnectionException</span>(<span class="st">"Cannot reach server"</span>);
+  }
+}</pre></div>
+<div class="drill"><div class="q">How do you make a custom exception in Flutter, and handle it when a server call fails?</div>
+<div class="a">Make a class that <code>implements Exception</code> with a message; <code>throw</code> it on failure. Wrap the network call in <code>try { } catch (e) { }</code> and handle/rethrow so the UI shows an error instead of crashing.</div></div>
+</div>
+
+<p class="footnote">Built from the graded Mobile Programming II exam <b>and the professor’s final-exam preview</b> (Build Bright University) — Android lifecycle/intents/manifest + Java classes, Flutter widgets/Navigator/Scaffold + Dart, plus state management (Provider/GetX/MVVM), networking (http/https), local storage and localisation. Print or “Save as PDF” reveals every answer.</p>
 `;
 export default html;

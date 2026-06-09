@@ -65,15 +65,21 @@ export default async function Home() {
           {subjects.map((s) => (
             <li key={s.slug} className={`source-item ${s.theme}`}>
               <span className="subj">{s.title}</span>
-              <span className="file">{s.source}</span>
-              <a
-                className="source-view"
-                href={`/sources/${s.slug}.pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("viewPdf")}
-              </a>
+              <span className="source-docs">
+                {s.sources.map((doc) => (
+                  <span className="source-doc" key={doc.file}>
+                    <span className="file">{doc.label}</span>
+                    <a
+                      className="source-view"
+                      href={`/sources/${doc.file}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t("viewPdf")}
+                    </a>
+                  </span>
+                ))}
+              </span>
             </li>
           ))}
         </ul>

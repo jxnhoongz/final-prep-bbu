@@ -10,6 +10,16 @@ const html = `
   <span class="label">The mental model</span>
   Android constantly creates, pauses, and destroys your screen to manage memory and interruptions (calls, rotation, switching apps). Each transition fires a callback so you can <b>save/release at the right moment</b>. Read it as a staircase up to “visible &amp; interactive,” then back down. <span class="mnemonic">Create → Start → Resume … Pause → Stop → Destroy.</span>
 </div>
+<div class="figure"><div class="figcap">Picture it — a staircase up to RUNNING, then back down</div>
+<div class="figbox"><div class="lc">
+  <div class="lc-step" style="--i:0"><span class="lc-dir">↗</span><span class="lc-name">onCreate()</span><span class="lc-note">build UI · setContentView · init once</span></div>
+  <div class="lc-step" style="--i:1"><span class="lc-dir">↗</span><span class="lc-name">onStart()</span><span class="lc-note">becoming visible</span></div>
+  <div class="lc-step lc-peak" style="--i:2"><span class="lc-dir">●</span><span class="lc-name">onResume()</span><span class="lc-note">RUNNING — visible &amp; interactive</span></div>
+  <div class="lc-step" style="--i:2"><span class="lc-dir">↘</span><span class="lc-name">onPause()</span><span class="lc-note">losing focus — save light state</span></div>
+  <div class="lc-step" style="--i:1"><span class="lc-dir">↘</span><span class="lc-name">onStop()</span><span class="lc-note">no longer visible — release resources</span></div>
+  <div class="lc-step" style="--i:0"><span class="lc-dir">↘</span><span class="lc-name">onDestroy()</span><span class="lc-note">activity gone (finish / system kill)</span></div>
+  <div class="lc-branch">Coming back after onStop loops up: <code>onRestart()</code> → <code>onStart()</code> → <code>onResume()</code>.</div>
+</div></div></div>
 <table>
 <thead><tr><th>Callback</th><th>Fires when</th></tr></thead>
 <tbody>
@@ -60,6 +70,12 @@ const html = `
   <span class="label">The mental model</span>
   An Intent is a <b>message that asks the system to start something</b>. <b>Explicit</b> = you name the exact target class (your own screens). <b>Implicit</b> = you describe an action (“open a web page”) and let the OS pick an app. To switch screens you build an explicit Intent and call <code>startActivity</code>.
 </div>
+<div class="figure"><div class="figcap">Two kinds of Intent — name the target, or name the action</div>
+<div class="figbox"><div class="tree">
+<div class="tree-row"><b>Intent</b><span class="twig"> — "start something"</span></div>
+<div class="tree-row"><span class="twig">├─ </span><b>Explicit</b><span class="twig">  → you name the class → LoginActivity (your own screen)</span></div>
+<div class="tree-row"><span class="twig">└─ </span><b>Implicit</b><span class="twig">  → you name an action → OS picks an app → Browser / Maps / Dialer</span></div>
+</div></div></div>
 <div class="codewrap"><div class="cap">Open another activity (explicit intent) — memorise this</div>
 <pre><span class="ty">Intent</span> intent = <span class="kw">new</span> <span class="ty">Intent</span>(MainActivity.<span class="kw">this</span>, LoginActivity.<span class="kw">class</span>);
 startActivity(intent);</pre></div>
@@ -119,6 +135,17 @@ startActivity(intent);</pre></div></div>
   <span class="label">The mental model</span>
   In Flutter <b>everything is a widget</b> — layout, text, padding, the whole screen — composed into a tree. The framework calls your <code>build()</code> to (re)draw the UI from current data. The big distinction: <b>StatelessWidget</b> never changes after build; <b>StatefulWidget</b> holds mutable state and redraws when you call <code>setState()</code>. <span class="mnemonic">Data changes → setState() → build() runs again → UI updates.</span>
 </div>
+<div class="figure"><div class="figcap">The redraw loop — why a StatefulWidget updates</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">data changes</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">setState()</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">build()</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">UI updates</span>
+  <span class="flow-loop">↺ Every tap/change calls setState() → Flutter re-runs build() → the screen redraws. A StatelessWidget skips this loop.</span>
+</div></div></div>
 <table>
 <thead><tr><th>Concept</th><th>Meaning</th></tr></thead>
 <tbody>
@@ -147,6 +174,14 @@ startActivity(intent);</pre></div></div>
   <span class="label">The mental model</span>
   Flutter manages screens as a <b>stack of routes</b>. <code>push</code> puts a new screen on top; <code>pop</code> removes the top to go back. This is the Flutter equivalent of Android’s startActivity / back button.
 </div>
+<div class="figure"><div class="figcap">A stack of screens — push adds on top, pop removes the top</div>
+<div class="figbox"><div class="stack">
+  <div class="stack-item is-top"><span>DetailScreen</span><span class="stack-tag">← top · visible now</span></div>
+  <div class="stack-item"><span>ListScreen</span><span class="stack-tag">push ↑ / pop ↓</span></div>
+  <div class="stack-item"><span>HomeScreen</span><span class="stack-tag">bottom · first route</span></div>
+</div>
+<div class="lc-branch"><code>Navigator.push</code> drops a new screen on top (it becomes visible); <code>Navigator.pop</code> lifts the top off, revealing the one beneath. Same idea as Android’s back stack.</div>
+</div></div>
 <div class="codewrap"><div class="cap">Go to another screen / go back — memorise both</div>
 <pre><span class="cm">// push a new screen onto the stack</span>
 Navigator.push(
@@ -285,6 +320,16 @@ prefs.edit().putString(<span class="st">"token"</span>, <span class="st">"abc123
   <span class="label">The mental model</span>
   You build screens by <b>nesting layout widgets</b>: <b>Column</b> stacks children vertically, <b>Row</b> horizontally, <b>Container</b> is a box (padding/margin/color), <b>ListView</b> scrolls. To send data to a new screen you pass it through the screen’s <b>constructor</b>; to get a value <b>back</b>, <code>await</code> the push and <code>pop</code> with a value.
 </div>
+<div class="figure"><div class="figcap">Everything is a widget — a screen is a tree of them</div>
+<div class="figbox"><div class="tree">
+<div class="tree-row"><b>MaterialApp</b><span class="twig">          — app root</span></div>
+<div class="tree-row"><span class="twig">└─ </span><b>Scaffold</b><span class="twig">          — page skeleton</span></div>
+<div class="tree-row"><span class="twig">   ├─ </span><b>AppBar</b><span class="twig">         — top bar</span></div>
+<div class="tree-row"><span class="twig">   └─ </span>body: <b>Column</b><span class="twig">   — stacks children vertically</span></div>
+<div class="tree-row"><span class="twig">      ├─ </span>Text<span class="twig">         — a child widget</span></div>
+<div class="tree-row"><span class="twig">      ├─ </span>Row<span class="twig">          — children side by side</span></div>
+<div class="tree-row"><span class="twig">      └─ </span>ElevatedButton<span class="twig"></span></div>
+</div></div></div>
 <table>
 <thead><tr><th>Widget</th><th>Arranges</th></tr></thead>
 <tbody>
@@ -323,6 +368,17 @@ ListView.builder(
   <span class="label">The mental model</span>
   <b>var</b> = type inferred, reassignable. <b>final</b> = set once (at runtime). <b>const</b> = compile-time constant. <b>Null safety:</b> <code>String</code> can never be null; <code>String?</code> can. Long-running work returns a <b>Future</b> (a value that arrives later) — mark the function <code>async</code> and <code>await</code> the result.
 </div>
+<div class="figure"><div class="figcap">await — pause here until the Future arrives, then continue</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">call fetchFromApi()</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">⏳ Future pending…</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">await gives the value</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">next line runs</span>
+  <span class="flow-loop">A Future = a value that arrives later. <code>await</code> (inside an <code>async</code> function) waits without freezing the app, so the code still reads top-to-bottom.</span>
+</div></div></div>
 <div class="codewrap"><div class="cap">Variables, collections, null safety, async</div>
 <pre><span class="kw">var</span> name = <span class="st">"Vatana"</span>;        <span class="cm">// inferred String, reassignable</span>
 <span class="kw">final</span> id = 1;               <span class="cm">// set once</span>
@@ -437,6 +493,15 @@ Navigator.pop(context);</pre></div></div>
   <span class="label">MVVM — the pattern behind it</span>
   <b>MVVM = Model–View–ViewModel</b>: a way to <b>separate UI from logic</b>. <b>Model</b> = the data, <b>View</b> = the widgets the user sees, <b>ViewModel</b> = the logic/state the View binds to (no UI code). The View just displays the ViewModel and sends it events. Provider/GetX are the tools you use to wire MVVM together.
 </div>
+<div class="figure"><div class="figcap">MVVM — keep the UI and the logic apart</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">View (widgets)</span>
+  <span class="flow-arrow">⇄</span>
+  <span class="flow-node">ViewModel (logic + state)</span>
+  <span class="flow-arrow">⇄</span>
+  <span class="flow-node is-plain">Model (data)</span>
+  <span class="flow-loop">The <b>View</b> shows the ViewModel &amp; sends it events; the <b>ViewModel</b> holds state and talks to the <b>Model</b> (data). No UI code in the ViewModel. Provider/GetX wire it together.</span>
+</div></div></div>
 <div class="drill"><div class="q">What problem do Provider/GetX solve that <code>setState</code> doesn’t?</div>
 <div class="a"><code>setState</code> only updates <b>one widget’s local state</b>. Provider/GetX keep shared data in <b>one place</b> so <b>any widget across the app</b> can read and react to it, without threading it through every constructor.</div></div>
 <div class="drill"><div class="q">Compare Provider and GetX (boilerplate · scope · style).</div>
@@ -449,6 +514,15 @@ Navigator.pop(context);</pre></div></div>
   <span class="label">The mental model</span>
   Your app asks a server for data with an <b>HTTP request</b> (<b>GET</b> to read, <b>POST</b> to send) and gets a <b>response</b> back (usually JSON). <b>HTTP</b> sends it as plain text; <b>HTTPS</b> is the same but <b>encrypted with TLS</b> — the “S” is <b>Secure</b> (the padlock). Use HTTPS for real data. On Android you also need the INTERNET permission.
 </div>
+<div class="figure"><div class="figcap">App ⇄ Server — and what the “S” adds</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">Your app</span>
+  <span class="flow-arrow">— GET / POST →</span>
+  <span class="flow-node">Server</span>
+  <span class="flow-arrow">← JSON —</span>
+  <span class="flow-node is-plain">response</span>
+  <span class="flow-loop">🔒 <b>https = http + TLS encryption</b> (“S” = Secure). Plain http is readable if intercepted. Android also needs the INTERNET permission.</span>
+</div></div></div>
 <table>
 <thead><tr><th>Need</th><th>Android (Java)</th><th>Flutter (Dart)</th></tr></thead>
 <tbody>
@@ -483,6 +557,14 @@ Navigator.pop(context);</pre></div></div>
   <span class="label">The mental model</span>
   Every Material screen sits inside a <b>Scaffold</b> — the <b>skeleton that gives you the standard page slots</b>: <code>appBar</code> (top bar), <code>body</code> (content), <code>floatingActionButton</code>, <code>drawer</code> (side menu), <code>bottomNavigationBar</code>. You don’t position these by hand; Scaffold lays them out.
 </div>
+<div class="figure"><div class="figcap">A Scaffold gives every screen the same labelled slots</div>
+<div class="figbox"><div class="skel">
+  <div class="skel-bar">appBar — top bar</div>
+  <div class="skel-body">body — your content<div class="skel-fab">+</div></div>
+  <div class="skel-nav">bottomNavigationBar</div>
+</div>
+<div class="lc-branch">The “+” is the <code>floatingActionButton</code>; a swipe-in side menu is the <code>drawer</code>. You fill the slots — Scaffold positions them.</div>
+</div></div>
 <div class="codewrap"><div class="cap">A minimal screen</div>
 <pre><span class="ty">Scaffold</span>(
   appBar: <span class="ty">AppBar</span>(title: <span class="ty">Text</span>(<span class="st">"Home"</span>)),

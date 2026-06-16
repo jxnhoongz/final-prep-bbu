@@ -9,6 +9,12 @@ const html = `
   <span class="label">គំរូគំនិត (mental model)</span>
   រាល់ security control សុទ្ធតែមានដើម្បីការពារលក្ខណៈមួយក្នុងចំណោមបីយ៉ាង។ ពេលគេសួរថា “ហេតុអ្វីបានជា X សំខាន់” ចូរផ្គូផ្គងវាទៅនឹងអក្សរណាមួយ។ <b>C</b>onfidentiality = មានតែអ្នកមានសិទ្ធិទេទើបអាចអានបាន។ <b>I</b>ntegrity = ទិន្នន័យមិនត្រូវបានកែប្រែដោយគ្មានការរកឃើញ។ <b>A</b>vailability = វាមាននៅពេលត្រូវការ។ ការវាយប្រហារ និង controls គឺគ្រាន់តែជារបស់ដែលបំផ្លាញ ឬការពារមួយក្នុងចំណោមទាំងបីនេះ។
 </div>
+<div class="figure"><div class="figcap">△ CIA — រាល់ control ការពារ​មួយ​ក្នុង​ចំណោម​បី</div>
+<div class="figbox"><div class="triad">
+  <div class="triad-col"><div class="triad-letter">C</div><div class="triad-name">Confidentiality</div><div class="triad-sub">មាន​តែ​អ្នក​មាន​សិទ្ធិ​អាន · បំផ្លាញ​ដោយ sniffing/លួច</div></div>
+  <div class="triad-col"><div class="triad-letter">I</div><div class="triad-name">Integrity</div><div class="triad-sub">ទិន្នន័យ​មិន​កែ · បំផ្លាញ​ដោយ tampering/MITM</div></div>
+  <div class="triad-col"><div class="triad-letter">A</div><div class="triad-name">Availability</div><div class="triad-sub">មាន​ពេល​ត្រូវការ · បំផ្លាញ​ដោយ DoS/ខូច</div></div>
+</div></div></div>
 <table>
 <thead><tr><th>លក្ខណៈ</th><th>គោលដៅ</th><th>Controls ធម្មតា</th><th>បំផ្លាញដោយ</th></tr></thead>
 <tbody>
@@ -28,6 +34,15 @@ const html = `
   <span class="label">គំរូគំនិត — កុំច្រឡំជាមួយ types ទាំង 6</span>
   មានសំណួរពីរផ្សេងគ្នាដែលគេសួរអំពីរាល់ control។ <b>Group = អ្នកណា/អ្វីដែលអនុវត្តវា (WHO/WHAT)</b> (ម៉ាស៊ីន? អ្នកគ្រប់គ្រង? ទម្លាប់ប្រចាំថ្ងៃរបស់មនុស្ស? ជញ្ជាំង?)។ <b>Type = ការងារអ្វីដែលវាធ្វើ (WHAT JOB)</b> (បញ្ឈប់ / បន្ថយចំណង់ / រកឃើញ / ជួសជុល…)។ Control មួយមាន group មួយ និង type មួយ — ឧ. firewall គឺ <i>Technical</i> (group) + <i>Preventive</i> (type)។ ត្រូវបំបែកអ័ក្ស (axes) ទាំងពីរនេះក្នុងគំនិតរបស់អ្នកឲ្យដាច់។ <span class="mnemonic">Groups៖ “Tech Managers Operate Physically” → Technical, Managerial, Operational, Physical។</span>
 </div>
+<div class="figure"><div class="figcap">រាល់ control មាន​ស្លាក​ពីរ — កុំ​លាយ​អ័ក្ស</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">Firewall មួយ</span>
+  <span class="flow-arrow">=</span>
+  <span class="flow-node">Group: Technical</span>
+  <span class="flow-arrow">+</span>
+  <span class="flow-node">Type: Preventive</span>
+  <span class="flow-loop"><b>Group</b> = អ្នកណា/អ្វី​អនុវត្ត (Technical · Managerial · Operational · Physical)។ <b>Type</b> = ការងារ​អ្វី (Preventive · Deterrent · Detective · Corrective · Compensating · Directive)។ Control មួយ​មាន​មួយៗ។</span>
+</div></div></div>
 <table>
 <thead><tr><th>Group</th><th>អនុវត្តដោយ</th><th>ឧទាហរណ៍</th></tr></thead>
 <tbody>
@@ -48,6 +63,22 @@ const html = `
   <span class="label">គំរូគំនិត — បន្ទាត់ពេលវេលា (timeline)</span>
   ដាក់ប្រភេទនីមួយៗលើបន្ទាត់ពេលវេលានៃការវាយប្រហារ។ <b>មុន៖</b> Preventive (ទប់ស្កាត់វា), Deterrent (បន្ថយចំណង់ចង់សាកល្បង), Directive (ប្រាប់មនុស្សពីអ្វីដែលត្រូវធ្វើ)។ <b>ពេលកំពុង៖</b> Detective (កត់សម្គាល់ពេលវាកំពុងកើតឡើង)។ <b>ក្រោយ៖</b> Corrective (ជួសជុល/ស្តារ)។ <b>ចំហៀង៖</b> Compensating (ជំនួសពេលអ្នកមិនអាចប្រើ control ល្អបំផុតបាន)។
 </div>
+<div class="figure"><div class="figcap">ដាក់​ប្រភេទ​នីមួយៗ​លើ​បន្ទាត់​ពេលវេលា</div>
+<div class="figbox"><div class="timeline">
+  <div class="tl-phase"><div class="tl-when">មុន</div>
+    <span class="tl-item">Preventive <span>— ទប់​ស្កាត់</span></span>
+    <span class="tl-item">Deterrent <span>— បន្ថយ​ចំណង់</span></span>
+    <span class="tl-item">Directive <span>— ប្រាប់​ឲ្យ​ធ្វើ</span></span>
+  </div>
+  <div class="tl-phase"><div class="tl-when">ពេល​កំពុង</div>
+    <span class="tl-item">Detective <span>— កត់​សម្គាល់</span></span>
+  </div>
+  <div class="tl-phase"><div class="tl-when">ក្រោយ</div>
+    <span class="tl-item">Corrective <span>— ជួសជុល / ស្តារ</span></span>
+  </div>
+</div>
+<div class="lc-branch"><b>Compensating</b> នៅ​ចំហៀង — ជំនួស​ពេល​មិន​ទាន់​អាច​ប្រើ control ល្អ​បំផុត។</div>
+</div></div>
 <table>
 <thead><tr><th>ប្រភេទ</th><th>ការងារ</th><th>ឧទាហរណ៍</th></tr></thead>
 <tbody>
@@ -145,6 +176,15 @@ const html = `
   <span class="label">គំរូគំនិត</span>
   ចាត់ក្រុមការវាយប្រហារតាមអ្វីដែលវាសំដៅ៖ <b>network/traffic</b>, <b>credentials</b>, <b>ផ្លូវចូល</b> (ទ្វារ), <b>software ខ្លួនឯង</b> (malware), ឬ <b>availability</b> (ការបំពេញលើស)។ ការដឹងពីក្រុមធ្វើឲ្យបញ្ជីងាយចងចាំ។
 </div>
+<div class="figure"><div class="figcap">DoS ធៀប DDoS — អ្នក​វាយ​ម្នាក់ ឬ​ទ័ព</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">zombie</span>
+  <span class="flow-node">zombie</span>
+  <span class="flow-node">zombie</span>
+  <span class="flow-arrow">→ បំពេញ​លើស →</span>
+  <span class="flow-node is-plain">Target ✕</span>
+  <span class="flow-loop"><b>DoS</b> = ប្រភព​មួយ​បំពេញ​លើស។ <b>DDoS</b> = ប្រភព​ច្រើន (<b>botnet</b> នៃ zombie ខាង​លើ) បំពេញ​លើស​ព្រម​គ្នា — ពិបាក​ទប់, ខ្លាំង​ជាង។ ទាំង​ពីរ​វាយ <b>Availability</b>។</span>
+</div></div></div>
 <table>
 <thead><tr><th>វិធីសាស្ត្រ</th><th>វាជាអ្វី</th></tr></thead>
 <tbody>
@@ -170,6 +210,19 @@ const html = `
   <span class="label">គំរូគំនិត</span>
   Kali = distro មូលដ្ឋានលើ Debian ដែលដំឡើង security tools ស្រាប់ (“កាំបិត Swiss-army”)។ Workflow ដែលពាក់ព័ន្ធនឹងការប្រឡង៖ <b>ទាញវាដោយសុវត្ថិភាព (verify download)</b> → <b>ដំណើរការវា (VM / live boot)</b> → <b>រកឃើញ hosts (arp-scan)</b> → <b>ស្ទង់ target (nmap)</b> → <b>រក្សាវាឲ្យ updated</b> — ទាំងអស់ <b>តែលើប្រព័ន្ធដែលអ្នកជាម្ចាស់ ឬមានការអនុញ្ញាតឲ្យសាកល្បង</b> ប៉ុណ្ណោះ។
 </div>
+<div class="figure"><div class="figcap">Workflow Kali សុវត្ថិភាព &amp; ស្រប​ច្បាប់</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">verify download</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">run in a VM</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">discover hosts</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">probe target</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">keep updated</span>
+  <span class="flow-loop"><code>sha256sum</code> + <code>gpg --verify</code> ✓ → VM / live boot → <code>arp-scan</code> → <code>nmap -T4 -A</code> → <code>apt full-upgrade</code>។ តែ​លើ​ប្រព័ន្ធ​ដែល​អ្នក​ជា​ម្ចាស់ ឬ​មាន​ការ​អនុញ្ញាត។</span>
+</div></div></div>
 <div class="danger"><span class="label">ផ្នែកច្បាប់ — តែងតែយកមកប្រឡង</span>សូម scan/វាយតែប្រព័ន្ធដែលអ្នក <b>ជាម្ចាស់ ឬមានការអនុញ្ញាត</b> ឲ្យសាកល្បង។ ហ្វឹកហាត់លើ VM ដែលមាន vulnerable ដោយចេតនា (<b>Metasploitable</b>) ខាងក្នុង network ដែល <b>ញែកដាច់ដោយឡែក (isolated)</b>។</div>
 
 <table>
@@ -214,6 +267,15 @@ const html = `
   <span class="label">គំរូគំនិត</span>
   CIA ជាគោលដៅ; <b>AAA</b> ជារបៀបដែលអ្នកគ្រប់គ្រងអត្តសញ្ញាណដើម្បីទៅដល់ទីនោះ។ <b>A</b>uthentication = បញ្ជាក់ថាអ្នកជានរណា។ <b>A</b>uthorization = អ្វីដែលអ្នកត្រូវបានអនុញ្ញាតឲ្យធ្វើបន្ទាប់ពីបញ្ជាក់រួច។ <b>A</b>ccounting = ការកត់ត្រាអ្វីដែលអ្នកពិតជាបានធ្វើ។ បន្ថែម <b>non-repudiation</b> = អ្នកមិនអាចបដិសេធក្រោយមកថាអ្នកបានធ្វើវាបានទេ (អនុវត្តដោយ digital signatures)។ <span class="mnemonic">AuthN = អ្នកជានរណា · AuthZ = អ្វីដែលអ្នកអាចធ្វើ។</span>
 </div>
+<div class="figure"><div class="figcap">AAA — ទ្វារ​បី តាម​លំដាប់</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Authentication</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Authorization</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Accounting</span>
+  <span class="flow-loop"><b>AuthN</b> = បញ្ជាក់​អ្នក​ជា​នរណា → <b>AuthZ</b> = អ្វី​ដែល​អ្នក​អាច​ធ្វើ → <b>Accounting</b> = កត់ត្រា​អ្វី​ដែល​អ្នក​ធ្វើ។ បូក <b>non-repudiation</b> = មិន​អាច​បដិសេធ (digital signatures)។</span>
+</div></div></div>
 <table>
 <thead><tr><th>ប្រភេទ factor</th><th>ឧទាហរណ៍</th></tr></thead>
 <tbody>
@@ -233,6 +295,13 @@ const html = `
   <span class="label">គំរូគំនិត</span>
   ការងារពីរ ឧបករណ៍ពីរ។ <b>Encryption</b> លាក់ទិន្នន័យ (Confidentiality) ហើយអាចបញ្ច្រាសវិញបានដោយ key។ <b>Hashing</b> ធ្វើ fingerprint ទិន្នន័យ (Integrity) ហើយជាផ្លូវតែមួយ (one-way) (គ្មាន key, បញ្ច្រាសវិញមិនបាន)។ Encryption បែងចែកម្តងទៀត៖ <b>symmetric</b> = key សម្ងាត់រួមតែមួយ (លឿន ប៉ុន្តែតើអ្នកចែករំលែក key ដោយសុវត្ថិភាពយ៉ាងម៉េច?); <b>asymmetric</b> = គូ public/private key (យឺតជាង ប៉ុន្តែដោះស្រាយការផ្លាស់ប្តូរ key)។
 </div>
+<div class="figure"><div class="figcap">ការងារ​ពីរ ឧបករណ៍​បី</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Symmetric · key រួម​មួយ 🔑</span>
+  <span class="flow-node">Asymmetric · public 🔓 + private 🔑</span>
+  <span class="flow-node is-plain">Hashing · គ្មាន key, one-way →</span>
+  <span class="flow-loop"><b>Encryption</b> លាក់​ទិន្នន័យ, បញ្ច្រាស​បាន​ដោយ key — symmetric លឿន (AES); asymmetric ដោះស្រាយ​ការ​ចែក key (RSA)។ <b>Hashing</b> ធ្វើ fingerprint one-way (SHA-256) សម្រាប់ <b>Integrity</b> — បញ្ច្រាស​មិន​បាន។</span>
+</div></div></div>
 <table>
 <thead><tr><th></th><th>Keys</th><th>ល្បឿន</th><th>ឧទាហរណ៍</th><th>ការពារ</th></tr></thead>
 <tbody>
@@ -255,6 +324,15 @@ const html = `
   <span class="label">គំរូគំនិត</span>
   <b>Threat</b> (អ្វីដែលអាចបង្កគ្រោះថ្នាក់) ប្រើ <b>vulnerability</b> (ចំណុចខ្សោយ) ដើម្បីបង្កើត <b>risk</b>។ អ្នកស្ទើរតែមិនអាចទៅដល់ risk សូន្យបានទេ ដូច្នេះសុវត្ថិភាពគឺនិយាយអំពីការ <b>គ្រប់គ្រង</b> វាដល់កម្រិតមួយដែលអាចទទួលយកបាន។ <span class="mnemonic">Risk ≈ Likelihood × Impact។</span>
 </div>
+<div class="figure"><div class="figcap">របៀប​បង្កើត risk — និង​បួន​វិធី​ឆ្លើយ​តប</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Threat</span>
+  <span class="flow-arrow">exploit →</span>
+  <span class="flow-node">Vulnerability</span>
+  <span class="flow-arrow">=</span>
+  <span class="flow-node is-plain">Risk = Likelihood × Impact</span>
+  <span class="flow-loop">ឆ្លើយ​តប​បួន​វិធី៖ <b>Avoid</b> (លះបង់) · <b>Transfer</b> (ធានា​រ៉ាប់រង / outsource) · <b>Mitigate</b> (patch / firewall / backup) · <b>Accept</b> (ទទួល​យក)។ គ្មាន vulnerability → threat បង្ក​ការ​ខូច​មិន​បាន។</span>
+</div></div></div>
 <table>
 <thead><tr><th>ពាក្យ</th><th>អត្ថន័យ</th></tr></thead>
 <tbody>

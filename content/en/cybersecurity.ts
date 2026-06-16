@@ -9,6 +9,12 @@ const html = `
   <span class="label">The mental model</span>
   Every security control exists to protect one of three properties. When you’re asked “why does X matter,” map it to a letter. <b>C</b>onfidentiality = only authorised people can read it. <b>I</b>ntegrity = data isn’t altered without detection. <b>A</b>vailability = it’s there when needed. Attacks and controls are just things that break or defend one of these.
 </div>
+<div class="figure"><div class="figcap">△ CIA — every control protects one of these three</div>
+<div class="figbox"><div class="triad">
+  <div class="triad-col"><div class="triad-letter">C</div><div class="triad-name">Confidentiality</div><div class="triad-sub">only authorised can read · broken by sniffing/theft</div></div>
+  <div class="triad-col"><div class="triad-letter">I</div><div class="triad-name">Integrity</div><div class="triad-sub">data unaltered · broken by tampering/MITM</div></div>
+  <div class="triad-col"><div class="triad-letter">A</div><div class="triad-name">Availability</div><div class="triad-sub">there when needed · broken by DoS/failure</div></div>
+</div></div></div>
 <table>
 <thead><tr><th>Property</th><th>Goal</th><th>Typical controls</th><th>Broken by</th></tr></thead>
 <tbody>
@@ -28,6 +34,15 @@ const html = `
   <span class="label">The mental model — don't confuse with the 6 types</span>
   Two different questions get asked about every control. <b>Group = WHO/WHAT enforces it</b> (a machine? a manager? a person’s daily routine? a wall?). <b>Type = WHAT JOB it does</b> (stop / discourage / detect / fix…). A single control has one group AND one type — e.g. a firewall is <i>Technical</i> (group) + <i>Preventive</i> (type). Keep the two axes separate in your head. <span class="mnemonic">Groups: “Tech Managers Operate Physically” → Technical, Managerial, Operational, Physical.</span>
 </div>
+<div class="figure"><div class="figcap">Every control has TWO labels — don't mix the axes</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">a Firewall</span>
+  <span class="flow-arrow">=</span>
+  <span class="flow-node">Group: Technical</span>
+  <span class="flow-arrow">+</span>
+  <span class="flow-node">Type: Preventive</span>
+  <span class="flow-loop"><b>Group</b> = who/what enforces it (Technical · Managerial · Operational · Physical). <b>Type</b> = what job it does (Preventive · Deterrent · Detective · Corrective · Compensating · Directive). One control has one of each.</span>
+</div></div></div>
 <table>
 <thead><tr><th>Group</th><th>Enforced by</th><th>Examples</th></tr></thead>
 <tbody>
@@ -48,6 +63,22 @@ const html = `
   <span class="label">The mental model — timeline</span>
   Place each type on the attack timeline. <b>Before:</b> Preventive (block it), Deterrent (discourage attempting), Directive (tell people what to do). <b>During:</b> Detective (notice it happening). <b>After:</b> Corrective (fix/restore). <b>Sideways:</b> Compensating (a stand-in when you can’t use the ideal control).
 </div>
+<div class="figure"><div class="figcap">Place each type on the attack timeline</div>
+<div class="figbox"><div class="timeline">
+  <div class="tl-phase"><div class="tl-when">Before</div>
+    <span class="tl-item">Preventive <span>— block it</span></span>
+    <span class="tl-item">Deterrent <span>— discourage trying</span></span>
+    <span class="tl-item">Directive <span>— tell people what to do</span></span>
+  </div>
+  <div class="tl-phase"><div class="tl-when">During</div>
+    <span class="tl-item">Detective <span>— notice it happening</span></span>
+  </div>
+  <div class="tl-phase"><div class="tl-when">After</div>
+    <span class="tl-item">Corrective <span>— fix / restore</span></span>
+  </div>
+</div>
+<div class="lc-branch"><b>Compensating</b> sits sideways — a stand-in used when you can't deploy the ideal control yet.</div>
+</div></div>
 <table>
 <thead><tr><th>Type</th><th>Job</th><th>Example</th></tr></thead>
 <tbody>
@@ -145,6 +176,15 @@ const html = `
   <span class="label">The mental model</span>
   Group attacks by what they target: the <b>network/traffic</b>, the <b>credentials</b>, a <b>way in</b> (door), the <b>software itself</b> (malware), or the <b>availability</b> (flooding). Knowing the bucket makes the list recallable.
 </div>
+<div class="figure"><div class="figcap">DoS vs DDoS — one attacker, or an army</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">zombie</span>
+  <span class="flow-node">zombie</span>
+  <span class="flow-node">zombie</span>
+  <span class="flow-arrow">→ flood →</span>
+  <span class="flow-node is-plain">Target ✕</span>
+  <span class="flow-loop"><b>DoS</b> = one source floods the target. <b>DDoS</b> = many sources (a <b>botnet</b> of zombies, above) flood at once — harder to block, far more powerful. Both attack <b>Availability</b>.</span>
+</div></div></div>
 <table>
 <thead><tr><th>Method</th><th>What it is</th></tr></thead>
 <tbody>
@@ -170,6 +210,19 @@ const html = `
   <span class="label">The mental model</span>
   Kali = a Debian-based distro pre-loaded with security tools (“the Swiss-army knife”). The exam-relevant workflow: <b>get it safely (verify download)</b> → <b>run it (VM / live boot)</b> → <b>discover hosts (arp-scan)</b> → <b>probe a target (nmap)</b> → <b>keep it updated</b> — all <b>only against systems you own or have permission to test</b>.
 </div>
+<div class="figure"><div class="figcap">The safe, legal Kali workflow</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">verify download</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">run in a VM</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">discover hosts</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">probe target</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">keep updated</span>
+  <span class="flow-loop"><code>sha256sum</code> + <code>gpg --verify</code> ✓ → VM / live boot → <code>arp-scan</code> → <code>nmap -T4 -A</code> → <code>apt full-upgrade</code>. Only on systems you own or are authorised to test.</span>
+</div></div></div>
 <div class="danger"><span class="label">Legal — always tested</span>Only scan/attack systems you <b>own or are authorised</b> to test. Practice against a deliberately vulnerable VM (<b>Metasploitable</b>) inside an <b>isolated</b> network.</div>
 
 <table>
@@ -214,6 +267,15 @@ const html = `
   <span class="label">The mental model</span>
   CIA is the goal; <b>AAA</b> is how you control identity to get there. <b>A</b>uthentication = prove who you are. <b>A</b>uthorization = what you’re allowed to do once proven. <b>A</b>ccounting = logging what you actually did. Add <b>non-repudiation</b> = you can’t later deny you did it (enforced by digital signatures). <span class="mnemonic">AuthN = who you are · AuthZ = what you can do.</span>
 </div>
+<div class="figure"><div class="figcap">AAA — three gates, in order</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Authentication</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Authorization</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Accounting</span>
+  <span class="flow-loop"><b>AuthN</b> = prove who you are → <b>AuthZ</b> = what you may do → <b>Accounting</b> = log what you did. Plus <b>non-repudiation</b> = you can't later deny it (digital signatures).</span>
+</div></div></div>
 <table>
 <thead><tr><th>Factor category</th><th>Example</th></tr></thead>
 <tbody>
@@ -233,6 +295,13 @@ const html = `
   <span class="label">The mental model</span>
   Two jobs, two tools. <b>Encryption</b> hides data (Confidentiality) and is reversible with a key. <b>Hashing</b> fingerprints data (Integrity) and is one-way (no key, can’t reverse). Encryption splits again: <b>symmetric</b> = one shared secret key (fast, but how do you share the key safely?); <b>asymmetric</b> = a public/private key pair (slower, but solves key exchange).
 </div>
+<div class="figure"><div class="figcap">Two jobs, three tools</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Symmetric · one shared key 🔑</span>
+  <span class="flow-node">Asymmetric · public 🔓 + private 🔑</span>
+  <span class="flow-node is-plain">Hashing · no key, one-way →</span>
+  <span class="flow-loop"><b>Encryption</b> hides data, reversible with a key — symmetric is fast (AES); asymmetric solves key-sharing (RSA). <b>Hashing</b> fingerprints data one-way (SHA-256) for <b>Integrity</b> — you can't reverse it.</span>
+</div></div></div>
 <table>
 <thead><tr><th></th><th>Keys</th><th>Speed</th><th>Examples</th><th>Protects</th></tr></thead>
 <tbody>
@@ -255,6 +324,15 @@ const html = `
   <span class="label">The mental model</span>
   A <b>threat</b> (something that could cause harm) exploits a <b>vulnerability</b> (a weakness) to create <b>risk</b>. You can almost never reach zero risk, so security is about <b>managing</b> it to an acceptable level. <span class="mnemonic">Risk ≈ Likelihood × Impact.</span>
 </div>
+<div class="figure"><div class="figcap">How risk is built — and four ways to answer it</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Threat</span>
+  <span class="flow-arrow">exploits →</span>
+  <span class="flow-node">Vulnerability</span>
+  <span class="flow-arrow">=</span>
+  <span class="flow-node is-plain">Risk = Likelihood × Impact</span>
+  <span class="flow-loop">Respond four ways: <b>Avoid</b> (drop it) · <b>Transfer</b> (insure / outsource) · <b>Mitigate</b> (patch / firewall / backups) · <b>Accept</b> (live with it). No vulnerability → the threat can't cause loss.</span>
+</div></div></div>
 <table>
 <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
 <tbody>

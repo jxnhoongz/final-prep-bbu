@@ -10,6 +10,16 @@ const html = `
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   Android តែងតែ​បង្កើត, ផ្អាក, និង​បំផ្លាញ​អេក្រង់​របស់​អ្នក​ដើម្បី​គ្រប់គ្រង memory និង​ការ​រំខាន (ការ​ហៅ​ទូរស័ព្ទ, ការ​បង្វិល​អេក្រង់, ការ​ប្ដូរ​កម្មវិធី)។ រាល់​ការ​ផ្លាស់ប្ដូរ​នីមួយៗ​នឹង​ហៅ callback មួយ ដើម្បី​ឲ្យ​អ្នក​អាច <b>រក្សាទុក/ដោះលែង​នៅ​ពេល​ត្រឹមត្រូវ</b>។ សូម​ស្រមៃ​វា​ដូច​កាំ​ជណ្ដើរ​ឡើង​ទៅ​រក “មើល​ឃើញ &amp; ប្រើ​បាន” រួច​ចុះ​មក​វិញ។ <span class="mnemonic">Create → Start → Resume … Pause → Stop → Destroy។</span>
 </div>
+<div class="figure"><div class="figcap">ស្រមៃ​មើល — កាំ​ជណ្ដើរ​ឡើង​ទៅ RUNNING រួច​ចុះ​មក​វិញ</div>
+<div class="figbox"><div class="lc">
+  <div class="lc-step" style="--i:0"><span class="lc-dir">↗</span><span class="lc-name">onCreate()</span><span class="lc-note">សង់ UI · setContentView · init ម្ដង</span></div>
+  <div class="lc-step" style="--i:1"><span class="lc-dir">↗</span><span class="lc-name">onStart()</span><span class="lc-note">ចាប់ផ្ដើម​មើល​ឃើញ</span></div>
+  <div class="lc-step lc-peak" style="--i:2"><span class="lc-dir">●</span><span class="lc-name">onResume()</span><span class="lc-note">RUNNING — មើល​ឃើញ &amp; ប៉ះ​ប្រើ​បាន</span></div>
+  <div class="lc-step" style="--i:2"><span class="lc-dir">↘</span><span class="lc-name">onPause()</span><span class="lc-note">បាត់​focus — រក្សាទុក​ស្ថានភាព​តិចតួច</span></div>
+  <div class="lc-step" style="--i:1"><span class="lc-dir">↘</span><span class="lc-name">onStop()</span><span class="lc-note">លែង​មើល​ឃើញ — ដោះលែង​ធនធាន</span></div>
+  <div class="lc-step" style="--i:0"><span class="lc-dir">↘</span><span class="lc-name">onDestroy()</span><span class="lc-note">activity រលាយ (finish / system kill)</span></div>
+  <div class="lc-branch">ត្រឡប់​មក​វិញ​ក្រោយ onStop ៖ <code>onRestart()</code> → <code>onStart()</code> → <code>onResume()</code>។</div>
+</div></div></div>
 <table>
 <thead><tr><th>Callback</th><th>ហៅ​នៅ​ពេល</th></tr></thead>
 <tbody>
@@ -60,6 +70,12 @@ const html = `
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   Intent គឺ​ជា <b>សារ​មួយ​ដែល​ស្នើ​ឲ្យ​ប្រព័ន្ធ​ចាប់ផ្ដើម​អ្វី​មួយ</b>។ <b>Explicit</b> = អ្នក​ប្រាប់​ឈ្មោះ class គោលដៅ​ច្បាស់លាស់ (អេក្រង់​របស់​អ្នក​ផ្ទាល់)។ <b>Implicit</b> = អ្នក​រៀបរាប់​សកម្មភាព (“បើក​គេហទំព័រ​មួយ”) រួច​ឲ្យ OS ជ្រើស​យក​កម្មវិធី​សមរម្យ។ ដើម្បី​ប្ដូរ​អេក្រង់ អ្នក​បង្កើត explicit Intent មួយ រួច​ហៅ <code>startActivity</code>។
 </div>
+<div class="figure"><div class="figcap">Intent ពីរ​ប្រភេទ — ប្រាប់​គោលដៅ ឬ​ប្រាប់​សកម្មភាព</div>
+<div class="figbox"><div class="tree">
+<div class="tree-row"><b>Intent</b><span class="twig"> — "ចាប់ផ្ដើម​អ្វី​មួយ"</span></div>
+<div class="tree-row"><span class="twig">├─ </span><b>Explicit</b><span class="twig">  → ប្រាប់​ឈ្មោះ class → LoginActivity (អេក្រង់​អ្នក)</span></div>
+<div class="tree-row"><span class="twig">└─ </span><b>Implicit</b><span class="twig">  → ប្រាប់​សកម្មភាព → OS ជ្រើស​កម្មវិធី → Browser / Maps / Dialer</span></div>
+</div></div></div>
 <div class="codewrap"><div class="cap">បើក activity ផ្សេង (explicit intent) — ត្រូវ​ចាំ​ឲ្យ​បាន</div>
 <pre><span class="ty">Intent</span> intent = <span class="kw">new</span> <span class="ty">Intent</span>(MainActivity.<span class="kw">this</span>, LoginActivity.<span class="kw">class</span>);
 startActivity(intent);</pre></div>
@@ -119,6 +135,17 @@ startActivity(intent);</pre></div></div>
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   នៅ​ក្នុង Flutter <b>អ្វី​គ្រប់​យ៉ាង​សុទ្ធតែ​ជា widget</b> — layout, text, padding, ទាំង​អេក្រង់​ទាំងមូល — ផ្គុំ​ចូល​គ្នា​ជា​ដើមឈើ (tree)។ framework ហៅ <code>build()</code> របស់​អ្នក​ដើម្បី​គូរ UI (ឡើង​វិញ) ពី​ទិន្នន័យ​បច្ចុប្បន្ន។ ភាព​ខុស​គ្នា​ធំ៖ <b>StatelessWidget</b> មិន​ដែល​ប្ដូរ​ក្រោយ build; <b>StatefulWidget</b> រក្សា​ស្ថានភាព​ដែល​ប្ដូរ​បាន ហើយ​គូរ​ឡើង​វិញ​ពេល​អ្នក​ហៅ <code>setState()</code>។ <span class="mnemonic">ទិន្នន័យ​ប្ដូរ → setState() → build() ដំណើរការ​ម្ដង​ទៀត → UI ប្ដូរ។</span>
 </div>
+<div class="figure"><div class="figcap">រង្វិល​គូរ​ឡើង​វិញ — ហេតុ​អ្វី StatefulWidget ប្ដូរ</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">ទិន្នន័យ​ប្ដូរ</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">setState()</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">build()</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">UI ប្ដូរ</span>
+  <span class="flow-loop">↺ រាល់​ការ​ប៉ះ/ប្ដូរ​ហៅ setState() → Flutter រត់ build() ឡើង​វិញ → អេក្រង់​គូរ​ឡើង​វិញ។ StatelessWidget រំលង​រង្វិល​នេះ។</span>
+</div></div></div>
 <table>
 <thead><tr><th>គំនិត</th><th>អត្ថន័យ</th></tr></thead>
 <tbody>
@@ -147,6 +174,14 @@ startActivity(intent);</pre></div></div>
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   Flutter គ្រប់គ្រង​អេក្រង់​ជា <b>stack នៃ routes</b>។ <code>push</code> ដាក់​អេក្រង់​ថ្មី​នៅ​លើ​គេ; <code>pop</code> ដក​អេក្រង់​លើ​គេ​ចេញ​ដើម្បី​ត្រឡប់​ក្រោយ។ នេះ​ជា​សមមូល​នៅ Flutter នៃ startActivity / ប៊ូតុង​ត្រឡប់​ក្រោយ​របស់ Android។
 </div>
+<div class="figure"><div class="figcap">stack នៃ​អេក្រង់ — push ដាក់​លើ​គេ, pop ដក​លើ​គេ​ចេញ</div>
+<div class="figbox"><div class="stack">
+  <div class="stack-item is-top"><span>DetailScreen</span><span class="stack-tag">← លើ​គេ · មើល​ឃើញ​ឥឡូវ</span></div>
+  <div class="stack-item"><span>ListScreen</span><span class="stack-tag">push ↑ / pop ↓</span></div>
+  <div class="stack-item"><span>HomeScreen</span><span class="stack-tag">បាត​ក្រោម · route ដំបូង</span></div>
+</div>
+<div class="lc-branch"><code>Navigator.push</code> ដាក់​អេក្រង់​ថ្មី​លើ​គេ (វា​មើល​ឃើញ); <code>Navigator.pop</code> លើក​អេក្រង់​លើ​គេ​ចេញ បង្ហាញ​អេក្រង់​នៅ​ក្រោម។ គំនិត​ដូច back stack របស់ Android។</div>
+</div></div>
 <div class="codewrap"><div class="cap">ទៅ​អេក្រង់​ផ្សេង / ត្រឡប់​ក្រោយ — ត្រូវ​ចាំ​ទាំង​ពីរ</div>
 <pre><span class="cm">// push a new screen onto the stack</span>
 Navigator.push(
@@ -285,6 +320,16 @@ prefs.edit().putString(<span class="st">"token"</span>, <span class="st">"abc123
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   អ្នក​សង់​អេក្រង់​ដោយ <b>ដាក់ layout widgets ត្រួត​គ្នា</b>៖ <b>Column</b> ដាក់​កូន​ធាតុ​បញ្ឈរ, <b>Row</b> ផ្ដេក, <b>Container</b> ជា​ប្រអប់​មួយ (padding/margin/color), <b>ListView</b> រមូរ។ ដើម្បី​ផ្ញើ​ទិន្នន័យ​ទៅ​អេក្រង់​ថ្មី អ្នក​បញ្ជូន​វា​តាម​រយៈ <b>constructor</b> របស់​អេក្រង់; ដើម្បី​ទទួល​តម្លៃ <b>ត្រឡប់​មក​វិញ</b>, <code>await</code> ការ push រួច <code>pop</code> ជាមួយ​តម្លៃ​មួយ។
 </div>
+<div class="figure"><div class="figcap">អ្វី​គ្រប់​យ៉ាង​ជា widget — អេក្រង់​ជា​ដើមឈើ​នៃ​ពួក​វា</div>
+<div class="figbox"><div class="tree">
+<div class="tree-row"><b>MaterialApp</b><span class="twig">          — ឫស​កម្មវិធី</span></div>
+<div class="tree-row"><span class="twig">└─ </span><b>Scaffold</b><span class="twig">          — គ្រោង​ទំព័រ</span></div>
+<div class="tree-row"><span class="twig">   ├─ </span><b>AppBar</b><span class="twig">         — របារ​ខាង​លើ</span></div>
+<div class="tree-row"><span class="twig">   └─ </span>body: <b>Column</b><span class="twig">   — ដាក់​កូន​ធាតុ​បញ្ឈរ</span></div>
+<div class="tree-row"><span class="twig">      ├─ </span>Text<span class="twig">         — widget កូន</span></div>
+<div class="tree-row"><span class="twig">      ├─ </span>Row<span class="twig">          — កូន​ធាតុ​ផ្ដេក</span></div>
+<div class="tree-row"><span class="twig">      └─ </span>ElevatedButton<span class="twig"></span></div>
+</div></div></div>
 <table>
 <thead><tr><th>Widget</th><th>រៀបចំ</th></tr></thead>
 <tbody>
@@ -323,6 +368,17 @@ ListView.builder(
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   <b>var</b> = type ត្រូវ​ទាយ​យក, កំណត់​តម្លៃ​ឡើង​វិញ​បាន។ <b>final</b> = កំណត់​តម្លៃ​តែ​ម្ដង (ពេល runtime)។ <b>const</b> = ថេរ​ពេល compile។ <b>Null safety៖</b> <code>String</code> មិន​អាច​ជា null បាន​ឡើយ; <code>String?</code> អាច​បាន។ ការងារ​ដែល​ដំណើរការ​យូរ​ត្រឡប់ <b>Future</b> (តម្លៃ​ដែល​មក​ដល់​ពេល​ក្រោយ) — សម្គាល់ function ជា <code>async</code> រួច <code>await</code> លទ្ធផល។
 </div>
+<div class="figure"><div class="figcap">await — ផ្អាក​ត្រង់​នេះ​រហូត Future មក​ដល់ រួច​បន្ត</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">ហៅ fetchFromApi()</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">⏳ Future កំពុង​រង់ចាំ…</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">await ផ្ដល់​តម្លៃ</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">បន្ទាត់​បន្ទាប់​រត់</span>
+  <span class="flow-loop">Future = តម្លៃ​ដែល​មក​ដល់​ពេល​ក្រោយ។ <code>await</code> (ក្នុង function <code>async</code>) រង់ចាំ​ដោយ​មិន​ធ្វើ​ឲ្យ​កម្មវិធី​គាំង ដូច្នេះ​កូដ​នៅ​អាន​ពី​លើ​ចុះ​ក្រោម។</span>
+</div></div></div>
 <div class="codewrap"><div class="cap">Variables, collections, null safety, async</div>
 <pre><span class="kw">var</span> name = <span class="st">"Vatana"</span>;        <span class="cm">// inferred String, reassignable</span>
 <span class="kw">final</span> id = 1;               <span class="cm">// set once</span>
@@ -437,6 +493,15 @@ Navigator.pop(context);</pre></div></div>
   <span class="label">MVVM — pattern នៅ​ពី​ក្រោយ​វា</span>
   <b>MVVM = Model–View–ViewModel</b>៖ វិធី​មួយ​ដើម្បី <b>បំបែក UI ចេញ​ពី logic</b>។ <b>Model</b> = ទិន្នន័យ, <b>View</b> = widgets ដែល​អ្នក​ប្រើ​មើល​ឃើញ, <b>ViewModel</b> = logic/state ដែល View ភ្ជាប់​ទៅ (គ្មាន​កូដ UI)។ View គ្រាន់​តែ​បង្ហាញ ViewModel ហើយ​ផ្ញើ events ទៅ​វា។ Provider/GetX ជា​ឧបករណ៍​ដែល​អ្នក​ប្រើ​ដើម្បី​ភ្ជាប់ MVVM ចូល​គ្នា។
 </div>
+<div class="figure"><div class="figcap">MVVM — បំបែក UI ចេញ​ពី logic</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">View (widgets)</span>
+  <span class="flow-arrow">⇄</span>
+  <span class="flow-node">ViewModel (logic + state)</span>
+  <span class="flow-arrow">⇄</span>
+  <span class="flow-node is-plain">Model (ទិន្នន័យ)</span>
+  <span class="flow-loop"><b>View</b> បង្ហាញ ViewModel &amp; ផ្ញើ events ទៅ​វា; <b>ViewModel</b> រក្សា state ហើយ​និយាយ​ទៅ <b>Model</b> (ទិន្នន័យ)។ គ្មាន​កូដ UI ក្នុង ViewModel។ Provider/GetX ភ្ជាប់​វា​ចូល​គ្នា។</span>
+</div></div></div>
 <div class="drill"><div class="q">តើ Provider/GetX ដោះស្រាយ​បញ្ហា​អ្វី​ដែល <code>setState</code> ដោះស្រាយ​មិន​បាន?</div>
 <div class="a"><code>setState</code> ប្ដូរ​តែ <b>state ក្នុង​មូលដ្ឋាន​របស់ widget មួយ</b> ប៉ុណ្ណោះ។ Provider/GetX រក្សា​ទិន្នន័យ​ដែល​ចែករំលែក​នៅ <b>កន្លែង​តែ​មួយ</b> ដូច្នេះ <b>widget ណា​ក៏​បាន​ទូទាំង​កម្មវិធី</b> អាច​អាន និង​ប្រតិកម្ម​ទៅ​នឹង​វា ដោយ​មិន​ត្រូវ​បញ្ជូន​វា​កាត់​តាម constructor គ្រប់​មួយ។</div></div>
 <div class="drill"><div class="q">ប្រៀបធៀប Provider និង GetX (boilerplate · វិសាលភាព · រចនាប័ទ្ម)។</div>
@@ -449,6 +514,15 @@ Navigator.pop(context);</pre></div></div>
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   កម្មវិធី​អ្នក​សុំ​ទិន្នន័យ​ពី server ជាមួយ <b>HTTP request</b> (<b>GET</b> ដើម្បី​អាន, <b>POST</b> ដើម្បី​ផ្ញើ) ហើយ​ទទួល <b>response</b> ត្រឡប់​មក​វិញ (ជា​ធម្មតា JSON)។ <b>HTTP</b> ផ្ញើ​វា​ជា​អក្សរ​ធម្មតា; <b>HTTPS</b> ដូច​គ្នា​ប៉ុន្តែ <b>បំ​ប្លែង​ជា​សម្ងាត់​ដោយ TLS</b> — “S” គឺ <b>Secure</b> (រូប​សោ)។ ប្រើ HTTPS សម្រាប់​ទិន្នន័យ​ពិត។ នៅ​លើ Android អ្នក​ក៏​ត្រូវការ INTERNET permission ដែរ។
 </div>
+<div class="figure"><div class="figcap">កម្មវិធី ⇄ Server — ហើយ “S” បន្ថែម​អ្វី</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">កម្មវិធី​អ្នក</span>
+  <span class="flow-arrow">— GET / POST →</span>
+  <span class="flow-node">Server</span>
+  <span class="flow-arrow">← JSON —</span>
+  <span class="flow-node is-plain">response</span>
+  <span class="flow-loop">🔒 <b>https = http + TLS encryption</b> (“S” = Secure)។ http ធម្មតា​អាន​បាន​បើ​ត្រូវ​ស្ទាក់។ Android ក៏​ត្រូវការ INTERNET permission។</span>
+</div></div></div>
 <table>
 <thead><tr><th>តម្រូវ​ការ</th><th>Android (Java)</th><th>Flutter (Dart)</th></tr></thead>
 <tbody>
@@ -483,6 +557,14 @@ Navigator.pop(context);</pre></div></div>
   <span class="label">គំនិត​ឲ្យ​ងាយ​យល់</span>
   រាល់​អេក្រង់ Material អង្គុយ​នៅ​ក្នុង <b>Scaffold</b> — <b>គ្រោង​ដែល​ផ្ដល់​ឲ្យ​អ្នក​នូវ​ប្រអប់​ទំព័រ​ស្តង់ដារ</b>៖ <code>appBar</code> (របារ​ខាង​លើ), <code>body</code> (មាតិកា), <code>floatingActionButton</code>, <code>drawer</code> (ម៉ឺនុយ​ចំហៀង), <code>bottomNavigationBar</code>។ អ្នក​មិន​ដាក់​ទីតាំង​ពួក​វា​ដោយ​ដៃ​ទេ; Scaffold រៀបចំ​ពួក​វា។
 </div>
+<div class="figure"><div class="figcap">Scaffold ផ្ដល់​ឲ្យ​រាល់​អេក្រង់​នូវ​ប្រអប់​ស្តង់ដារ​ដូច​គ្នា</div>
+<div class="figbox"><div class="skel">
+  <div class="skel-bar">appBar — របារ​ខាង​លើ</div>
+  <div class="skel-body">body — មាតិកា​អ្នក<div class="skel-fab">+</div></div>
+  <div class="skel-nav">bottomNavigationBar</div>
+</div>
+<div class="lc-branch">“+” គឺ <code>floatingActionButton</code>; ម៉ឺនុយ​ចំហៀង​គឺ <code>drawer</code>។ អ្នក​បំពេញ​ប្រអប់ — Scaffold ដាក់​ទីតាំង​ឲ្យ។</div>
+</div></div>
 <div class="codewrap"><div class="cap">អេក្រង់​អប្បបរមា​មួយ</div>
 <pre><span class="ty">Scaffold</span>(
   appBar: <span class="ty">AppBar</span>(title: <span class="ty">Text</span>(<span class="st">"Home"</span>)),

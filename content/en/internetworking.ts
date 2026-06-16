@@ -10,6 +10,19 @@ const html = `
 
 <div class="concept"><span class="label">The one analogy for the entire course</span>
 Networking is just <b>a postal system for data</b>. Computers send little packages of data called <b>packets</b>. To get a packet from one place to another, it hops through <b>sorting offices</b>. Those sorting offices are <b>routers</b>. <b>Almost everything in this course is about how routers decide where to send each packet.</b> Keep this picture in your head and the jargon below is just labels on parts of it.</div>
+<div class="figure"><div class="figcap">A packet hops office-to-office until it arrives</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">PC A</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Router 1</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Router 2</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">Router 3</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">PC B</span>
+  <span class="flow-loop">At each router: look up the destination in the <b>routing table</b> → forward out the matching door. Not in the table → drop the packet. <b>That lookup is the router's whole job.</b></span>
+</div></div></div>
 
 <h3>1. What is a network, and an IP address?</h3>
 <p>A <b>network</b> is a group of devices that can talk to each other directly — like one office building, or your home Wi-Fi. Every device has an <b>IP address</b> = its mailing address, written as four numbers, e.g. <code>192.168.1.10</code>. A whole network also has an address + a size, written like <code>192.168.1.0/24</code> — read that as “the street <code>192.168.1.___</code>, houses .0 through .255.”</p>
@@ -91,6 +104,19 @@ The sections are numbered to match your <b>exam’s question order</b>, not easi
 <h3>The structure: 32 bits, 4 octets</h3>
 <p>An IPv4 address is <b>32 bits</b>, shown as <b>4 octets</b> (8 bits each), e.g. <code>192.168.1.10</code>. Each octet holds 0–255 (because 8 bits = 2⁸ = 256 possible values). The <b>subnet mask</b> is also 4 octets: its <b>1-bits mark the network part, its 0-bits mark the host part</b>. <code>/24</code> (CIDR notation) simply means “the first <b>24 bits are 1s</b>” = <code>255.255.255.0</code>.</p>
 
+<div class="figure"><div class="figcap">/24 — where the network half ends and the host half begins</div>
+<div class="figbox"><div class="addr">
+  <div class="addr-row">
+    <span class="addr-oct is-net">192</span>
+    <span class="addr-oct is-net">168</span>
+    <span class="addr-oct is-net">1</span>
+    <span class="addr-oct is-host">10</span>
+  </div>
+  <div class="addr-legend">
+    <span class="addr-key"><i class="is-net"></i> network — first 24 bits (the “/24”)</span>
+    <span class="addr-key"><i class="is-host"></i> host — last 8 bits → 2⁸ − 2 = 254 usable</span>
+  </div>
+</div></div></div>
 <h3>Step 1 — count the addresses</h3>
 <div class="concept"><span class="label">The two formulas you need</span>
 <b>Host bits</b> = 32 − (the slash number). <b>Total addresses</b> = 2<sup>host bits</sup>. <b>Usable hosts</b> = total − 2 (you subtract the <b>network address</b> and the <b>broadcast address</b>, which can’t be given to a device).</div>
@@ -197,6 +223,18 @@ Rule 2 (zero-run → ::): &nbsp;<b><code>2001:db8::ff00:42:8329</code></b></div>
   <span class="label">The mental model</span>
   AD is a router’s <b>trust ranking for the source of a route</b>, not a measure of distance. When two protocols both offer a path to the same network, the router can’t compare a “hop count” to a “cost” — different units. So it first asks <b>“whose word do I trust more?”</b> = lowest AD wins. Metric is only the tie-breaker <i>within</i> one protocol. <span class="mnemonic">Lower AD = more believable.</span>
 </div>
+<div class="figure"><div class="figcap">Whose word to trust — lower AD wins</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Connected 0</span>
+  <span class="flow-node">Static 1</span>
+  <span class="flow-node">eBGP 20</span>
+  <span class="flow-node">EIGRP 90</span>
+  <span class="flow-node">OSPF 110</span>
+  <span class="flow-node">RIP 120</span>
+  <span class="flow-node">iBGP 200</span>
+  <span class="flow-node is-plain">255 = unreachable</span>
+  <span class="flow-loop">← more trusted&nbsp;&nbsp;·&nbsp;&nbsp;less trusted → &nbsp; The router installs the route from the <b>lowest-AD</b> source and never compares metrics across protocols.</span>
+</div></div></div>
 
 <table>
   <thead><tr><th>Source</th><th>AD</th><th>Source</th><th>AD</th></tr></thead>
@@ -282,6 +320,17 @@ Rule 2 (zero-run → ::): &nbsp;<b><code>2001:db8::ff00:42:8329</code></b></div>
   <span class="label">The mental model</span>
   Every router floods <b>LSAs</b> describing its links. All routers in an area assemble these into one identical <b>LSDB (link-state database)</b> — a shared map. Each then runs <b>SPF (Dijkstra)</b> on that map to compute its own shortest-path tree. Because everyone shares the same map, OSPF converges fast and is loop-free by design. Areas keep the map small; <b>Area 0 is the backbone</b> every other area must touch.
 </div>
+<div class="figure"><div class="figcap">Everyone builds the same map, then each finds its own shortest path</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">each router floods LSAs</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">identical LSDB (shared map) everywhere</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">each runs SPF / Dijkstra</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">own shortest-path tree</span>
+  <span class="flow-loop">Same map on every router → fast convergence, loop-free by design. <b>DR/BDR</b> on a shared segment cut adjacencies from n(n−1)/2 down to ~n.</span>
+</div></div></div>
 
 <h3>The 10 must-know characteristics</h3>
 <table>
@@ -445,6 +494,13 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
   <span class="label">The mental model</span>
   Two routers build an encrypted tunnel across the public Internet in <b>two negotiations</b>. <b>Phase 1 (IKE / ISAKMP)</b> builds a secure <i>management</i> channel and authenticates the peers (think: shake hands privately). <b>Phase 2 (IPsec SA)</b> negotiates how the <i>real user data</i> is encrypted. Both ends must agree on every parameter or Phase 1 never comes up.
 </div>
+<div class="figure"><div class="figcap">Two negotiations build the encrypted tunnel</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node is-plain">Site A router</span>
+  <span class="flow-arrow">════ encrypted tunnel ════</span>
+  <span class="flow-node is-plain">Site B router</span>
+  <span class="flow-loop"><b>Phase 1 (IKE / ISAKMP):</b> authenticate the peers + build a secure management channel (aes · sha · pre-share · DH group). <b>Then Phase 2 (IPsec SA):</b> encrypt the real user data (transform set). Both ends must match every parameter.</span>
+</div></div></div>
 <table>
 <thead><tr><th>ISAKMP (Phase 1) parameter</th><th>Example</th><th>Meaning</th></tr></thead>
 <tbody>
@@ -489,6 +545,14 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
   <span class="label">The mental model</span>
   GRE wraps (encapsulates) one packet inside another so two distant routers act as if directly connected by a virtual point-to-point link. It can carry <b>multicast/routing protocols and non-IP traffic</b> — which plain IPsec can’t — but <b>GRE has no encryption</b>. The common pattern is “GRE over IPsec”: GRE for flexibility, IPsec for security. Protocol number <b>47</b>.
 </div>
+<div class="figure"><div class="figcap">GRE over IPsec — a packet wrapped in two layers</div>
+<div class="figbox"><div class="encap">
+  <div class="encap-l lvl1"><span class="encap-cap">IPsec (ESP) — adds encryption 🔒</span>
+    <div class="encap-l lvl2"><span class="encap-cap">GRE header — carries OSPF / multicast / non-IP</span>
+      <div class="encap-l lvl3"><span class="encap-cap">original IP packet — your data</span></div>
+    </div>
+  </div>
+</div></div></div>
 <div class="codewrap"><div class="cap">GRE tunnel between two sites</div>
 <pre><span class="pr">interface</span> tunnel0
  <span class="pr">ip address</span> 172.16.0.1 255.255.255.252   <span class="cm">! tunnel's own /30 subnet</span>
@@ -526,6 +590,17 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 </div>
 <h3>Neighbor states (in order)</h3>
 <p><b>Down → Init → 2-Way → ExStart → Exchange → Loading → Full.</b> The two useful checkpoints: <b>2-Way</b> = they see each other (and DR/BDR is elected); <b>Full</b> = databases fully synchronized (the goal).</p>
+<div class="figure"><div class="figcap">Adjacency states — the climb to FULL</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">Down</span><span class="flow-arrow">→</span>
+  <span class="flow-node">Init</span><span class="flow-arrow">→</span>
+  <span class="flow-node">2-Way</span><span class="flow-arrow">→</span>
+  <span class="flow-node">ExStart</span><span class="flow-arrow">→</span>
+  <span class="flow-node">Exchange</span><span class="flow-arrow">→</span>
+  <span class="flow-node">Loading</span><span class="flow-arrow">→</span>
+  <span class="flow-node is-plain">FULL ✓</span>
+  <span class="flow-loop"><b>2-Way</b> = they see each other &amp; DR/BDR is elected. <b>FULL</b> = databases synced (the healthy end state). Stuck at ExStart ≈ MTU mismatch.</span>
+</div></div></div>
 <table>
 <thead><tr><th>Router role</th><th>Meaning</th></tr></thead>
 <tbody>
@@ -556,6 +631,15 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
   <span class="label">The mental model</span>
   An ACL is an <b>ordered list of permit/deny rules</b> the router checks <b>top-down, first match wins</b>, then stops. There is an <b>invisible <code>deny any</code> at the bottom</b> — so an ACL with only permits silently blocks everything else. <b>Standard</b> ACLs match <b>source IP only</b> → place near the <b>destination</b>. <b>Extended</b> match source + dest + protocol + port → place near the <b>source</b> (drop unwanted traffic early).
 </div>
+<div class="figure"><div class="figcap">Checked top-down — first match wins, then stop</div>
+<div class="figbox"><div class="stack">
+  <div class="stack-item"><span>1 · permit 192.168.1.0</span><span class="stack-tag">checked first</span></div>
+  <div class="stack-item is-top"><span>2 · permit tcp … eq 80</span><span class="stack-tag">← matches → stop</span></div>
+  <div class="stack-item"><span>3 · deny …</span><span class="stack-tag">never reached</span></div>
+  <div class="stack-item"><span>(invisible) deny any</span><span class="stack-tag">implicit — drops the rest</span></div>
+</div>
+<div class="lc-branch">The router stops at the <b>first match</b>. An ACL of only <code>permit</code>s still blocks everything else via the hidden <b>deny any</b> at the bottom.</div>
+</div></div>
 <table>
 <thead><tr><th></th><th>Standard</th><th>Extended</th></tr></thead>
 <tbody>
@@ -583,6 +667,15 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
   <span class="label">The mental model</span>
   NAT translates <b>private (RFC1918) addresses ↔ public addresses</b> so an inside network can reach the Internet. Three flavours: <b>Static NAT</b> = fixed 1-to-1 map. <b>Dynamic NAT</b> = pool of public IPs handed out as needed. <b>PAT (overload)</b> = many inside hosts share <b>one</b> public IP, distinguished by <b>port number</b> — this is what home routers do.
 </div>
+<div class="figure"><div class="figcap">PAT — many private hosts share one public IP, split by port</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">192.168.1.10</span>
+  <span class="flow-node">192.168.1.11</span>
+  <span class="flow-node">192.168.1.12</span>
+  <span class="flow-arrow">— NAT (overload) →</span>
+  <span class="flow-node is-plain">203.0.113.5 : {port}</span>
+  <span class="flow-loop">Three private hosts → <b>one</b> public IP. The router tracks each by <b>source port</b> so replies return to the right host. (Static NAT = fixed 1-to-1; Dynamic = a pool.)</span>
+</div></div></div>
 <div class="codewrap"><div class="cap">PAT (overload) — the most common</div>
 <pre><span class="pr">interface</span> g0/0
  <span class="pr">ip nat inside</span>          <span class="cm">! the private/LAN side</span>
@@ -607,6 +700,17 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
   <span class="label">The mental model</span>
   DHCP auto-assigns IP config to hosts. The handshake is <b>DORA</b>: <b>D</b>iscover (client broadcasts) → <b>O</b>ffer (server proposes) → <b>R</b>equest (client accepts) → <b>A</b>ck (server confirms). Exclude addresses you’ve used statically (router, servers) so they’re not handed out.
 </div>
+<div class="figure"><div class="figcap">DORA — the 4-step DHCP handshake</div>
+<div class="figbox"><div class="flow">
+  <span class="flow-node">D — Discover</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">O — Offer</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">R — Request</span>
+  <span class="flow-arrow">→</span>
+  <span class="flow-node">A — Ack</span>
+  <span class="flow-loop">Client <b>broadcasts</b> Discover → server <b>Offers</b> an address → client <b>Requests</b> it → server <b>Acks</b> the lease. (Discover/Request come from the client; Offer/Ack from the server.)</span>
+</div></div></div>
 <div class="codewrap"><div class="cap">Router as DHCP server</div>
 <pre><span class="pr">ip dhcp excluded-address</span> 192.168.1.1 192.168.1.10
 <span class="pr">ip dhcp pool</span> LAN

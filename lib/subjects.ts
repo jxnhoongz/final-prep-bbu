@@ -69,7 +69,10 @@ const META: SubjectMeta[] = [
       ],
     },
     html: { en: en_internetworking, km: km_internetworking },
-    sources: [{ file: "internetworking.pdf", label: "answer_internetworking.pdf" }],
+    sources: [
+      { file: "internetworking.pdf", label: "answer_internetworking.pdf" },
+      { file: "internetworking_state_prepare.pdf", label: "Internetworking_II_State_Prepare.pdf" },
+    ],
   },
   {
     slug: "cybersecurity",

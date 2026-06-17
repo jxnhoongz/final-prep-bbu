@@ -770,6 +770,352 @@ T1 1.544 Mbps = 1,544,000 bps → cost = 10⁸/1,544,000 ≈ <span class="blank"
 <div class="a"><b>GRE over IPsec។</b> GRE ព្រោះ IPsec តែម្នាក់ឯងមិនអាចផ្ទុក multicast/OSPF; IPsec ព្រោះ GRE តែម្នាក់ឯងគ្មាន encryption។ GRE ផ្តល់ការដឹកជញ្ជូនសម្រាប់ routing, IPsec ផ្តល់ការសម្ងាត់ (confidentiality)។</div></div>
 </div>
 
+
+
+<!-- ============ EXTRA (STATE-EXAM PREP) ============ -->
+<h2 id="extra">18 · Extra — State exam prep (65 questions) · សំណួរត្រៀមប្រឡងរដ្ឋ</h2>
+<p class="lead">Added from the <b>Internetworking II — State Prepare</b> question paper. Each question is shown in <b>Khmer and English</b>; every answer is given in <b>both languages</b>. Cover the screen, answer on paper, then reveal. · បន្ថែមពីសន្លឹកសំណួរ <b>Internetworking II — State Prepare</b>។ សំណួរនីមួយៗមាន <b>ខ្មែរ និងអង់គ្លេស</b>; ចម្លើយផ្ដល់ជា <b>ភាសាទាំងពីរ</b>។</p>
+<div class="exam">
+<div class="drill"><div class="q"><b>1.</b> ពន្យល់ពីអត្ថប្រយោជន៍របស់ VLANs។ <span class="kh">— Explain the benefits of VLANs.</span></div>
+<div class="a"><b>EN —</b> VLAN splits one physical switch into several <b>logical broadcast domains</b>. Benefits:
+<ul><li><b>Smaller broadcast domains</b> → less broadcast traffic, better performance.</li>
+<li><b>Security / isolation</b> — departments are separated; traffic between VLANs only crosses a Layer-3 device where you can apply ACLs.</li>
+<li><b>Logical grouping</b> regardless of physical location.</li>
+<li><b>Easier management</b> and <b>cost saving</b> (no extra physical switches).</li></ul><br><br><b>ខ្មែរ —</b> VLAN បំបែក switch ហ្វីស៊ីខលមួយ ឲ្យទៅជា <b>broadcast domain ឡូជីខលច្រើន</b>។ អត្ថប្រយោជន៍៖
+<ul><li><b>Broadcast domain តូចជាង</b> → ចរាចរណ៍ broadcast តិច, ដំណើរការលឿនជាង។</li>
+<li><b>សុវត្ថិភាព / ការញែកដាច់</b> — ផ្នែកនីមួយៗត្រូវបានញែកដាច់; ចរាចរណ៍ឆ្លងVLAN ត្រូវឆ្លងកាត់ឧបករណ៍ Layer-3 ដែលអាចដាក់ ACL បាន។</li>
+<li><b>ការដាក់ជាក្រុមតាមឡូជីខល</b> ដោយមិនគិតពីទីតាំងហ្វីស៊ីខល។</li>
+<li><b>គ្រប់គ្រងងាយ</b> និង <b>សន្សំថ្លៃ</b> (មិនបាច់ switch ហ្វីស៊ីខលបន្ថែម)។</li></ul></div></div>
+<div class="drill"><div class="q"><b>2.</b> តើត្រូវបែងចែក VLAN ដោយរបៀបណា ដើម្បីការពារ និងសុវត្ថិភាពយ៉ាងដូចម្ដេច? <span class="kh">— How do you segment VLANs for protection and security?</span></div>
+<div class="a"><b>EN —</b> Put each group/department in its own VLAN and assign switch ports to it. Because devices in different VLANs <b>cannot talk without a router (Layer 3)</b>, you control traffic between them with <b>ACLs</b> on the inter-VLAN router. Hardening: use a <b>separate management VLAN</b>, change the <b>native VLAN</b>, put <b>unused ports</b> into a dead VLAN and shut them, and limit/disable trunking on access ports (prevent VLAN hopping).<br><br><b>ខ្មែរ —</b> ដាក់ក្រុម/ផ្នែកនីមួយៗ ក្នុង VLAN ផ្ទាល់ខ្លួន ហើយ assign port switch ឲ្យវា។ ដោយសារឧបករណ៍ក្នុង VLAN ផ្សេងគ្នា <b>មិនអាចទាក់ទងគ្នាបើគ្មាន router (Layer 3)</b>, អ្នកអាចគ្រប់គ្រងចរាចរណ៍រវាងពួកវាដោយ <b>ACL</b> លើ router inter-VLAN។ ការពង្រឹង៖ ប្រើ <b>management VLAN ដាច់ដោយឡែក</b>, ប្ដូរ <b>native VLAN</b>, ដាក់ <b>port ដែលមិនប្រើ</b> ទៅ VLAN ស្លាប់ ហើយ shut វា, និងកំណត់/បិទ trunking លើ access port (ការពារ VLAN hopping)។</div></div>
+<div class="drill"><div class="q"><b>3.</b> តើមានប្រភេទ password អ្វីខ្លះ ប្រើក្នុងការកំណត់ securing លើ CISCO router? <span class="kh">— What types of passwords are used to secure a Cisco router?</span></div>
+<div class="a"><b>EN —</b> <ul><li><b>enable password</b> — privileged mode, stored in plain text.</li>
+<li><b>enable secret</b> — privileged mode, <b>encrypted (MD5)</b>, stronger; overrides enable password.</li>
+<li><b>console password</b> (<code>line console 0</code>) — local console access.</li>
+<li><b>VTY password</b> (<code>line vty 0 4</code>) — remote Telnet/SSH access.</li>
+<li><b>auxiliary password</b> (<code>line aux 0</code>) — aux port.</li></ul>
+Use <code>service password-encryption</code> to encrypt the plain-text ones.<br><br><b>ខ្មែរ —</b> <ul><li><b>enable password</b> — privileged mode, រក្សាទុកជាអក្សរធម្មតា (plain text)។</li>
+<li><b>enable secret</b> — privileged mode, <b>អ៊ិនគ្រីប (MD5)</b>, រឹងមាំជាង; លុបចោល enable password។</li>
+<li><b>console password</b> (<code>line console 0</code>) — ចូលតាម console។</li>
+<li><b>VTY password</b> (<code>line vty 0 4</code>) — ចូលពីចម្ងាយ Telnet/SSH។</li>
+<li><b>auxiliary password</b> (<code>line aux 0</code>) — port aux។</li></ul>
+ប្រើ <code>service password-encryption</code> ដើម្បីអ៊ិនគ្រីបពួក plain-text។</div></div>
+<div class="drill"><div class="q"><b>4.</b> ចូរពន្យល់ពីភាពខុសគ្នារវាង Physical Topology និង Logical Topology។ <span class="kh">— Explain the difference between Physical Topology and Logical Topology.</span></div>
+<div class="a"><b>EN —</b> <b>Physical topology</b> = how devices are physically <b>cabled and arranged</b> (the real layout of hardware and wires). <b>Logical topology</b> = how data <b>actually flows</b> and how devices communicate logically (the path of signals, addressing) — independent of the wiring. Example: physically a <b>star</b> (all to a switch) but logically can behave like a bus.<br><br><b>ខ្មែរ —</b> <b>Physical topology</b> = របៀបដែលឧបករណ៍ត្រូវ <b>ដាក់ខ្សែ និងរៀបចំ</b> ផ្នែករូបវន្ត (ប្លង់ពិតនៃ hardware និងខ្សែ)។ <b>Logical topology</b> = របៀបដែលទិន្នន័យ <b>ហូរពិតប្រាកដ</b> និងរបៀបឧបករណ៍ទាក់ទងគ្នាតាមឡូជីខល (ផ្លូវសញ្ញា, addressing) — ដោយមិនអាស្រ័យលើខ្សែ។ ឧ. ផ្នែករូបវន្តជា <b>star</b> ប៉ុន្តែឡូជីខលអាចដើរដូច bus។</div></div>
+<div class="drill"><div class="q"><b>5.</b> តើអ្វីជាភាពខុសគ្នារវាង switch, hub, និង router? <span class="kh">— What is the difference between a switch, a hub, and a router?</span></div>
+<div class="a"><b>EN —</b> <ul><li><b>Hub</b> — Layer 1; repeats the signal out <b>all</b> ports; one collision domain; no intelligence.</li>
+<li><b>Switch</b> — Layer 2; forwards by <b>MAC address</b>; each port is its own collision domain; learns a MAC table.</li>
+<li><b>Router</b> — Layer 3; connects <b>different networks</b>; forwards by <b>IP address</b>; separates broadcast domains.</li></ul><br><br><b>ខ្មែរ —</b> <ul><li><b>Hub</b> — Layer 1; ផ្សាយសញ្ញាចេញ <b>គ្រប់</b> port; collision domain តែមួយ; គ្មានបញ្ញា។</li>
+<li><b>Switch</b> — Layer 2; បញ្ជូនតាម <b>MAC address</b>; port នីមួយៗជា collision domain ផ្ទាល់; រៀន MAC table។</li>
+<li><b>Router</b> — Layer 3; ភ្ជាប់ <b>បណ្ដាញខុសគ្នា</b>; បញ្ជូនតាម <b>IP address</b>; ញែក broadcast domain។</li></ul></div></div>
+<div class="drill"><div class="q"><b>6.</b> និយាយពីអ្វីដែលមាន រឺ លក្ខណៈរបស់ EIGRP protocol។ <span class="kh">— Describe the features of the EIGRP protocol.</span></div>
+<div class="a"><b>EN —</b> Cisco <b>advanced distance-vector (hybrid)</b> protocol. Key features:
+<ul><li>Uses the <b>DUAL</b> algorithm → very <b>fast convergence</b>.</li>
+<li>Keeps a <b>successor</b> (best) and <b>feasible successor</b> (ready backup) route.</li>
+<li>Composite <b>metric</b> from bandwidth + delay.</li>
+<li>Three tables: <b>neighbor, topology, routing</b>.</li>
+<li>Supports <b>VLSM/CIDR</b>, partial/bounded updates, multicast <code>224.0.0.10</code>; <b>AD 90</b> internal.</li></ul><br><br><b>ខ្មែរ —</b> ប្រូតូកូល Cisco <b>distance-vector កម្រិតខ្ពស់ (hybrid)</b>។ លក្ខណៈសំខាន់៖
+<ul><li>ប្រើ algorithm <b>DUAL</b> → <b>convergence លឿនខ្លាំង</b>។</li>
+<li>រក្សា route <b>successor</b> (ល្អបំផុត) និង <b>feasible successor</b> (backup រួចស្រេច)។</li>
+<li><b>Metric</b> រួម ពី bandwidth + delay។</li>
+<li>តារាងបី៖ <b>neighbor, topology, routing</b>។</li>
+<li>គាំទ្រ <b>VLSM/CIDR</b>, update មួយផ្នែក, multicast <code>224.0.0.10</code>; <b>AD 90</b> internal។</li></ul></div></div>
+<div class="drill"><div class="q"><b>7.</b> តើអ្វីជាភាពខុសគ្នារវាង TCP និង UDP? <span class="kh">— What is the difference between TCP and UDP?</span></div>
+<div class="a"><b>EN —</b> <ul><li><b>TCP</b> — connection-oriented, <b>reliable</b>; 3-way handshake; ordered delivery, error-checking, retransmission; heavier/slower. Used by HTTP, FTP, email.</li>
+<li><b>UDP</b> — connectionless, <b>unreliable</b> (best-effort); no handshake, no ordering; lightweight/fast. Used by DNS, DHCP, VoIP, streaming.</li></ul><br><br><b>ខ្មែរ —</b> <ul><li><b>TCP</b> — connection-oriented, <b>ជឿទុកចិត្តបាន</b>; 3-way handshake; បញ្ជូនតាមលំដាប់, ពិនិត្យ error, បញ្ជូនឡើងវិញ; ធ្ងន់/យឺត។ ប្រើដោយ HTTP, FTP, email។</li>
+<li><b>UDP</b> — connectionless, <b>មិនជឿទុកចិត្ត</b> (best-effort); គ្មាន handshake, គ្មានលំដាប់; ស្រាល/លឿន។ ប្រើដោយ DNS, DHCP, VoIP, streaming។</li></ul></div></div>
+<div class="drill"><div class="q"><b>8.</b> បើគេមាន route ចំនួនពីរ 192.168.1.0/24 និង 192.168.1.0/28 តើ configure deny 192.168.1.0/28 ហើយបន្ទាប់មក allow 192.168.1.0/24 ក្នុង EIGRP ដោយរបៀបណា? <span class="kh">— With two routes 192.168.1.0/24 and 192.168.1.0/28, how do you configure deny 192.168.1.0/28 then allow 192.168.1.0/24 in EIGRP?</span></div>
+<div class="a"><b>EN —</b> Use a <b>prefix-list</b> (or ACL) and apply it with a <b>distribute-list</b> under EIGRP. Order matters — <b>deny the more-specific /28 first</b>, then permit the /24:<pre style="margin-top:6px"><span class="pr">ip prefix-list</span> FILTER seq 5 <span class="pr">deny</span> 192.168.1.0/28
+<span class="pr">ip prefix-list</span> FILTER seq 10 <span class="pr">permit</span> 192.168.1.0/24
+<span class="pr">router eigrp</span> 1
+ <span class="pr">distribute-list</span> prefix FILTER <span class="pr">in</span></pre><br><br><b>ខ្មែរ —</b> ប្រើ <b>prefix-list</b> (ឬ ACL) ហើយ apply វាដោយ <b>distribute-list</b> ក្រោម EIGRP។ លំដាប់សំខាន់ — <b>deny /28 ដែលលម្អិតជាងមុន</b>, រួចទើប permit /24៖<pre style="margin-top:6px"><span class="pr">ip prefix-list</span> FILTER seq 5 <span class="pr">deny</span> 192.168.1.0/28
+<span class="pr">ip prefix-list</span> FILTER seq 10 <span class="pr">permit</span> 192.168.1.0/24
+<span class="pr">router eigrp</span> 1
+ <span class="pr">distribute-list</span> prefix FILTER <span class="pr">in</span></pre></div></div>
+<div class="drill"><div class="q"><b>9.</b> តើ EIGRP មានtable អ្វីខ្លះ? <span class="kh">— What tables does EIGRP have?</span></div>
+<div class="a"><b>EN —</b> Three: <b>Neighbor table</b> (directly connected EIGRP peers), <b>Topology table</b> (all learned routes incl. successors & feasible successors), and the <b>Routing table</b> (the best routes installed for forwarding).<br><br><b>ខ្មែរ —</b> បី៖ <b>Neighbor table</b> (EIGRP peer ភ្ជាប់ផ្ទាល់), <b>Topology table</b> (route ដែលរៀនបានទាំងអស់ រួមទាំង successor & feasible successor), និង <b>Routing table</b> (route ល្អបំផុតដែលដាក់សម្រាប់បញ្ជូន)។</div></div>
+<div class="drill"><div class="q"><b>10.</b> តើអ្វីទៅ EIGRP internal route និង EIGRP external route? <span class="kh">— What is an EIGRP internal route vs an EIGRP external route?</span></div>
+<div class="a"><b>EN —</b> <b>Internal</b> = a route learned <b>within the same EIGRP AS</b> → AD <b>90</b>. <b>External</b> = a route <b>redistributed into EIGRP</b> from another source/protocol → AD <b>170</b>, shown with the <b>EX</b> flag in the routing table.<br><br><b>ខ្មែរ —</b> <b>Internal</b> = route ដែលរៀនបាន <b>ក្នុង EIGRP AS តែមួយ</b> → AD <b>90</b>។ <b>External</b> = route ដែល <b>redistribute ចូល EIGRP</b> ពីប្រភព/ប្រូតូកូលផ្សេង → AD <b>170</b>, បង្ហាញដោយ flag <b>EX</b> ក្នុង routing table។</div></div>
+<div class="drill"><div class="q"><b>11.</b> តើរបៀបធ្វើ redistribute លើ IPv6 default route ក្នុង EIGRP? <span class="kh">— How do you redistribute an IPv6 default route in EIGRP?</span></div>
+<div class="a"><b>EN —</b> Create a static IPv6 default route, then redistribute static into the EIGRP IPv6 process:<pre style="margin-top:6px"><span class="pr">ipv6 route</span> ::/0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="pr">ipv6 router eigrp</span> 1
+ <span class="pr">redistribute static</span></pre><br><br><b>ខ្មែរ —</b> បង្កើត static IPv6 default route ជាមុន, រួច redistribute static ចូល process EIGRP IPv6៖<pre style="margin-top:6px"><span class="pr">ipv6 route</span> ::/0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="pr">ipv6 router eigrp</span> 1
+ <span class="pr">redistribute static</span></pre></div></div>
+<div class="drill"><div class="q"><b>12.</b> ការ ផុក (clear) tables routing ក្នុង OSPF? និងសរសេរ command។ <span class="kh">— How do you flush/clear the OSPF routing tables? Write the command.</span></div>
+<div class="a"><b>EN —</b> Restart the OSPF process to rebuild the LSDB and routes: <code>clear ip ospf process</code> (confirm with <b>yes</b>). To clear all routes: <code>clear ip route *</code>. To view OSPF routes: <code>show ip route ospf</code>.<br><br><b>ខ្មែរ —</b> ចាប់ផ្ដើម process OSPF ឡើងវិញ ដើម្បីសង់ LSDB និង route ឡើងវិញ៖ <code>clear ip ospf process</code> (បញ្ជាក់ <b>yes</b>)។ ដើម្បីសម្អាត route ទាំងអស់៖ <code>clear ip route *</code>។ ដើម្បីមើល route OSPF៖ <code>show ip route ospf</code>។</div></div>
+<div class="drill"><div class="q"><b>13.</b> តើអ្វីទៅជាជំហានដែលត្រូវការ ដើម្បីបង្កើត Neighborship ទៅជា adjacency? <span class="kh">— What are the steps to build a neighborship into adjacency (OSPF)?</span></div>
+<div class="a"><b>EN —</b> Seven states in order: <b>Down → Init → 2-Way → Exstart → Exchange → Loading → Full</b>. Neighbors are formed at <b>2-Way</b>; a full <b>adjacency</b> (synchronized LSDB) is reached at <b>Full</b>.<br><br><b>ខ្មែរ —</b> រដ្ឋ (state) ប្រាំពីរតាមលំដាប់៖ <b>Down → Init → 2-Way → Exstart → Exchange → Loading → Full</b>។ Neighbor កើតនៅ <b>2-Way</b>; <b>adjacency</b> ពេញលេញ (LSDB ស៊ីង) សម្រេចនៅ <b>Full</b>។</div></div>
+<div class="drill"><div class="q"><b>14.</b> ពន្យល់កម្មវិធីកំណត់ពេល OSPF (OSPF timers)។ <span class="kh">— Explain the OSPF timers.</span></div>
+<div class="a"><b>EN —</b> <b>Hello interval</b> — how often hellos are sent to keep the neighbor alive (default <b>10s</b> on broadcast/point-to-point, 30s on NBMA). <b>Dead interval</b> — how long to wait without a hello before declaring the neighbor down (default <b>40s</b> = 4× hello, 120s on NBMA). These must <b>match</b> between neighbors.<br><br><b>ខ្មែរ —</b> <b>Hello interval</b> — ប្រេកង់ផ្ញើ hello ដើម្បីរក្សា neighbor រស់ (default <b>10s</b> លើ broadcast/point-to-point, 30s លើ NBMA)។ <b>Dead interval</b> — រយៈពេលរង់ចាំគ្មាន hello មុនពេលប្រកាស neighbor ស្លាប់ (default <b>40s</b> = 4× hello, 120s លើ NBMA)។ ទាំងនេះត្រូវ <b>ដូចគ្នា</b> រវាង neighbor។</div></div>
+<div class="drill"><div class="q"><b>15.</b> ចូរ configure default និង static route ឲ្យ IPv6 (PC0 ↔ PC1)។ <span class="kh">— Configure a default and static route for IPv6 (PC0 ↔ PC1).</span></div>
+<div class="a"><b>EN —</b> Enable IPv6 routing, then add a static route to the remote LAN and/or a default route:<pre style="margin-top:6px"><span class="pr">ipv6 unicast-routing</span>
+<span class="cm">! static route to the far LAN</span>
+<span class="pr">ipv6 route</span> 2001:DB8:2::/64 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! OR a default route (everything else)</span>
+<span class="pr">ipv6 route</span> ::/0 <span class="cm">&lt;next-hop&gt;</span></pre><br><br><b>ខ្មែរ —</b> បើក IPv6 routing, រួចបន្ថែម static route ទៅ LAN ឆ្ងាយ និង/ឬ default route៖<pre style="margin-top:6px"><span class="pr">ipv6 unicast-routing</span>
+<span class="cm">! static route ទៅ LAN ឆ្ងាយ</span>
+<span class="pr">ipv6 route</span> 2001:DB8:2::/64 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! ឬ default route (អ្វីៗផ្សេងទៀត)</span>
+<span class="pr">ipv6 route</span> ::/0 <span class="cm">&lt;next-hop&gt;</span></pre></div></div>
+<div class="drill"><div class="q"><b>16.</b> ចូរសរសេរទម្រង់ពេញលេញ (full form) នៃ IPv6 និងបំបែកជា (Global routing, Subnet ID, Interface ID)។ <span class="kh">— Write the full (expanded) form of these IPv6 addresses and split into Global routing prefix, Subnet ID, Interface ID.</span></div>
+<div class="a"><b>EN —</b> Restore leading zeros and expand <code>::</code> to all-zero hextets:
+<ul><li><code>2001:BD8:0AA1:BBA::A1</code> → <code>2001:0BD8:0AA1:0BBA:0000:0000:0000:00A1</code></li>
+<li><code>2001:BD7:0B11:BA:06::10A:AA</code> → <code>2001:0BD7:0B11:00BA:0006:0000:010A:00AA</code></li>
+<li><code>2001:BBAB:768:EA:1F4::</code> → <code>2001:BBAB:0768:00EA:01F4:0000:0000:0000</code></li></ul>
+With a <b>/48</b> split: <b>Global routing prefix</b> = first 3 hextets (48 bits), <b>Subnet ID</b> = 4th hextet (next 16 bits), <b>Interface ID</b> = last 4 hextets (64 bits).<br><br><b>ខ្មែរ —</b> ស្ដារ zero ខាងមុខ និងពង្រីក <code>::</code> ទៅ hextet សូន្យទាំងអស់៖
+<ul><li><code>2001:BD8:0AA1:BBA::A1</code> → <code>2001:0BD8:0AA1:0BBA:0000:0000:0000:00A1</code></li>
+<li><code>2001:BD7:0B11:BA:06::10A:AA</code> → <code>2001:0BD7:0B11:00BA:0006:0000:010A:00AA</code></li>
+<li><code>2001:BBAB:768:EA:1F4::</code> → <code>2001:BBAB:0768:00EA:01F4:0000:0000:0000</code></li></ul>
+បំបែកតាម <b>/48</b>៖ <b>Global routing prefix</b> = hextet ៣ ដំបូង (48 bits), <b>Subnet ID</b> = hextet ទី៤ (16 bits បន្ទាប់), <b>Interface ID</b> = hextet ៤ ចុងក្រោយ (64 bits)។</div></div>
+<div class="drill"><div class="q"><b>17.</b> ចូរបំពេញ៖ (A) configure DHCP លើ Router1/2/3 សម្រាប់ NET 200/201/202; (B) configure Static និង EIGRP route លើ Router1/2/3 ដើម្បីឲ្យ computer ទាំងអស់ ping ដល់គ្នា។ <span class="kh">— Fill in: (A) configure DHCP on Router1/2/3 for NET 200/201/202; (B) configure Static and EIGRP routes on Router1/2/3 so all computers reach each other.</span></div>
+<div class="a"><b>EN —</b> <b>(A) DHCP</b> per router (substitute each subnet, e.g. NET200 = 192.168.200.0/24):<pre style="margin-top:6px"><span class="pr">ip dhcp excluded-address</span> 192.168.200.1 192.168.200.10
+<span class="pr">ip dhcp pool</span> NET200
+ <span class="pr">network</span> 192.168.200.0 255.255.255.0
+ <span class="pr">default-router</span> 192.168.200.1</pre><b>(B) Static</b> — one line per remote network; <b>EIGRP</b> — advertise every connected network:<pre style="margin-top:6px"><span class="cm">! Static example (Router1 → a remote NET)</span>
+<span class="pr">ip route</span> 192.168.201.0 255.255.255.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! EIGRP example</span>
+<span class="pr">router eigrp</span> 1
+ <span class="pr">network</span> 192.168.200.0
+ <span class="pr">no auto-summary</span></pre><br><br><b>ខ្មែរ —</b> <b>(A) DHCP</b> ក្នុង router នីមួយៗ (ជំនួស subnet, ឧ. NET200 = 192.168.200.0/24)៖<pre style="margin-top:6px"><span class="pr">ip dhcp excluded-address</span> 192.168.200.1 192.168.200.10
+<span class="pr">ip dhcp pool</span> NET200
+ <span class="pr">network</span> 192.168.200.0 255.255.255.0
+ <span class="pr">default-router</span> 192.168.200.1</pre><b>(B) Static</b> — មួយបន្ទាត់ក្នុងមួយ network ឆ្ងាយ; <b>EIGRP</b> — ផ្សាយគ្រប់ network ភ្ជាប់៖<pre style="margin-top:6px"><span class="cm">! ឧ. Static (Router1 → NET ឆ្ងាយ)</span>
+<span class="pr">ip route</span> 192.168.201.0 255.255.255.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! ឧ. EIGRP</span>
+<span class="pr">router eigrp</span> 1
+ <span class="pr">network</span> 192.168.200.0
+ <span class="pr">no auto-summary</span></pre></div></div>
+<div class="drill"><div class="q"><b>18.</b> តើ multicast address ប្រើក្នុង OSPF មានអ្វីខ្លះ? <span class="kh">— Which multicast addresses does OSPF use?</span></div>
+<div class="a"><b>EN —</b> <b>224.0.0.5</b> = AllSPFRouters (every OSPF router). <b>224.0.0.6</b> = AllDRouters (the DR and BDR).<br><br><b>ខ្មែរ —</b> <b>224.0.0.5</b> = AllSPFRouters (គ្រប់ router OSPF)។ <b>224.0.0.6</b> = AllDRouters (DR និង BDR)។</div></div>
+<div class="drill"><div class="q"><b>19.</b> តើអ្វីទៅ Static Route? និងឧទាហរណ៍ command line។ <span class="kh">— What is a Static Route? Give a command-line example.</span></div>
+<div class="a"><b>EN —</b> A route <b>configured manually</b> by the administrator (no protocol). Good for small/stable networks; AD <b>1</b>.<pre style="margin-top:6px"><span class="pr">ip route</span> 192.168.2.0 255.255.255.0 10.0.0.2</pre><br><br><b>ខ្មែរ —</b> Route ដែល <b>កំណត់ដោយដៃ</b> ដោយ admin (គ្មានប្រូតូកូល)។ ល្អសម្រាប់បណ្ដាញតូច/ស្ថិរ; AD <b>1</b>។<pre style="margin-top:6px"><span class="pr">ip route</span> 192.168.2.0 255.255.255.0 10.0.0.2</pre></div></div>
+<div class="drill"><div class="q"><b>20.</b> តើអ្វីទៅ Default Route? និងឧទាហរណ៍ command line។ <span class="kh">— What is a Default Route? Give a command-line example.</span></div>
+<div class="a"><b>EN —</b> A catch-all route (<code>0.0.0.0/0</code>) for <b>any destination not in the routing table</b> — “when in doubt, send here.”<pre style="margin-top:6px"><span class="pr">ip route</span> 0.0.0.0 0.0.0.0 10.0.0.1</pre><br><br><b>ខ្មែរ —</b> Route catch-all (<code>0.0.0.0/0</code>) សម្រាប់ <b>គោលដៅណាដែលគ្មានក្នុង routing table</b> — “បើមិនដឹង ផ្ញើមកនេះ”។<pre style="margin-top:6px"><span class="pr">ip route</span> 0.0.0.0 0.0.0.0 10.0.0.1</pre></div></div>
+<div class="drill"><div class="q"><b>21.</b> តើអ្វីទៅ Routing Information Protocol (RIP)? និងឧទាហរណ៍ command line។ <span class="kh">— What is RIP? Give a command-line example.</span></div>
+<div class="a"><b>EN —</b> The oldest distance-vector IGP. Metric = <b>hop count</b> (max <b>15</b>; 16 = unreachable). Updates every <b>30s</b>; AD <b>120</b>. Use <b>version 2</b> (classless, supports VLSM).<pre style="margin-top:6px"><span class="pr">router rip</span>
+ <span class="pr">version</span> 2
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> 192.168.1.0</pre><br><br><b>ខ្មែរ —</b> IGP distance-vector ចាស់បំផុត។ Metric = <b>hop count</b> (អតិបរមា <b>15</b>; 16 = មិនអាចទៅដល់)។ Update រៀងរាល់ <b>30s</b>; AD <b>120</b>។ ប្រើ <b>version 2</b> (classless, គាំទ្រ VLSM)។<pre style="margin-top:6px"><span class="pr">router rip</span>
+ <span class="pr">version</span> 2
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> 192.168.1.0</pre></div></div>
+<div class="drill"><div class="q"><b>22.</b> ចូរពន្យល់ពី User EXEC mode។ <span class="kh">— Explain User EXEC mode.</span></div>
+<div class="a"><b>EN —</b> The first, <b>limited</b> mode after login. You can run only basic monitoring commands (ping, show some). Prompt: <code>Router&gt;</code>. Cannot change configuration.<br><br><b>ខ្មែរ —</b> Mode ដំបូង <b>មានកំណត់</b> បន្ទាប់ពី login។ អ្នកអាចដំណើរការតែ command ត្រួតពិនិត្យមូលដ្ឋាន (ping, show ខ្លះ)។ Prompt៖ <code>Router&gt;</code>។ មិនអាចប្ដូរ config។</div></div>
+<div class="drill"><div class="q"><b>23.</b> ចូរពន្យល់ពី Privileged EXEC mode។ <span class="kh">— Explain Privileged EXEC mode.</span></div>
+<div class="a"><b>EN —</b> Full <b>view/monitor</b> access — all <code>show</code>, <code>debug</code>, copy, reload. Entered with <code>enable</code>. Prompt: <code>Router#</code>. Gateway to configuration mode.<br><br><b>ខ្មែរ —</b> ការចូល <b>មើល/ត្រួតពិនិត្យ</b> ពេញលេញ — គ្រប់ <code>show</code>, <code>debug</code>, copy, reload។ ចូលដោយ <code>enable</code>។ Prompt៖ <code>Router#</code>។ ជាច្រកចូល config mode។</div></div>
+<div class="drill"><div class="q"><b>24.</b> ចូរពន្យល់ពី Global configuration mode។ <span class="kh">— Explain Global configuration mode.</span></div>
+<div class="a"><b>EN —</b> Where you make <b>device-wide configuration changes</b> (hostname, routing, interfaces...). Entered with <code>configure terminal</code> from privileged mode. Prompt: <code>Router(config)#</code>.<br><br><b>ខ្មែរ —</b> កន្លែងដែលអ្នកធ្វើ <b>ការប្ដូរ config ទូទាំងឧបករណ៍</b> (hostname, routing, interface...)។ ចូលដោយ <code>configure terminal</code> ពី privileged mode។ Prompt៖ <code>Router(config)#</code>។</div></div>
+<div class="drill"><div class="q"><b>25.</b> តើអ្វីទៅ IPv6? លក្ខណៈទូទៅរបស់វា។ <span class="kh">— What is IPv6? Its general characteristics.</span></div>
+<div class="a"><b>EN —</b> The next-generation IP, <b>128-bit</b> addresses written as 8 groups of hex. Characteristics: huge address space; <b>no broadcast</b> (uses multicast/anycast); simplified header; built-in IPsec; <b>auto-configuration (SLAAC)</b>; no NAT needed.<br><br><b>ខ្មែរ —</b> IP ជំនាន់ក្រោយ, address <b>128-bit</b> សរសេរជា ៨ ក្រុមនៃ hex។ លក្ខណៈ៖ លំហ address ធំសម្បើម; <b>គ្មាន broadcast</b> (ប្រើ multicast/anycast); header សាមញ្ញ; មាន IPsec ស្រាប់; <b>auto-config (SLAAC)</b>; មិនបាច់ NAT។</div></div>
+<div class="drill"><div class="q"><b>26.</b> តើជាអ្វី OSPF Router ID? <span class="kh">— What is an OSPF Router ID?</span></div>
+<div class="a"><b>EN —</b> A 32-bit number (in IP format) that <b>uniquely identifies a router</b> in OSPF. Selection order: (1) manual <code>router-id</code>; else (2) highest <b>loopback</b> IP; else (3) highest active <b>interface</b> IP.<br><br><b>ខ្មែរ —</b> លេខ 32-bit (ទម្រង់ IP) ដែល <b>កំណត់អត្តសញ្ញាណ router ឲ្យឯកត្តា</b> ក្នុង OSPF។ លំដាប់ជ្រើស៖ (1) <code>router-id</code> ដោយដៃ; បើគ្មាន (2) IP <b>loopback</b> ខ្ពស់បំផុត; បើគ្មាន (3) IP <b>interface</b> active ខ្ពស់បំផុត។</div></div>
+<div class="drill"><div class="q"><b>27.</b> តើអ្វីទៅ RIP routing protocol? និងឧទាហរណ៍ command line។ <span class="kh">— What is the RIP routing protocol? Give a command-line example.</span></div>
+<div class="a"><b>EN —</b> Distance-vector IGP using <b>hop count</b> (max 15), AD 120, periodic 30s updates. Configure with <code>router rip</code> / <code>version 2</code> / <code>network</code>. (See Q21 for the full example.)<br><br><b>ខ្មែរ —</b> IGP distance-vector ប្រើ <b>hop count</b> (អតិបរមា 15), AD 120, update រៀងរាល់ 30s។ Config ដោយ <code>router rip</code> / <code>version 2</code> / <code>network</code>។ (មើល សំណួរ 21 សម្រាប់ឧទាហរណ៍ពេញ។)</div></div>
+<div class="drill"><div class="q"><b>28.</b> តើអ្វីទៅ OSPF Routing protocol? <span class="kh">— What is the OSPF routing protocol?</span></div>
+<div class="a"><b>EN —</b> An open-standard <b>link-state</b> IGP. Each router floods LSAs, builds an identical LSDB, then runs the <b>Dijkstra/SPF</b> algorithm to find shortest paths. Metric = <b>cost</b> (based on bandwidth); AD <b>110</b>; uses areas; classless (VLSM); fast convergence.<br><br><b>ខ្មែរ —</b> IGP <b>link-state</b> ស្តង់ដារបើកចំហ។ Router នីមួយៗ flood LSA, សង់ LSDB ដូចគ្នា, រួចដំណើរការ algorithm <b>Dijkstra/SPF</b> ដើម្បីរកផ្លូវខ្លីបំផុត។ Metric = <b>cost</b> (តាម bandwidth); AD <b>110</b>; ប្រើ area; classless (VLSM); convergence លឿន។</div></div>
+<div class="drill"><div class="q"><b>29.</b> ចូរនិយាយពីលក្ខណៈមួយចំនួនរបស់ OSPF។ <span class="kh">— Describe some characteristics of OSPF.</span></div>
+<div class="a"><b>EN —</b> Link-state; open standard; <b>hierarchical (areas)</b> with Area 0 backbone; cost metric; triggered/incremental updates; supports <b>VLSM/CIDR</b>; uses <b>DR/BDR</b> on multi-access links; classless; converges fast.<br><br><b>ខ្មែរ —</b> Link-state; ស្តង់ដារបើកចំហ; <b>ឋានានុក្រម (area)</b> ដោយ Area 0 backbone; metric cost; update ពេលមានការផ្លាស់ប្ដូរ; គាំទ្រ <b>VLSM/CIDR</b>; ប្រើ <b>DR/BDR</b> លើ link multi-access; classless; convergence លឿន។</div></div>
+<div class="drill"><div class="q"><b>30.</b> តើអ្វីទៅជាត្រូវការសម្រាប់ការបែងចែកប្រព័ន្ធស្វយ័ត (AS) ទៅជាតំបន់ (area) ផ្សេងៗ? <span class="kh">— Why divide an autonomous system into separate OSPF areas?</span></div>
+<div class="a"><b>EN —</b> To <b>scale</b>: smaller LSDB per router, less SPF computation and CPU/memory, and LSA flooding/instability is <b>contained inside an area</b> — a flap in one area doesn't force every router in the AS to recalculate.<br><br><b>ខ្មែរ —</b> ដើម្បី <b>scale</b>៖ LSDB តូចជាងក្នុង router នីមួយៗ, គណនា SPF និង CPU/memory តិច, ហើយ flooding LSA/ភាពមិនស្ថិរ <b>ត្រូវបានរារាំងក្នុង area</b> — បញ្ហាក្នុង area មួយ មិនបង្ខំ router ទាំងអស់ក្នុង AS ឲ្យគណនាឡើងវិញ។</div></div>
+<div class="drill"><div class="q"><b>31.</b> តើអ្វីទៅជាអត្ថប្រយោជន៍នៃការបែងចែកបណ្ដាញ ទៅជាតំបន់ (network into areas)? <span class="kh">— What are the benefits of dividing a network into areas?</span></div>
+<div class="a"><b>EN —</b> Smaller routing tables, lower CPU/memory use, faster convergence, <b>localized topology changes</b>, and the ability to <b>summarize routes</b> at area borders (ABRs) to reduce advertisements.<br><br><b>ខ្មែរ —</b> Routing table តូចជាង, ប្រើ CPU/memory តិច, convergence លឿន, <b>ការផ្លាស់ប្ដូរ topology នៅក្នុងតំបន់</b>, និងសមត្ថភាព <b>summarize route</b> នៅព្រំដែន area (ABR) ដើម្បីបន្ថយការផ្សាយ។</div></div>
+<div class="drill"><div class="q"><b>32.</b> តើជាអ្វី Backbone Area? <span class="kh">— What is the Backbone Area?</span></div>
+<div class="a"><b>EN —</b> <b>Area 0</b> — the central transit area that <b>all other OSPF areas must connect to</b>. Inter-area traffic always passes through the backbone.<br><br><b>ខ្មែរ —</b> <b>Area 0</b> — តំបន់ transit កណ្ដាល ដែល <b>គ្រប់ area OSPF ផ្សេងទៀតត្រូវភ្ជាប់ទៅ</b>។ ចរាចរណ៍ inter-area តែងតែឆ្លងកាត់ backbone។</div></div>
+<div class="drill"><div class="q"><b>33.</b> តើ Parameters អ្វីខ្លះ ដែលត្រូវ match សម្រាប់ឲ្យ router ពីរ ក្លាយជា neighbors (OSPF)? <span class="kh">— Which parameters must match for two OSPF routers to become neighbors?</span></div>
+<div class="a"><b>EN —</b> Same <b>Area ID</b>; same <b>subnet/mask</b> (on the link); matching <b>Hello & Dead intervals</b>; same <b>authentication</b>; matching <b>area type/stub flags</b>; and same <b>MTU</b>.<br><br><b>ខ្មែរ —</b> ដូចគ្នា៖ <b>Area ID</b>; <b>subnet/mask</b> (លើ link); <b>Hello & Dead interval</b>; <b>authentication</b>; <b>area type/stub flag</b>; និង <b>MTU</b>។</div></div>
+<div class="drill"><div class="q"><b>34.</b> ពន្យល់ពី OSPF states។ <span class="kh">— Explain the OSPF states.</span></div>
+<div class="a"><b>EN —</b> <b>Down</b> (no hellos) → <b>Init</b> (hello received) → <b>2-Way</b> (bidirectional, DR/BDR elected) → <b>Exstart</b> (master/slave) → <b>Exchange</b> (DBD swap) → <b>Loading</b> (LSR/LSU) → <b>Full</b> (LSDB synchronized).<br><br><b>ខ្មែរ —</b> <b>Down</b> (គ្មាន hello) → <b>Init</b> (ទទួល hello) → <b>2-Way</b> (ទ្វេទិស, ជ្រើស DR/BDR) → <b>Exstart</b> (master/slave) → <b>Exchange</b> (ផ្លាស់ DBD) → <b>Loading</b> (LSR/LSU) → <b>Full</b> (LSDB ស៊ីង)។</div></div>
+<div class="drill"><div class="q"><b>35.</b> ពន្យល់ OSPF LSA, LSU និង LSR។ <span class="kh">— Explain OSPF LSA, LSU and LSR.</span></div>
+<div class="a"><b>EN —</b> <b>LSA (Link-State Advertisement)</b> = the actual piece of link/route information. <b>LSU (Link-State Update)</b> = the packet that <b>carries one or more LSAs</b>. <b>LSR (Link-State Request)</b> = a packet asking a neighbor for <b>missing LSAs</b>. (LSAck acknowledges receipt.)<br><br><b>ខ្មែរ —</b> <b>LSA (Link-State Advertisement)</b> = បំណែកព័ត៌មាន link/route ពិតប្រាកដ។ <b>LSU (Link-State Update)</b> = packet ដែល <b>ផ្ទុក LSA មួយ ឬច្រើន</b>។ <b>LSR (Link-State Request)</b> = packet សុំ LSA ដែល <b>បាត់</b> ពី neighbor។ (LSAck បញ្ជាក់ការទទួល។)</div></div>
+<div class="drill"><div class="q"><b>36.</b> តើអ្វីទៅជាជំហានដែលត្រូវការ ដើម្បីបង្កើត Neighborship ទៅជា adjacency? (ដដែលនឹង Q13) <span class="kh">— What steps build a neighborship into adjacency? (same as Q13)</span></div>
+<div class="a"><b>EN —</b> Down → Init → 2-Way → Exstart → Exchange → Loading → <b>Full</b>. Neighbor at 2-Way, full adjacency (synced LSDB) at Full.<br><br><b>ខ្មែរ —</b> Down → Init → 2-Way → Exstart → Exchange → Loading → <b>Full</b>។ Neighbor នៅ 2-Way, adjacency ពេញ (LSDB ស៊ីង) នៅ Full។</div></div>
+<div class="drill"><div class="q"><b>37.</b> តើជាអ្វី default Hello Interval? <span class="kh">— What is the default Hello interval?</span></div>
+<div class="a"><b>EN —</b> <b>10 seconds</b> on broadcast and point-to-point links (30 seconds on NBMA/point-to-multipoint).<br><br><b>ខ្មែរ —</b> <b>10 វិនាទី</b> លើ link broadcast និង point-to-point (30 វិនាទី លើ NBMA/point-to-multipoint)។</div></div>
+<div class="drill"><div class="q"><b>38.</b> តើជាអ្វី default Dead Interval? <span class="kh">— What is the default Dead interval?</span></div>
+<div class="a"><b>EN —</b> <b>40 seconds</b> (4× the hello interval) on broadcast/point-to-point; 120 seconds on NBMA.<br><br><b>ខ្មែរ —</b> <b>40 វិនាទី</b> (4× hello interval) លើ broadcast/point-to-point; 120 វិនាទី លើ NBMA។</div></div>
+<div class="drill"><div class="q"><b>39.</b> តើ OSPF LSA មានប្រភេទអ្វីខ្លះ? <span class="kh">— What are the OSPF LSA types?</span></div>
+<div class="a"><b>EN —</b> <b>Type 1</b> Router LSA · <b>Type 2</b> Network LSA · <b>Type 3</b> Summary (inter-area) · <b>Type 4</b> ASBR Summary · <b>Type 5</b> External · <b>Type 7</b> NSSA External.<br><br><b>ខ្មែរ —</b> <b>Type 1</b> Router LSA · <b>Type 2</b> Network LSA · <b>Type 3</b> Summary (inter-area) · <b>Type 4</b> ASBR Summary · <b>Type 5</b> External · <b>Type 7</b> NSSA External។</div></div>
+<div class="drill"><div class="q"><b>40.</b> ចូរធ្វើការ configure OSPF Routing Protocol។ <span class="kh">— Configure the OSPF routing protocol.</span></div>
+<div class="a"><b>EN —</b> <pre style="margin-top:6px"><span class="pr">router ospf</span> 1
+ <span class="pr">router-id</span> 1.1.1.1
+ <span class="pr">network</span> 192.168.1.0 0.0.0.255 <span class="pr">area</span> 0
+ <span class="pr">network</span> 10.0.0.0 0.0.0.3 <span class="pr">area</span> 0</pre>Verify with <code>show ip ospf neighbor</code> (look for FULL).<br><br><b>ខ្មែរ —</b> <pre style="margin-top:6px"><span class="pr">router ospf</span> 1
+ <span class="pr">router-id</span> 1.1.1.1
+ <span class="pr">network</span> 192.168.1.0 0.0.0.255 <span class="pr">area</span> 0
+ <span class="pr">network</span> 10.0.0.0 0.0.0.3 <span class="pr">area</span> 0</pre>ផ្ទៀងផ្ទាត់ដោយ <code>show ip ospf neighbor</code> (រកមើល FULL)។</div></div>
+<div class="drill"><div class="q"><b>41.</b> តើ EIGRP ត្រូវការ command “ip default-network” ដើម្បីដំណើរការ default route ឬទេ? <span class="kh">— Does EIGRP require the “ip default-network” command to propagate a default route?</span></div>
+<div class="a"><b>EN —</b> <b>No — it is not required.</b> <code>ip default-network</code> is one way, but EIGRP can also propagate a default by <b>redistributing a static</b> <code>0.0.0.0/0</code> route. So a default route can be advertised without it.<br><br><b>ខ្មែរ —</b> <b>ទេ — មិនត្រូវការ។</b> <code>ip default-network</code> ជាវិធីមួយ, ប៉ុន្តែ EIGRP ក៏អាចផ្សាយ default ដោយ <b>redistribute static</b> <code>0.0.0.0/0</code> ផងដែរ។ ដូច្នេះ default route អាចត្រូវផ្សាយដោយគ្មានវា។</div></div>
+<div class="drill"><div class="q"><b>42.</b> តើខ្ញុំគួរប្រើ eigrp log-neighbor-changes ពេលដែលខ្ញុំតម្លើង EIGRP ឬទេ? <span class="kh">— Should I use 'eigrp log-neighbor-changes' when setting up EIGRP?</span></div>
+<div class="a"><b>EN —</b> <b>Yes.</b> It logs when neighbors go up/down — very useful for troubleshooting adjacency problems. It is enabled by default in modern IOS.<br><br><b>ខ្មែរ —</b> <b>គួរ។</b> វា log ពេល neighbor ឡើង/ធ្លាក់ — មានប្រយោជន៍ខ្លាំងសម្រាប់ដោះស្រាយបញ្ហា adjacency។ វាបើកដោយស្វ័យប្រវត្តិក្នុង IOS ថ្មី។</div></div>
+<div class="drill"><div class="q"><b>43.</b> តើ EIGRP support secondary addresses ឬទេ? <span class="kh">— Does EIGRP support secondary addresses?</span></div>
+<div class="a"><b>EN —</b> <b>Yes</b> — EIGRP supports secondary IP addresses on an interface.<br><br><b>ខ្មែរ —</b> <b>គាំទ្រ</b> — EIGRP គាំទ្រ secondary IP address លើ interface។</div></div>
+<div class="drill"><div class="q"><b>44.</b> តើ EIGRP មានសមត្ថភាព debugging អ្វីខ្លះ? <span class="kh">— What debugging capabilities does EIGRP have?</span></div>
+<div class="a"><b>EN —</b> Commands such as <code>debug eigrp packets</code>, <code>debug eigrp neighbors</code>, <code>debug ip eigrp</code>, and <code>debug ip eigrp notifications</code> — to watch hellos, neighbor changes, and route updates.<br><br><b>ខ្មែរ —</b> Command ដូចជា <code>debug eigrp packets</code>, <code>debug eigrp neighbors</code>, <code>debug ip eigrp</code>, និង <code>debug ip eigrp notifications</code> — ដើម្បីមើល hello, ការផ្លាស់ប្ដូរ neighbor, និង update route។</div></div>
+<div class="drill"><div class="q"><b>45.</b> តើ EIGRP support aggregation និង variable-length subnet masks (VLSM) ឬទេ? <span class="kh">— Does EIGRP support aggregation and VLSM?</span></div>
+<div class="a"><b>EN —</b> <b>Yes</b> — EIGRP is classless: it supports <b>manual route summarization (aggregation)</b> and <b>VLSM/CIDR</b>.<br><br><b>ខ្មែរ —</b> <b>គាំទ្រ</b> — EIGRP ជា classless៖ វាគាំទ្រ <b>route summarization ដោយដៃ (aggregation)</b> និង <b>VLSM/CIDR</b>។</div></div>
+<div class="drill"><div class="q"><b>46.</b> តើខ្ញុំអាច configure ច្រើនជាងមួយ ប្រព័ន្ធស្វយ័ត EIGRP លើ router តែមួយ បានទេ? <span class="kh">— Can I configure more than one EIGRP autonomous system on a single router?</span></div>
+<div class="a"><b>EN —</b> <b>Yes</b> — you can run multiple EIGRP AS numbers on one router. They are separate processes and don't share routes unless you redistribute between them.<br><br><b>ខ្មែរ —</b> <b>បាន</b> — អ្នកអាចដំណើរការ EIGRP AS ច្រើនលើ router តែមួយ។ ពួកវាជា process ដាច់ដោយឡែក ហើយមិនចែករំលែក route លុះត្រាតែអ្នក redistribute រវាងពួកវា។</div></div>
+<div class="drill"><div class="q"><b>47.</b> តើអ្វីជាភាពខុសសំខាន់ៗ រវាង IPv4 និង IPv6? <span class="kh">— What are the key differences between IPv4 and IPv6?</span></div>
+<div class="a"><b>EN —</b> <ul><li>Address size: <b>32-bit</b> vs <b>128-bit</b>.</li>
+<li>Notation: dotted-decimal vs hex with colons.</li>
+<li><b>Broadcast</b> vs <b>no broadcast</b> (multicast/anycast).</li>
+<li>NAT commonly needed vs huge space (no NAT needed).</li>
+<li>Address resolution: <b>ARP</b> vs <b>NDP</b>; IPsec optional vs built-in.</li></ul><br><br><b>ខ្មែរ —</b> <ul><li>ទំហំ address៖ <b>32-bit</b> ទល់នឹង <b>128-bit</b>។</li>
+<li>ការសរសេរ៖ dotted-decimal ទល់នឹង hex ដោយ colon។</li>
+<li><b>Broadcast</b> ទល់នឹង <b>គ្មាន broadcast</b> (multicast/anycast)។</li>
+<li>ត្រូវការ NAT ញឹកញាប់ ទល់នឹង លំហធំ (មិនបាច់ NAT)។</li>
+<li>Address resolution៖ <b>ARP</b> ទល់នឹង <b>NDP</b>; IPsec ស្រេចចិត្ត ទល់នឹង មានស្រាប់។</li></ul></div></div>
+<div class="drill"><div class="q"><b>48.</b> ពន្យល់ពីគោលបំណងនៃ subnetting ក្នុងបណ្ដាញ។ <span class="kh">— Explain the purpose of subnetting in a network.</span></div>
+<div class="a"><b>EN —</b> To divide one large network into smaller <b>subnets</b>. This <b>reduces broadcast domains</b>, improves performance and security, uses IP address space efficiently, and makes the network easier to manage.<br><br><b>ខ្មែរ —</b> ដើម្បីបែងចែកបណ្ដាញធំមួយ ទៅជា <b>subnet</b> តូចៗ។ វា <b>បន្ថយ broadcast domain</b>, បង្កើនដំណើរការ និងសុវត្ថិភាព, ប្រើលំហ IP ប្រកបដោយប្រសិទ្ធភាព, និងធ្វើឲ្យបណ្ដាញគ្រប់គ្រងងាយ។</div></div>
+<div class="drill"><div class="q"><b>49.</b> តើ ARP (Address Resolution Protocol) ដំណើរការយ៉ាងដូចម្ដេច ក្នុងបរិយាកាសអន្តរបណ្ដាញ? <span class="kh">— How does ARP work in an internetwork environment?</span></div>
+<div class="a"><b>EN —</b> ARP maps an <b>IP address → MAC address</b> on a LAN. The host <b>broadcasts</b> “Who has IP X?”; the owner replies (unicast) with its MAC, which is cached in the ARP table. For a <b>remote</b> destination, ARP resolves the <b>default gateway's MAC</b>, and the router repeats the process on the next segment.<br><br><b>ខ្មែរ —</b> ARP map <b>IP address → MAC address</b> លើ LAN។ Host <b>broadcast</b> “នរណាមាន IP X?”; ម្ចាស់ឆ្លើយ (unicast) ដោយ MAC របស់វា, ដែលរក្សាក្នុង ARP table។ សម្រាប់គោលដៅ <b>ឆ្ងាយ</b>, ARP រក <b>MAC របស់ default gateway</b>, ហើយ router ធ្វើដំណើរការនេះឡើងវិញលើ segment បន្ទាប់។</div></div>
+<div class="drill"><div class="q"><b>50.</b> ពន្យល់ពីរបៀបដែលពិធីការ OSPF (Shortest Path First) ដំណើរការ។ <span class="kh">— Explain how the OSPF (Shortest Path First) protocol works.</span></div>
+<div class="a"><b>EN —</b> Each router floods <b>LSAs</b> describing its links; every router builds an identical <b>LSDB</b>. Each router then runs the <b>Dijkstra/SPF</b> algorithm to compute a shortest-path tree (lowest total <b>cost</b>) to every destination and installs the best routes into the routing table.<br><br><b>ខ្មែរ —</b> Router នីមួយៗ flood <b>LSA</b> ដែលពណ៌នា link របស់វា; គ្រប់ router សង់ <b>LSDB</b> ដូចគ្នា។ បន្ទាប់មក router នីមួយៗដំណើរការ algorithm <b>Dijkstra/SPF</b> ដើម្បីគណនា tree ផ្លូវខ្លីបំផុត (<b>cost</b> សរុបទាបបំផុត) ទៅគ្រប់គោលដៅ ហើយដាក់ route ល្អបំផុតចូល routing table។</div></div>
+<div class="drill"><div class="q"><b>51.</b> តើ BGP (Border Gateway Protocol) គឺជាអ្វី ហើយ ហេតុអ្វីបានជាវាសំខាន់ក្នុងអ៊ីនធឺណិត? <span class="kh">— What is BGP and why is it important on the Internet?</span></div>
+<div class="a"><b>EN —</b> BGP is the <b>path-vector EGP</b> that exchanges routing <b>between autonomous systems (AS)</b>. It is “the protocol that runs the Internet,” connecting ISPs/organizations. It chooses paths using <b>attributes and policy</b> (AS-path, etc.); AD <b>20</b> (eBGP) / <b>200</b> (iBGP).<br><br><b>ខ្មែរ —</b> BGP ជា <b>EGP path-vector</b> ដែលផ្លាស់ប្ដូរ routing <b>រវាង autonomous system (AS)</b>។ វាជា “ប្រូតូកូលដែលដំណើរការអ៊ីនធឺណិត,” ភ្ជាប់ ISP/ស្ថាប័ន។ វាជ្រើសផ្លូវដោយ <b>attribute និង policy</b> (AS-path ។ល។); AD <b>20</b> (eBGP) / <b>200</b> (iBGP)។</div></div>
+<div class="drill"><div class="q"><b>52.</b> ចូរពិពណ៌នាអំពី Verification Commands ក្នុង BGP routing protocol។ <span class="kh">— Describe the verification commands in BGP.</span></div>
+<div class="a"><b>EN —</b> <code>show ip bgp</code> (BGP table) · <code>show ip bgp summary</code> (neighbors & state) · <code>show ip bgp neighbors</code> (session details) · <code>show ip route bgp</code> (installed BGP routes).<br><br><b>ខ្មែរ —</b> <code>show ip bgp</code> (តារាង BGP) · <code>show ip bgp summary</code> (neighbor & state) · <code>show ip bgp neighbors</code> (ព័ត៌មាន session) · <code>show ip route bgp</code> (route BGP ដែលដាក់)។</div></div>
+<div class="drill"><div class="q"><b>53.</b> តើ NAT ជួយក្នុងការសន្សំ IP Address យ៉ាងដូចម្ដេច? <span class="kh">— How does NAT help conserve IP addresses?</span></div>
+<div class="a"><b>EN —</b> NAT translates many <b>private</b> addresses to one (or a few) <b>public</b> addresses. With <b>PAT/overload</b>, a whole LAN shares a single public IP (distinguished by port), so an organization needs only a few public IPv4 addresses — conserving the scarce IPv4 space.<br><br><b>ខ្មែរ —</b> NAT បកប្រែ address <b>private</b> ច្រើន ទៅ address <b>public</b> មួយ (ឬពីរបី)។ ដោយ <b>PAT/overload</b>, LAN ទាំងមូលចែករំលែក public IP តែមួយ (ញែកដោយ port), ដូច្នេះស្ថាប័នត្រូវការ public IPv4 តែពីរបី — សន្សំលំហ IPv4 ដ៏កម្រ។</div></div>
+<div class="drill"><div class="q"><b>54.</b> ពិពណ៌នាអំពីដំណើរការរបស់ DHCP (Dynamic Host Configuration Protocol)។ <span class="kh">— Describe how DHCP works.</span></div>
+<div class="a"><b>EN —</b> DHCP auto-assigns IP settings via <b>DORA</b>: <b>Discover</b> (client broadcasts) → <b>Offer</b> (server offers an IP) → <b>Request</b> (client requests it) → <b>Acknowledge</b> (server confirms the lease). It hands out IP, mask, default gateway, and DNS automatically.<br><br><b>ខ្មែរ —</b> DHCP assign IP setting ដោយស្វ័យប្រវត្តិតាម <b>DORA</b>៖ <b>Discover</b> (client broadcast) → <b>Offer</b> (server ផ្ដល់ IP) → <b>Request</b> (client សុំ) → <b>Acknowledge</b> (server បញ្ជាក់ lease)។ វាចែក IP, mask, default gateway, និង DNS ស្វ័យប្រវត្តិ។</div></div>
+<div class="drill"><div class="q"><b>55.</b> ប្រៀបធៀប TCP និង UDP ក្នុងលក្ខខណ្ឌនៃភាពជឿជាក់បាន និងករណីប្រើប្រាស់។ <span class="kh">— Compare TCP and UDP in terms of reliability and use cases.</span></div>
+<div class="a"><b>EN —</b> <b>TCP</b> is reliable (acks, retransmission, ordering) — used where accuracy matters: web, email, file transfer. <b>UDP</b> is fast and lightweight but unreliable — used where speed matters and some loss is OK: VoIP, video streaming, DNS, online gaming.<br><br><b>ខ្មែរ —</b> <b>TCP</b> ជឿជាក់បាន (ack, បញ្ជូនឡើងវិញ, លំដាប់) — ប្រើកន្លែងដែលត្រូវការភាពត្រឹមត្រូវ៖ web, email, ផ្ទេរ file។ <b>UDP</b> លឿន និងស្រាល ប៉ុន្តែមិនជឿជាក់ — ប្រើកន្លែងដែលត្រូវការល្បឿន ហើយបាត់បន្តិចមិនអី៖ VoIP, video streaming, DNS, ហ្គេមអនឡាញ។</div></div>
+<div class="drill"><div class="q"><b>56.</b> តើអ្វីទៅ configuration neighbor statement ក្នុង EIGRP? <span class="kh">— What is the neighbor statement configuration in EIGRP?</span></div>
+<div class="a"><b>EN —</b> The <code>neighbor</code> command forms an EIGRP peering by <b>unicast</b> to a specific address instead of multicast — used on NBMA / Frame Relay where multicast isn't available.<pre style="margin-top:6px"><span class="pr">router eigrp</span> 1
+ <span class="pr">neighbor</span> 10.0.0.2 <span class="cm">&lt;interface&gt;</span></pre><br><br><b>ខ្មែរ —</b> Command <code>neighbor</code> បង្កើត peering EIGRP ដោយ <b>unicast</b> ទៅ address ជាក់លាក់ ជំនួស multicast — ប្រើលើ NBMA / Frame Relay ដែលគ្មាន multicast។<pre style="margin-top:6px"><span class="pr">router eigrp</span> 1
+ <span class="pr">neighbor</span> 10.0.0.2 <span class="cm">&lt;interface&gt;</span></pre></div></div>
+<div class="drill"><div class="q"><b>57.</b> តើ serno (serial number) មានន័យអ្វី នៅឯចុងនៃ EIGRP topology ពេលសរសេរ command 'show ip eigrp topology'? <span class="kh">— What does 'serno' mean at the end of the EIGRP topology, in 'show ip eigrp topology'?</span></div>
+<div class="a"><b>EN —</b> <b>serno = serial number</b> — an internal sequence number EIGRP assigns to each topology-table entry to <b>track/order updates</b> efficiently (so it knows which entries changed and need sending). It's housekeeping, not something you configure.<br><br><b>ខ្មែរ —</b> <b>serno = serial number</b> — លេខលំដាប់ផ្ទៃក្នុង ដែល EIGRP ផ្ដល់ឲ្យ entry topology-table នីមួយៗ ដើម្បី <b>តាមដាន/រៀបលំដាប់ update</b> ប្រកបដោយប្រសិទ្ធភាព (ដឹងថា entry ណាប្ដូរ ត្រូវផ្ញើ)។ វាជារឿងផ្ទៃក្នុង មិនមែនអ្វីដែលអ្នក config ទេ។</div></div>
+<div class="drill"><div class="q"><b>58.</b> តើអ្វីទៅ VPN IPSEC Tunnel? <span class="kh">— What is a VPN IPSEC Tunnel?</span></div>
+<div class="a"><b>EN —</b> A <b>secure, encrypted tunnel</b> between two sites over a public network. IPsec provides <b>confidentiality, integrity, and authentication</b>, negotiated by IKE (Phase 1 ISAKMP + Phase 2 IPsec SA) and carried by ESP/AH.<br><br><b>ខ្មែរ —</b> <b>ផ្លូវរូងសុវត្ថិភាព អ៊ិនគ្រីប</b> រវាង site ពីរ លើបណ្ដាញសាធារណៈ។ IPsec ផ្ដល់ <b>ការសម្ងាត់, សុចរិតភាព, និងការផ្ទៀងផ្ទាត់</b>, ចរចាដោយ IKE (Phase 1 ISAKMP + Phase 2 IPsec SA) ហើយផ្ទុកដោយ ESP/AH។</div></div>
+<div class="drill"><div class="q"><b>59.</b> ចូរបំពេញ config VPN IPSEC (crypto isakmp ...) លើ router PP1 និង TK1។ <span class="kh">— Complete the VPN IPSEC config (crypto isakmp ...) on routers PP1 and TK1.</span></div>
+<div class="a"><b>EN —</b> After the <code>crypto isakmp policy</code>, add the pre-shared <b>key</b>, the <b>transform-set</b>, the <b>crypto map</b>, and apply it to the interface (mirror it on the peer):<pre style="margin-top:6px"><span class="pr">crypto isakmp key</span> CISCO123 <span class="pr">address</span> <span class="cm">&lt;peer-ip&gt;</span>
+<span class="pr">crypto ipsec transform-set</span> TS <span class="pr">esp-aes</span> 256 <span class="pr">esp-sha-hmac</span>
+<span class="pr">crypto map</span> MYMAP 10 <span class="pr">ipsec-isakmp</span>
+ <span class="pr">set peer</span> <span class="cm">&lt;peer-ip&gt;</span>
+ <span class="pr">set transform-set</span> TS
+ <span class="pr">match address</span> 100
+<span class="cm">! then on the WAN interface:</span>
+<span class="pr">interface</span> <span class="cm">&lt;wan&gt;</span>
+ <span class="pr">crypto map</span> MYMAP</pre><br><br><b>ខ្មែរ —</b> បន្ទាប់ពី <code>crypto isakmp policy</code>, បន្ថែម <b>key</b> pre-shared, <b>transform-set</b>, <b>crypto map</b>, ហើយ apply ទៅ interface (ធ្វើដូចគ្នាម្ខាងទៀតលើ peer)៖<pre style="margin-top:6px"><span class="pr">crypto isakmp key</span> CISCO123 <span class="pr">address</span> <span class="cm">&lt;peer-ip&gt;</span>
+<span class="pr">crypto ipsec transform-set</span> TS <span class="pr">esp-aes</span> 256 <span class="pr">esp-sha-hmac</span>
+<span class="pr">crypto map</span> MYMAP 10 <span class="pr">ipsec-isakmp</span>
+ <span class="pr">set peer</span> <span class="cm">&lt;peer-ip&gt;</span>
+ <span class="pr">set transform-set</span> TS
+ <span class="pr">match address</span> 100
+<span class="cm">! រួចលើ interface WAN៖</span>
+<span class="pr">interface</span> <span class="cm">&lt;wan&gt;</span>
+ <span class="pr">crypto map</span> MYMAP</pre></div></div>
+<div class="drill"><div class="q"><b>60.</b> តើធ្វើដូចម្ដេច ដើម្បីឲ្យ IPSec VPN ទិសទៅច្រើនបាន (scale) លើ Cisco? <span class="kh">— How do you make an IPSec VPN scale to many sites on Cisco?</span></div>
+<div class="a"><b>EN —</b> Use <b>DMVPN (Dynamic Multipoint VPN)</b>: a single <b>mGRE</b> tunnel + <b>NHRP</b> + IPsec, so spokes build dynamic on-demand tunnels to each other through a hub — instead of configuring many static point-to-point tunnels.<br><br><b>ខ្មែរ —</b> ប្រើ <b>DMVPN (Dynamic Multipoint VPN)</b>៖ tunnel <b>mGRE</b> តែមួយ + <b>NHRP</b> + IPsec, ដូច្នេះ spoke សង់ tunnel ថាមវន្តតាមតម្រូវការទៅគ្នាឆ្លងកាត់ hub — ជំនួសការ config tunnel point-to-point ស្ថិតច្រើន។</div></div>
+<div class="drill"><div class="q"><b>61.</b> ចូរពិពណ៌នាអំពីប្រភេទនៃ VPN Tunnels លើ Cisco Routers។ <span class="kh">— Describe the types of VPN tunnels on Cisco routers.</span></div>
+<div class="a"><b>EN —</b> <b>Site-to-site IPsec</b>, <b>GRE</b> (plain tunnel, carries multicast/routing), <b>GRE over IPsec</b> (GRE + encryption), <b>DMVPN</b> (scalable hub-and-spoke), and <b>Remote-access VPN</b> (SSL or IPsec/Easy VPN for individual users).<br><br><b>ខ្មែរ —</b> <b>Site-to-site IPsec</b>, <b>GRE</b> (tunnel ធម្មតា, ផ្ទុក multicast/routing), <b>GRE over IPsec</b> (GRE + encryption), <b>DMVPN</b> (hub-and-spoke អាច scale), និង <b>Remote-access VPN</b> (SSL ឬ IPsec/Easy VPN សម្រាប់អ្នកប្រើម្នាក់ៗ)។</div></div>
+<div class="drill"><div class="q"><b>62.</b> តើប្រភេទនៃ Address ក្នុង NAT — Inside Local, Inside Global, Outside Global, Outside Local — មានន័យអ្វី? <span class="kh">— What are the NAT address types: Inside Local, Inside Global, Outside Global, Outside Local?</span></div>
+<div class="a"><b>EN —</b> <ul><li><b>Inside Local</b> — the private address of an inside host (as seen inside).</li>
+<li><b>Inside Global</b> — the public address that the inside host is translated to (as seen outside).</li>
+<li><b>Outside Global</b> — the real public address of an outside host.</li>
+<li><b>Outside Local</b> — how that outside host appears to the inside network.</li></ul><br><br><b>ខ្មែរ —</b> <ul><li><b>Inside Local</b> — address private របស់ host ខាងក្នុង (មើលឃើញពីខាងក្នុង)។</li>
+<li><b>Inside Global</b> — address public ដែល host ខាងក្នុងត្រូវបកប្រែទៅ (មើលឃើញពីខាងក្រៅ)។</li>
+<li><b>Outside Global</b> — address public ពិតរបស់ host ខាងក្រៅ។</li>
+<li><b>Outside Local</b> — របៀបដែល host ខាងក្រៅនោះបង្ហាញ ទៅបណ្ដាញខាងក្នុង។</li></ul></div></div>
+<div class="drill"><div class="q"><b>63.</b> ចូរសរសេរ command configure routing លើ Router1/2/3 (NET 1–4) ឲ្យ computer ping ដល់គ្នាទាំងអស់ ដោយ៖ Static, Default, EIGRP (PID 12), OSPF (PID 123), BGP (AS 122/123/124), RIP v2។ <span class="kh">— Write the routing configs on Router1/2/3 (NET 1–4) for all 6 methods: Static, Default, EIGRP (PID 12), OSPF (PID 123), BGP (AS 122/123/124), RIP v2.</span></div>
+<div class="a"><b>EN —</b> One template per method (apply the right networks per router):<pre style="margin-top:6px"><span class="cm">! 1. Static</span>
+<span class="pr">ip route</span> 192.168.2.0 255.255.255.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! 2. Default</span>
+<span class="pr">ip route</span> 0.0.0.0 0.0.0.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! 3. EIGRP</span>
+<span class="pr">router eigrp</span> 12
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> 192.168.1.0
+<span class="cm">! 4. OSPF</span>
+<span class="pr">router ospf</span> 123
+ <span class="pr">network</span> 192.168.1.0 0.0.0.255 <span class="pr">area</span> 0
+<span class="cm">! 5. BGP (this router in AS 122)</span>
+<span class="pr">router bgp</span> 122
+ <span class="pr">neighbor</span> <span class="cm">&lt;peer&gt;</span> <span class="pr">remote-as</span> 123
+ <span class="pr">network</span> 192.168.1.0 <span class="pr">mask</span> 255.255.255.0
+<span class="cm">! 6. RIP v2</span>
+<span class="pr">router rip</span>
+ <span class="pr">version</span> 2
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> 192.168.1.0</pre><br><br><b>ខ្មែរ —</b> Template មួយក្នុងមួយវិធី (ដាក់ network ត្រឹមត្រូវតាម router)៖<pre style="margin-top:6px"><span class="cm">! 1. Static</span>
+<span class="pr">ip route</span> 192.168.2.0 255.255.255.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! 2. Default</span>
+<span class="pr">ip route</span> 0.0.0.0 0.0.0.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! 3. EIGRP</span>
+<span class="pr">router eigrp</span> 12
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> 192.168.1.0
+<span class="cm">! 4. OSPF</span>
+<span class="pr">router ospf</span> 123
+ <span class="pr">network</span> 192.168.1.0 0.0.0.255 <span class="pr">area</span> 0
+<span class="cm">! 5. BGP (router នេះក្នុង AS 122)</span>
+<span class="pr">router bgp</span> 122
+ <span class="pr">neighbor</span> <span class="cm">&lt;peer&gt;</span> <span class="pr">remote-as</span> 123
+ <span class="pr">network</span> 192.168.1.0 <span class="pr">mask</span> 255.255.255.0
+<span class="cm">! 6. RIP v2</span>
+<span class="pr">router rip</span>
+ <span class="pr">version</span> 2
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> 192.168.1.0</pre></div></div>
+<div class="drill"><div class="q"><b>64.</b> ចូរ configure DHCP, sub-interface, VLAN, assign VLAN តាម interface លើ Switch4/5/6 (router-on-a-stick, F0/1 ដល់ F0/24)។ <span class="kh">— Configure DHCP, sub-interfaces, VLANs, and assign VLANs to interfaces on Switch4/5/6 (router-on-a-stick, F0/1–F0/24).</span></div>
+<div class="a"><b>EN —</b> On the <b>switch</b>: create VLANs and assign access ports. On the <b>router</b>: one <b>sub-interface per VLAN</b> with <code>encapsulation dot1Q</code> as the gateway (router-on-a-stick), plus a DHCP pool per VLAN.<pre style="margin-top:6px"><span class="cm">! Switch</span>
+<span class="pr">vlan</span> 10
+<span class="pr">interface range</span> f0/1 - 24
+ <span class="pr">switchport mode access</span>
+ <span class="pr">switchport access vlan</span> 10
+<span class="cm">! Router sub-interface (gateway for VLAN 10)</span>
+<span class="pr">interface</span> g0/0.10
+ <span class="pr">encapsulation dot1Q</span> 10
+ <span class="pr">ip address</span> 192.168.10.1 255.255.255.0
+<span class="cm">! DHCP for VLAN 10</span>
+<span class="pr">ip dhcp pool</span> VLAN10
+ <span class="pr">network</span> 192.168.10.0 255.255.255.0
+ <span class="pr">default-router</span> 192.168.10.1</pre><br><br><b>ខ្មែរ —</b> លើ <b>switch</b>៖ បង្កើត VLAN និង assign access port។ លើ <b>router</b>៖ <b>sub-interface មួយក្នុងមួយ VLAN</b> ដោយ <code>encapsulation dot1Q</code> ជា gateway (router-on-a-stick), បូក DHCP pool មួយក្នុងមួយ VLAN។<pre style="margin-top:6px"><span class="cm">! Switch</span>
+<span class="pr">vlan</span> 10
+<span class="pr">interface range</span> f0/1 - 24
+ <span class="pr">switchport mode access</span>
+ <span class="pr">switchport access vlan</span> 10
+<span class="cm">! Router sub-interface (gateway VLAN 10)</span>
+<span class="pr">interface</span> g0/0.10
+ <span class="pr">encapsulation dot1Q</span> 10
+ <span class="pr">ip address</span> 192.168.10.1 255.255.255.0
+<span class="cm">! DHCP សម្រាប់ VLAN 10</span>
+<span class="pr">ip dhcp pool</span> VLAN10
+ <span class="pr">network</span> 192.168.10.0 255.255.255.0
+ <span class="pr">default-router</span> 192.168.10.1</pre></div></div>
+<div class="drill"><div class="q"><b>65.</b> ចូរ configure routing លើ R11/R12/R13/R14 (Net 50/Net/Net40/Net20) ឲ្យ computer ping ដល់គ្នាទាំងអស់ តាម៖ (A) Static, (B) EIGRP PID 12, (C) OSPF PID 67, (D) RIP v2។ <span class="kh">— Configure routing on R11/R12/R13/R14 (Net 50/Net/Net40/Net20) so all computers reach each other via: (A) Static, (B) EIGRP PID 12, (C) OSPF PID 67, (D) RIP v2.</span></div>
+<div class="a"><b>EN —</b> Same four methods, applied to each router's connected networks:<pre style="margin-top:6px"><span class="cm">! (A) Static — one line per remote net</span>
+<span class="pr">ip route</span> 192.168.40.0 255.255.255.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! (B) EIGRP</span>
+<span class="pr">router eigrp</span> 12
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> <span class="cm">&lt;connected nets&gt;</span>
+<span class="cm">! (C) OSPF</span>
+<span class="pr">router ospf</span> 67
+ <span class="pr">network</span> <span class="cm">&lt;net&gt;</span> <span class="cm">&lt;wildcard&gt;</span> <span class="pr">area</span> 0
+<span class="cm">! (D) RIP v2</span>
+<span class="pr">router rip</span>
+ <span class="pr">version</span> 2
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> <span class="cm">&lt;connected nets&gt;</span></pre><br><br><b>ខ្មែរ —</b> វិធីបួនដូចគ្នា, ដាក់ទៅ network ភ្ជាប់របស់ router នីមួយៗ៖<pre style="margin-top:6px"><span class="cm">! (A) Static — មួយបន្ទាត់ក្នុងមួយ net ឆ្ងាយ</span>
+<span class="pr">ip route</span> 192.168.40.0 255.255.255.0 <span class="cm">&lt;next-hop&gt;</span>
+<span class="cm">! (B) EIGRP</span>
+<span class="pr">router eigrp</span> 12
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> <span class="cm">&lt;net ភ្ជាប់&gt;</span>
+<span class="cm">! (C) OSPF</span>
+<span class="pr">router ospf</span> 67
+ <span class="pr">network</span> <span class="cm">&lt;net&gt;</span> <span class="cm">&lt;wildcard&gt;</span> <span class="pr">area</span> 0
+<span class="cm">! (D) RIP v2</span>
+<span class="pr">router rip</span>
+ <span class="pr">version</span> 2
+ <span class="pr">no auto-summary</span>
+ <span class="pr">network</span> <span class="cm">&lt;net ភ្ជាប់&gt;</span></pre></div></div>
+</div>
+
 <p class="footnote">សង់ឡើងពីសន្លឹកចម្លើយ Internetworking ដែលបានដាក់ពិន្ទុរបស់អ្នក (OSPF/RIP/dynamic routing/Router-ID/IPsec + ផ្នែក config EIGRP/OSPF/BGP)។ GRE បន្ថែមពី standard IOS / labs របស់អ្នក។ បោះពុម្ព ឬ “Save as PDF” នឹងបង្ហាញចម្លើយទាំងអស់ដោយស្វ័យប្រវត្តិ។</p>
 `;
 export default html;

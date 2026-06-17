@@ -97,7 +97,10 @@ const META: SubjectMeta[] = [
       ],
     },
     html: { en: en_cybersecurity, km: km_cybersecurity },
-    sources: [{ file: "cybersecurity.pdf", label: "Cybersecurity_Principles_V3.pdf" }],
+    sources: [
+      { file: "cybersecurity.pdf", label: "Cybersecurity_Principles_V3.pdf" },
+      { file: "cybersecurity_midterm.pdf", label: "MidTermCyber_kheangSivlay.pdf" },
+    ],
   },
   {
     slug: "mobile",

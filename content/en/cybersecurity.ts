@@ -455,6 +455,90 @@ const html = `
 <div class="a">The same technical actions (scanning, exploiting) are <b>ethical (white hat / pen test)</b> only with authorisation; without it they’re <b>criminal (black hat)</b> or at best <b>gray hat</b>. The Kali legal warning enforces the same line: only test what you own or are permitted to. Intent + authorisation, not skill, define legality.</div></div>
 </div>
 
+
+
+<!-- ============ PAST MIDTERM ============ -->
+<h2 id="midterm">16 · Past midterm — practical + written · ប្រឡងពាក់កណ្ដាលឆមាសចាស់</h2>
+<p class="lead">From a past <b>Cyber Security Principle</b> midterm (lecturer Pen Davith). Section I is hands-on Linux/Kali commands; Section II is short written answers. Each item is shown in <b>Khmer + English</b> with answers in <b>both languages</b>. · ពីប្រឡងពាក់កណ្ដាលឆមាសចាស់ មុខវិជ្ជា <b>Cyber Security Principle</b> (សាស្ត្រាចារ្យ ពេន ដាវីត)។ ផ្នែក I ជា command Linux/Kali; ផ្នែក II ជាចម្លើយសរសេរខ្លី។</p>
+<div class="exam">
+<p class="lead" style="margin:6px 0 0"><b>I · អនុវត្តន៍ (Practical)</b></p>
+<div class="drill"><div class="q"><b>I.1</b> · អនុវត្តជំហានក្នុងការតម្លើង និងដំណើរការ ClamAV នៅលើ Linux Server។ <span class="kh">— Give the steps/commands to install and run the ClamAV antivirus on a Linux server.</span></div>
+<div class="a"><b>EN —</b> <pre style="margin-top:6px"><span class="pr">sudo apt update</span>                              <span class="cm"># update the system first</span>
+<span class="pr">sudo apt install</span> clamav clamav-daemon -y      <span class="cm"># install ClamAV</span>
+<span class="pr">sudo freshclam</span>                                 <span class="cm"># update the virus database</span>
+<span class="pr">sudo systemctl enable</span> clamav-daemon            <span class="cm"># enable on boot</span>
+<span class="pr">sudo systemctl start</span> clamav-daemon             <span class="cm"># start the service</span>
+<span class="pr">sudo systemctl status</span> clamav-daemon            <span class="cm"># check status</span>
+<span class="pr">sudo clamscan</span> -r --bell -i /                    <span class="cm"># scan, ring bell, list infected only</span>
+<span class="pr">sudo clamscan</span> -r --remove /home                 <span class="cm"># scan + delete infected files</span>
+<span class="pr">cat</span> /var/log/clamav/daily_scan.log              <span class="cm"># read the scan result</span></pre><br><br><b>ខ្មែរ —</b> <pre style="margin-top:6px"><span class="pr">sudo apt update</span>                              <span class="cm"># update ប្រព័ន្ធជាមុនសិន</span>
+<span class="pr">sudo apt install</span> clamav clamav-daemon -y      <span class="cm"># តម្លើង ClamAV</span>
+<span class="pr">sudo freshclam</span>                                 <span class="cm"># update database មេរោគ</span>
+<span class="pr">sudo systemctl enable</span> clamav-daemon            <span class="cm"># បើកពេល boot</span>
+<span class="pr">sudo systemctl start</span> clamav-daemon             <span class="cm"># ចាប់ផ្ដើម service</span>
+<span class="pr">sudo systemctl status</span> clamav-daemon            <span class="cm"># ពិនិត្យ status</span>
+<span class="pr">sudo clamscan</span> -r --bell -i /                    <span class="cm"># scan, បន្លឺសំឡេង, បង្ហាញតែ infected</span>
+<span class="pr">sudo clamscan</span> -r --remove /home                 <span class="cm"># scan + លុប file ឆ្លងមេរោគ</span>
+<span class="pr">cat</span> /var/log/clamav/daily_scan.log              <span class="cm"># អានលទ្ធផល scan</span></pre></div></div>
+<div class="drill"><div class="q"><b>I.2</b> · អនុវត្តជំហានក្នុងការតម្លើង និងដំណើរការ OpenVAS។ <span class="kh">— Give the steps/commands to install and run OpenVAS.</span></div>
+<div class="a"><b>EN —</b> <pre style="margin-top:6px"><span class="pr">sudo apt update</span>                  <span class="cm"># update the system first</span>
+<span class="pr">sudo apt autoremove</span>              <span class="cm"># remove unnecessary packages</span>
+<span class="pr">sudo apt install</span> openvas         <span class="cm"># install OpenVAS</span>
+<span class="pr">gvm-setup</span>                         <span class="cm"># download the vulnerability database</span>
+<span class="pr">gvm-check-setup</span>                   <span class="cm"># verify the installation</span>
+<span class="pr">ospd-openvas</span>                      <span class="cm"># start the scanner service</span></pre><b>Note:</b> the paper wrote <code>sudo auto remove</code> — the correct command is <code>sudo apt autoremove</code>.<br><br><b>ខ្មែរ —</b> <pre style="margin-top:6px"><span class="pr">sudo apt update</span>                  <span class="cm"># update ប្រព័ន្ធជាមុនសិន</span>
+<span class="pr">sudo apt autoremove</span>              <span class="cm"># លុប package ដែលមិនចាំបាច់</span>
+<span class="pr">sudo apt install</span> openvas         <span class="cm"># តម្លើង OpenVAS</span>
+<span class="pr">gvm-setup</span>                         <span class="cm"># ទាញ database ភាពងាយរងគ្រោះ</span>
+<span class="pr">gvm-check-setup</span>                   <span class="cm"># ផ្ទៀងផ្ទាត់ការតម្លើង</span>
+<span class="pr">ospd-openvas</span>                      <span class="cm"># ចាប់ផ្ដើម service scanner</span></pre><b>ចំណាំ៖</b> សន្លឹកសរសេរ <code>sudo auto remove</code> — command ត្រឹមត្រូវគឺ <code>sudo apt autoremove</code>។</div></div>
+<div class="drill"><div class="q"><b>I.3</b> · អនុវត្តជំហានក្នុងការតម្លើង និងដំណើរការ Metasploit Framework។ <span class="kh">— Give the steps/commands to install and run the Metasploit Framework.</span></div>
+<div class="a"><b>EN —</b> <pre style="margin-top:6px"><span class="pr">sudo apt update</span>                              <span class="cm"># update the system</span>
+<span class="pr">sudo msfdb init</span>                              <span class="cm"># initialize the database</span>
+<span class="pr">msfconsole</span>                                   <span class="cm"># start the framework</span>
+<span class="pr">db_nmap</span> -F -sV -T5 [IP / Host]                <span class="cm"># fast port + version scan inside msf</span>
+<span class="cm"># example:</span>
+<span class="pr">db_nmap</span> -F -sV -T5 10.0.0.0/24</pre><br><br><b>ខ្មែរ —</b> <pre style="margin-top:6px"><span class="pr">sudo apt update</span>                              <span class="cm"># update ប្រព័ន្ធ</span>
+<span class="pr">sudo msfdb init</span>                              <span class="cm"># initialize database</span>
+<span class="pr">msfconsole</span>                                   <span class="cm"># ចាប់ផ្ដើម framework</span>
+<span class="pr">db_nmap</span> -F -sV -T5 [IP / Host]                <span class="cm"># scan port + version លឿន ក្នុង msf</span>
+<span class="cm"># ឧទាហរណ៍៖</span>
+<span class="pr">db_nmap</span> -F -sV -T5 10.0.0.0/24</pre><b>ខ្លឹមសារ flag៖</b> <code>-F</code> = fast (port ពេញនិយម), <code>-sV</code> = រកកំណែ service, <code>-T5</code> = លឿនបំផុត។</div></div>
+<p class="lead" style="margin:14px 0 0"><b>II · សំណួរសរសេរ (Written)</b></p>
+<div class="drill"><div class="q"><b>II.1</b> · ទស្សនៈ (views) លើ Cyber Security និង Kali Linux។ <span class="kh">— Your view / overview of Cyber Security and Kali Linux.</span></div>
+<div class="a"><b>EN —</b> <b>Cyber Security</b> = protecting <b>data, systems and networks</b> from threats and attacks. Goal = the <b>CIA triad</b>: <b>Confidentiality, Integrity, Availability</b>. It is a broad field: network security, application security, cloud security, incident response, forensics, identity &amp; access management, risk management, and governance.<br><br>
+<b>Kali Linux</b> = a <b>Debian-based</b> distribution pre-loaded with pentesting &amp; forensic tools (nmap, Metasploit, Burp, John, Aircrack-ng, …). Its role: an environment for <b>study, penetration testing, vulnerability assessment, and security research</b>. <b>Who is it for?</b> Penetration testers, security analysts, network administrators — anyone interested in cyber security and digital forensics.<br><br><b>ខ្មែរ —</b> <b>Cyber Security</b> = ការការពារ <b>ទិន្នន័យ ប្រព័ន្ធ និងបណ្ដាញ</b> ពីការគំរាមកំហែង (threats) និងការវាយប្រហារ (attacks)។ គោលដៅ = <b>CIA triad</b>៖ <b>Confidentiality (សុវត្ថិភាព), Integrity (ត្រឹមត្រូវ), Availability (អាចប្រើបាន)</b>។ វាជាវិស័យទូលំទូលាយ៖ network security, application security, cloud security, incident response, forensics, identity &amp; access management, risk management, និងផ្នែកគ្រប់គ្រង។<br><br>
+<b>Kali Linux</b> = distribution <b>មូលដ្ឋាន Debian</b> ដែលមានឧបករណ៍ pentesting &amp; forensic ស្រាប់ (nmap, Metasploit, Burp, John, Aircrack-ng, …)។ តួនាទី៖ ជា environment សម្រាប់ <b>ការសិក្សា, penetration testing, vulnerability assessment, និង security research</b>។ <b>សម្រាប់នរណា?</b> Penetration testers, security analysts, network administrators — អ្នកណាដែលចាប់អារម្មណ៍លើ cyber security និង digital forensics។</div></div>
+<div class="drill"><div class="q"><b>II.2</b> · ជំហានដែល Attacker ប្រតិបត្តិ មុនពេលវាយប្រហារគោលដៅ។ <span class="kh">— What steps does an attacker perform before attacking a target?</span></div>
+<div class="a"><b>EN —</b> <ol>
+<li><b>Define the target</b> — decide exactly what they want to attack.</li>
+<li><b>Scan the ports</b> of the target device — <code>nmap [options] address(range)</code>.</li>
+<li><b>Scan / gather information</b> about the target IP to learn more detail — a tool like <b>OpenVAS</b> can assist the scan (vulnerability assessment).</li>
+</ol>
+This is the <b>reconnaissance / scanning</b> phase: know the target, find open ports &amp; services, then find weaknesses.<br><br><b>ខ្មែរ —</b> <ol>
+<li><b>កំណត់គោលដៅ</b> — សម្រេចថាចង់វាយប្រហារអ្វីឲ្យច្បាស់។</li>
+<li><b>Scan port</b> របស់ឧបករណ៍គោលដៅ — <code>nmap [options] address(range)</code>។</li>
+<li><b>Scan / ប្រមូលព័ត៌មាន</b> អំពី IP គោលដៅ ដើម្បីដឹងលម្អិតបន្ថែម — ឧបករណ៍ដូចជា <b>OpenVAS</b> អាចជួយ scan (vulnerability assessment)។</li>
+</ol>
+នេះជាដំណាក់កាល <b>reconnaissance / scanning</b>៖ ស្គាល់គោលដៅ, រក port &amp; service ដែលបើក, រួចរកចំណុចខ្សោយ។</div></div>
+<div class="drill"><div class="q"><b>II.3</b> · តើ External check គឺជាអ្វី? និងអត្ថប្រយោជន៍របស់វា។ <span class="kh">— What is an External check? And its benefits.</span></div>
+<div class="a"><b>EN —</b> <b>External check</b> (External Security Testing / External Audit / External Vulnerability Assessment) = testing security <b>from outside the network</b> to evaluate whether a system or network is <b>vulnerable to outside attackers</b> (hackers). Benefits:
+<ul>
+<li><b>Find vulnerabilities</b> attackers could exploit, before they do.</li>
+<li><b>Prevent external attacks.</b></li>
+<li><b>Secure exposed/public systems</b> — web server, mail server, API gateway are checked for adequate protection.</li>
+<li><b>Comply with standards &amp; regulations</b> — ISO 27001, PCI DSS, GDPR, NIST.</li>
+<li><b>Build trust and resilience</b> — shows the organization is proactive, not waiting to be attacked.</li>
+</ul><br><br><b>ខ្មែរ —</b> <b>External check</b> (External Security Testing / External Audit / External Vulnerability Assessment) = ការត្រួតពិនិត្យសន្តិសុខ <b>ពីខាងក្រៅបណ្ដាញ</b> ដើម្បីវាយតម្លៃថា ប្រព័ន្ធ ឬបណ្ដាញ <b>ងាយរងគ្រោះពីអ្នកវាយប្រហារខាងក្រៅ</b> (hackers) ឬអត់។ អត្ថប្រយោជន៍៖
+<ul>
+<li><b>រកចន្លោះអសុវត្ថិភាព</b> ដែលអ្នកវាយប្រហារអាចប្រើ មុនពួកគេរកឃើញ។</li>
+<li><b>ការពារពីការវាយប្រហារខាងក្រៅ</b>។</li>
+<li><b>ធានាសុវត្ថិភាពប្រព័ន្ធបើកចំហ</b> — web server, mail server, API gateway ត្រូវត្រួតពិនិត្យថាមានការការពារគ្រប់គ្រាន់។</li>
+<li><b>អនុវត្តតាមស្តង់ដារ និងបទបញ្ញត្តិ</b> — ISO 27001, PCI DSS, GDPR, NIST។</li>
+<li><b>បង្កើនភាពជឿជាក់ និងភាពរឹងមាំ</b> — បង្ហាញថាអង្គការសកម្ម មិនរង់ចាំឲ្យមានការវាយប្រហារ។</li>
+</ul></div></div>
+</div>
+
 <p class="footnote">Built from the Cybersecurity Principles deck (Pen Davith / Davith Pen IT Academy) — controls, network security, hardening lab, hacking, and the full Kali Linux chapter. Print or “Save as PDF” reveals every answer.</p>
 `;
 export default html;
